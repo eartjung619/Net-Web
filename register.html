@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>สมัครเรียน | วิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <style>
+    :root { --maroon: #800000; --maroon-dark: #5c0000; --gold: #ffd966; }
+
+    /* จุดเด่นของลิงก์ที่ active */
+    .navbar .nav-link { border-bottom: 3px solid transparent; transition: all .2s; }
+    .navbar .nav-link:hover { color: var(--gold); }
+    .navbar .nav-link.active {
+      color: var(--gold) !important;
+      font-weight: 600;
+      border-bottom: 3px solid var(--gold);
+    }
+
+    /* ===== ส่วนหัวหน้า + ปุ่มสมัครเรียน ===== */
+    .reg-hero { background: var(--maroon-dark); color: #fff; padding: 4rem 0 3.5rem; }
+    .reg-hero h1 { font-weight: 700; font-size: clamp(2rem, 5vw, 3.25rem); }
+    .reg-hero .lead { color: #f0d9d9; max-width: 36rem; }
+
+    .btn-apply {
+      background: var(--gold);
+      color: var(--maroon-dark);
+      font-weight: 700;
+      font-size: 1.35rem;
+      padding: .9rem 2.25rem;
+      border: 0;
+      border-radius: 3rem;
+      box-shadow: 0 .5rem 1.25rem rgba(0, 0, 0, .35);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-apply:hover, .btn-apply:focus-visible {
+      background: #ffe699;
+      color: var(--maroon-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 .75rem 1.5rem rgba(0, 0, 0, .4);
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .btn-apply { animation: nudge 2.6s ease-in-out 1s 2; }
+    }
+    @keyframes nudge { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+    /* แถบช่วงเวลารับสมัคร */
+    .period-bar { background: var(--gold); color: var(--maroon-dark); }
+    .period-bar .container { padding-top: .85rem; padding-bottom: .85rem; }
+
+    /* ===== หัวข้อแต่ละส่วน ===== */
+    .sec { padding: 3rem 0 0; }
+    .sec h2 {
+      color: var(--maroon);
+      font-weight: 700;
+      font-size: 1.6rem;
+      margin-bottom: 1.25rem;
+      padding-left: .85rem;
+      border-left: 5px solid var(--gold);
+    }
+
+    /* การ์ดระดับชั้น */
+    .level-card { border: 1px solid #e6dcdc; border-radius: 1rem; height: 100%; }
+    .level-card .badge-level {
+      display: inline-block;
+      background: var(--maroon);
+      color: #fff;
+      border-radius: .5rem;
+      padding: .2rem .8rem;
+      font-weight: 700;
+      font-size: 1.15rem;
+    }
+
+    /* รายการติ๊กถูก */
+    .check-list { list-style: none; padding: 0; margin: 0; }
+    .check-list li { display: flex; gap: .65rem; padding: .55rem 0; border-bottom: 1px dashed #e6dcdc; }
+    .check-list li:last-child { border-bottom: 0; }
+    .check-list .bi { color: var(--maroon); margin-top: .2rem; }
+
+    /* ขั้นตอน (เป็นลำดับจริง จึงใส่เลขกำกับ) */
+    .steps { list-style: none; padding: 0; margin: 0; counter-reset: s; }
+    .steps li { position: relative; padding: 0 0 1.5rem 3.5rem; counter-increment: s; }
+    .steps li::before {
+      content: counter(s);
+      position: absolute; left: 0; top: 0;
+      width: 2.5rem; height: 2.5rem; border-radius: 50%;
+      background: var(--maroon); color: #fff;
+      display: grid; place-items: center; font-weight: 700;
+    }
+    .steps li::after {
+      content: ""; position: absolute; left: 1.2rem; top: 2.7rem; bottom: .2rem;
+      width: 2px; background: #e6c7c7;
+    }
+    .steps li:last-child::after { display: none; }
+    .steps h3 { font-size: 1.1rem; font-weight: 700; margin: .2rem 0 .15rem; color: #333; }
+    .steps p { margin: 0; color: #555; }
+
+    /* ช่องทางสมัคร */
+    .channel { border: 1px solid #e6dcdc; border-radius: 1rem; padding: 1.5rem; height: 100%; }
+    .channel .icon { font-size: 2rem; color: var(--maroon); }
+
+    /* แถบเรียกให้สมัครท้ายหน้า */
+    .cta-end {
+      background: var(--maroon-dark); color: #fff;
+      border-radius: 1.25rem; padding: 2.5rem 1.5rem; text-align: center;
+    }
+    .cta-end p { color: #f0d9d9; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg shadow-sm" data-bs-theme="dark" style="background-color: #800000;">
+  <div class="container">
+
+    <a class="navbar-brand d-flex align-items-center" href="firstpage.html">
+      <img src="Images/Logo-NET.png" alt="Logo" height="50" class="me-2">
+      <span class="fw-semibold text-light">วิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ</span>
+    </a>
+
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse" data-bs-target="#mainNav"
+            aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNav">
+
+      <!--ส่วนของ Navbar หลัก -->
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-3">
+        <li class="nav-item"><a class="nav-link" href="register.html">สมัครเรียน</a></li>
+        <li class="nav-item"><a class="nav-link" href="class.html">หลักสูตรที่เปิดสอน</a></li>
+        <li class="nav-item">
+  <a class="nav-link" href="https://netc.sisacloud.com/" target="_blank" rel="noopener noreferrer">
+    Sisa <i class="bi bi-box-arrow-up-right small"></i>
+  </a>
+</li>
+        <li class="nav-item"><a class="nav-link" href="about.html">ติดต่อเรา</a></li>
+      </ul>
+
+      <form class="d-flex mx-lg-3 mb-2 mb-lg-0" role="search">
+        <input class="form-control me-2" type="search" placeholder="ค้นหา..." aria-label="Search">
+        <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
+      </form>
+
+      <div class="d-flex align-items-center gap-3 fs-5">
+        <div class="dropdown">
+          <button class="btn btn-link text-white p-0 fs-5" type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false" title="เอกสารดาวน์โหลด">
+            <i class="bi bi-file-earmark-text"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+             <li><a class="dropdown-item" href="https://drive.google.com/drive/folders/1XTFbJcsvLQjKqA91GMtvhPvzMCY0NXLR?usp=sharing" target="_blank" rel="noopener noreferrer">
+                <i class="bi bi-file-earmark-pdf me-2"></i>เอกสารนักศึกษา</a></li>
+
+            <li><a class="dropdown-item" href="https://drive.google.com/drive/folders/1V5HM08kMsxBm9rwfMmq0HdB7_y5Mnrms?usp=sharing" target="_blank" rel="noopener noreferrer">
+                <i class="bi bi-file-earmark-pdf me-2"></i>เอกสารครู-บุคลากร</a></li>
+          </ul>
+        </div>
+            <a href="#" class="text-white"><i class="bi bi-cart3"></i></a>
+            <a href="#" class="text-white"><i class="bi bi-person-circle"></i></a>
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+<!-- ===== ส่วนหัว + ปุ่มสมัครเรียน ===== -->
+<header class="reg-hero">
+  <div class="container">
+    <h1>สมัครเรียนกับเรา</h1>
+    <p class="lead mb-4">เปิดรับสมัครนักเรียน นักศึกษาใหม่ สมัครออนไลน์ได้ง่ายๆ ใช้เวลาไม่กี่นาที</p>
+    <a class="btn btn-apply apply-link" href="#" target="_blank" rel="noopener noreferrer">
+      <i class="bi bi-pencil-square me-2"></i>คลิกสมัครเรียน
+    </a>
+  </div>
+</header>
+
+<div class="period-bar">
+  <div class="container">
+    <i class="bi bi-calendar-event me-2"></i><strong>เปิดรับสมัคร:</strong>
+    <!-- แก้ช่วงเวลารับสมัครตรงนี้ -->
+    ใส่ช่วงเวลารับสมัคร เช่น 1 กุมภาพันธ์ - 30 มิถุนายน
+  </div>
+</div>
+
+<main class="container pb-5">
+
+  <!-- ===== ระดับที่เปิดรับ ===== -->
+  <section class="sec">
+    <h2>ระดับที่เปิดรับและสาขา</h2>
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="level-card p-4">
+          <span class="badge-level">ปวช.</span>
+          <h3 class="h5 mt-3">ประกาศนียบัตรวิชาชีพ</h3>
+          <p class="mb-3 text-muted">ใส่รายละเอียดสั้นๆ เช่น ระยะเวลาเรียน 3 ปี และสาขาที่เปิดรับในระดับนี้</p>
+          <a href="class.html" class="link-dark fw-semibold">ดูสาขาที่เปิดสอน <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="level-card p-4">
+          <span class="badge-level">ปวส.</span>
+          <h3 class="h5 mt-3">ประกาศนียบัตรวิชาชีพชั้นสูง</h3>
+          <p class="mb-3 text-muted">ใส่รายละเอียดสั้นๆ เช่น ระยะเวลาเรียน 2 ปี และสาขาที่เปิดรับในระดับนี้</p>
+          <a href="class.html" class="link-dark fw-semibold">ดูสาขาที่เปิดสอน <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== คุณสมบัติ + เอกสาร ===== -->
+  <section class="sec">
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <h2>คุณสมบัติผู้สมัคร</h2>
+        <ul class="check-list">
+          <li><i class="bi bi-check-circle-fill"></i><span>ปวช. : ใส่คุณสมบัติ เช่น สำเร็จการศึกษาชั้นมัธยมศึกษาตอนต้น หรือเทียบเท่า</span></li>
+          <li><i class="bi bi-check-circle-fill"></i><span>ปวส. : ใส่คุณสมบัติ เช่น สำเร็จการศึกษาชั้นมัธยมศึกษาตอนปลาย หรือ ปวช. หรือเทียบเท่า</span></li>
+          <li><i class="bi bi-check-circle-fill"></i><span>ใส่คุณสมบัติข้ออื่นๆ ที่ต้องการ</span></li>
+        </ul>
+      </div>
+      <div class="col-lg-6">
+        <h2>เอกสารที่ต้องเตรียม</h2>
+        <ul class="check-list">
+          <li><i class="bi bi-file-earmark-check"></i><span>สำเนาบัตรประชาชน</span></li>
+          <li><i class="bi bi-file-earmark-check"></i><span>สำเนาทะเบียนบ้าน</span></li>
+          <li><i class="bi bi-file-earmark-check"></i><span>หลักฐานการศึกษา เช่น ใบแสดงผลการเรียน</span></li>
+          <li><i class="bi bi-file-earmark-check"></i><span>รูปถ่าย (ใส่ขนาดและจำนวนที่ต้องใช้)</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ขั้นตอน ===== -->
+  <section class="sec">
+    <h2>ขั้นตอนการสมัคร</h2>
+    <ol class="steps">
+      <li>
+        <h3>เตรียมเอกสาร</h3>
+        <p>รวบรวมเอกสารตามรายการด้านบน และสแกนหรือถ่ายภาพให้ชัดเจน</p>
+      </li>
+      <li>
+        <h3>กรอกใบสมัครออนไลน์</h3>
+        <p>กดปุ่ม "คลิกสมัครเรียน" แล้วกรอกข้อมูลและแนบเอกสารให้ครบ</p>
+      </li>
+      <li>
+        <h3>รอตรวจสอบและประกาศผล</h3>
+        <p>ใส่รายละเอียด เช่น วันประกาศผลและช่องทางที่ประกาศ</p>
+      </li>
+      <li>
+        <h3>รายงานตัวและมอบตัว</h3>
+        <p>ใส่รายละเอียด เช่น วันที่รายงานตัว และสิ่งที่ต้องนำมา</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ===== ช่องทางสมัคร ===== -->
+  <section class="sec">
+    <h2>ช่องทางการสมัคร</h2>
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="channel">
+          <div class="icon mb-2"><i class="bi bi-laptop"></i></div>
+          <h3 class="h5">สมัครออนไลน์</h3>
+          <p class="text-muted">สะดวก สมัครได้ทุกที่ทุกเวลาในช่วงเปิดรับสมัคร</p>
+          <a class="btn btn-outline-dark apply-link" href="#" target="_blank" rel="noopener noreferrer">ไปที่หน้าสมัครเรียน</a>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="channel">
+          <div class="icon mb-2"><i class="bi bi-building"></i></div>
+          <h3 class="h5">สมัครด้วยตนเองที่วิทยาลัย</h3>
+          <p class="mb-1 text-muted">ใส่รายละเอียด เช่น อาคาร ห้อง หรือฝ่ายรับสมัคร</p>
+          <p class="mb-1"><i class="bi bi-clock me-2"></i>ใส่วัน-เวลาทำการ</p>
+          <p class="mb-0"><i class="bi bi-telephone me-2"></i>ใส่เบอร์โทรติดต่อ</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ปุ่มสมัครท้ายหน้า ===== -->
+  <section class="sec">
+    <div class="cta-end">
+      <h2 class="h3 fw-bold border-0 p-0 mb-2 text-white" style="border:0">พร้อมแล้วใช่ไหม</h2>
+      <p class="mb-4">เริ่มต้นการเรียนกับเราได้วันนี้</p>
+      <a class="btn btn-apply apply-link" href="#" target="_blank" rel="noopener noreferrer">
+        <i class="bi bi-pencil-square me-2"></i>คลิกสมัครเรียน
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  /* ===== ใส่ลิงก์เว็บไซต์สมัครเรียนตรงนี้ที่เดียว ปุ่มทุกปุ่มในหน้าจะลิงก์ไปที่นี่ ===== */
+  const APPLY_URL = "https://ใส่ลิงก์เว็บสมัครเรียนที่นี่";
+
+  document.querySelectorAll(".apply-link").forEach(a => a.href = APPLY_URL);
+
+  // ใส่ active ให้ลิงก์ของหน้าปัจจุบัน
+  const currentPage = location.pathname.split("/").pop();
+  document.querySelectorAll("#mainNav .nav-link").forEach(link => {
+    if (link.getAttribute("href") === currentPage) {
+      link.classList.add("active");
+      link.setAttribute("aria-current", "page");
+    }
+  });
+</script>
+</body>
+</html>

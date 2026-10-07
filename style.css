@@ -1,0 +1,282 @@
+/* =========================================================
+   style.css  |  ตกแต่งเฉพาะส่วนที่ Bootstrap 5 ไม่มีให้
+   สีดึงมาจากโลโก้และเว็บเดิม: น้ำเงินกรมท่า + ส้ม + ทอง
+   ========================================================= */
+
+/* ---------- ตัวแปรสี/ฟอนต์ (แก้ที่นี่ที่เดียว) ---------- */
+:root {
+  --navy: #0d2b5e;        /* น้ำเงินเข้ม จากแถบบนเว็บเดิม */
+  --navy-soft: #e8eef8;   /* น้ำเงินอ่อน ใช้เป็นพื้นตอน hover */
+  --orange: #f26a1b;      /* ส้ม ปุ่ม Apply now */
+  --gold: #e9a91c;        /* ทอง จากขอบโลโก้ */
+  --ink: #1d2433;         /* สีตัวอักษรหลัก */
+  --font-th: "IBM Plex Sans Thai", "Noto Sans Thai", system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--font-th);
+  color: var(--ink);
+  background: #f6f8fc;
+}
+
+/* ---------- ตัวห่อ Header: ติดบนสุดตอนเลื่อนหน้า ---------- */
+#site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  background: #fff;
+  transition: box-shadow .3s ease;
+}
+#site-header.is-scrolled {
+  box-shadow: 0 6px 24px rgba(13, 43, 94, .12);
+}
+
+/* ---------- Topbar (แถบน้ำเงินด้านบน) ---------- */
+.topbar {
+  background: var(--navy);
+  color: #fff;
+  font-size: .85rem;
+  max-height: 48px;
+  overflow: hidden;
+  transition: max-height .35s ease;
+}
+#site-header.is-scrolled .topbar { max-height: 0; }   /* เลื่อนลงแล้วพับเก็บ */
+
+.topbar .container { min-height: 44px; }
+.topbar a {
+  color: rgba(255, 255, 255, .88);
+  text-decoration: none;
+  transition: color .2s;
+}
+.topbar a:hover { color: var(--gold); }
+.topbar-contact { display: flex; gap: 1.5rem; }
+.topbar-contact a { display: inline-flex; align-items: center; gap: .5rem; }
+.topbar-right { display: flex; align-items: center; gap: .35rem; }
+
+.topbar .social {
+  width: 32px; height: 32px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+}
+.topbar .social:hover { background: rgba(255, 255, 255, .12); }
+
+.btn-apply {
+  margin-left: .6rem;
+  padding: .38rem 1.1rem;
+  border-radius: 999px;
+  background: var(--orange);
+  color: #fff !important;
+  font-weight: 600;
+  transition: transform .2s, box-shadow .2s;
+}
+.btn-apply:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(242, 106, 27, .4);
+}
+
+/* ---------- Navbar หลัก ---------- */
+.main-nav { padding: .6rem 0; background: #fff; }
+
+/* โลโก้ + ชื่อวิทยาลัย */
+.navbar-brand { display: flex; align-items: center; gap: .8rem; margin: 0; }
+.navbar-brand img { object-fit: contain; }
+.brand-text { display: flex; flex-direction: column; line-height: 1.25; }
+.brand-text strong { color: var(--navy); font-size: 1.05rem; font-weight: 700; }
+.brand-text small { color: #5b6a86; font-size: .8rem; }
+
+/* ลิงก์เมนู */
+.main-nav .nav-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .6rem .85rem;
+  color: var(--ink);
+  font-weight: 500;
+  font-size: .95rem;
+  border-radius: 10px;
+  transition: color .2s, background .2s;
+}
+.main-nav .nav-link i { font-size: 1.05rem; color: var(--navy); transition: color .2s; }
+.main-nav .nav-link:hover { background: var(--navy-soft); color: var(--navy); }
+
+/* หน้าปัจจุบัน: ตัวหนังสือ/ไอคอนสีส้ม + ขีดเส้นใต้ */
+.main-nav .nav-link.active,
+.main-nav .nav-link.active i { color: var(--orange); }
+.main-nav .nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: .85rem; right: .85rem; bottom: 2px;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--orange);
+}
+
+/* ลูกศร Dropdown ให้เล็กลง */
+.main-nav .dropdown-toggle::after {
+  margin-left: .15rem;
+  border: 0;
+  content: "\F282";                 /* ไอคอน chevron-down ของ Bootstrap Icons */
+  font-family: "bootstrap-icons";
+  font-size: .7rem;
+  vertical-align: middle;
+  transition: transform .2s;
+}
+.main-nav .dropdown.show > .dropdown-toggle::after { transform: rotate(180deg); }
+
+/* ---------- เมนูย่อย (Dropdown) ---------- */
+.main-nav .dropdown-menu {
+  min-width: 230px;
+  margin-top: .5rem;
+  padding: .5rem;
+  border: 0;
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(13, 43, 94, .16);
+}
+.main-nav .dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  padding: .55rem .7rem;
+  border-radius: 10px;
+  font-size: .93rem;
+}
+.main-nav .dropdown-item:hover { background: var(--navy-soft); color: var(--navy); }
+.dd-icon {
+  width: 32px; height: 32px;
+  display: grid; place-items: center;
+  border-radius: 9px;
+  background: var(--navy-soft);
+  color: var(--navy);
+  transition: background .2s, color .2s;
+}
+.dropdown-item:hover .dd-icon { background: var(--navy); color: #fff; }
+
+/* ---------- เดสก์ท็อป: เปิด Dropdown ด้วยการเอาเมาส์ชี้ ---------- */
+@media (min-width: 992px) {
+  .main-nav .dropdown:hover > .dropdown-menu { display: block; }
+  .main-nav .dropdown-menu { margin-top: 0; }
+}
+
+/* ---------- มือถือ / แท็บเล็ต ---------- */
+.navbar-toggler {
+  border: 0;
+  font-size: 1.9rem;
+  color: var(--navy);
+  padding: .1rem .4rem;
+}
+.navbar-toggler:focus { box-shadow: 0 0 0 3px rgba(242, 106, 27, .35); }
+
+@media (max-width: 991.98px) {
+  .brand-text strong { font-size: .9rem; }
+  .brand-text small { display: none; }
+  .offcanvas { width: min(320px, 85vw); }
+  .main-nav .nav-link.active::after { display: none; }
+  .main-nav .nav-link.active { background: var(--navy-soft); }
+  .main-nav .dropdown-menu {
+    box-shadow: none;
+    background: #f6f8fc;
+    margin: .2rem 0 .4rem;
+  }
+}
+
+/* ตอนโฟกัสด้วยคีย์บอร์ด ให้เห็นกรอบชัด */
+.main-nav a:focus-visible,
+.topbar a:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ตัวอย่างเนื้อหาหน้าแรก (ลบหรือแก้ได้) */
+.hero-demo {
+  min-height: 60vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 4rem 1rem;
+  color: var(--navy);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+
+/* =========================================================
+   ส่วนเพิ่มสำหรับหน้าย่อย (แบนเนอร์หัวข้อ, การ์ด, ขั้นตอน, ฟอร์ม, footer)
+   ========================================================= */
+
+/* ---------- แบนเนอร์หัวข้อหน้า ---------- */
+.page-hero {
+  background: linear-gradient(120deg, var(--navy) 0%, #1b4a9c 100%);
+  color: #fff;
+  padding: 2.5rem 0 2.8rem;
+  border-bottom: 5px solid var(--gold);
+}
+.page-hero h1 { font-weight: 700; font-size: clamp(1.7rem, 4vw, 2.4rem); display: flex; align-items: center; gap: .7rem; }
+.page-hero p { margin: 0; opacity: .85; }
+.page-hero .breadcrumb { --bs-breadcrumb-divider-color: rgba(255,255,255,.6); font-size: .9rem; }
+.page-hero .breadcrumb a { color: #fff; text-decoration: none; }
+.page-hero .breadcrumb-item.active { color: var(--gold); }
+
+/* ---------- หัวข้อแต่ละส่วนของเนื้อหา ---------- */
+.content-section { padding: 1.5rem 0 2rem; scroll-margin-top: 90px; } /* กันหัวข้อโดนเมนูบัง */
+.section-title {
+  font-size: 1.4rem; font-weight: 700; color: var(--navy);
+  padding-left: .8rem; border-left: 5px solid var(--orange);
+  margin-bottom: 1.4rem;
+}
+
+/* ---------- การ์ดข้อมูล ---------- */
+.info-card {
+  position: relative; background: #fff; padding: 1.5rem;
+  border-radius: 18px; border: 1px solid #e3e9f4;
+  transition: border-color .2s, box-shadow .2s;
+}
+.info-card:hover { border-color: var(--orange); box-shadow: 0 10px 28px rgba(13,43,94,.1); }
+.info-card h3 { font-size: 1.1rem; font-weight: 600; margin: .9rem 0 .4rem; }
+.info-card p { color: #5b6a86; font-size: .93rem; }
+.info-card a:not(.btn) { color: var(--orange); font-weight: 600; text-decoration: none; }
+.info-icon {
+  width: 52px; height: 52px; display: grid; place-items: center;
+  border-radius: 14px; background: var(--navy-soft); color: var(--navy); font-size: 1.5rem;
+}
+
+/* ---------- ปุ่มหลักของเว็บ ---------- */
+.btn-brand {
+  background: var(--orange); color: #fff; border: 0;
+  padding: .6rem 1.6rem; border-radius: 999px; font-weight: 600;
+}
+.btn-brand:hover { background: #d95a10; color: #fff; }
+
+/* ---------- ที่ว่างสำหรับรูป/แผนที่ ---------- */
+.img-placeholder {
+  min-height: 220px; display: flex; flex-direction: column; gap: .4rem;
+  align-items: center; justify-content: center; color: #7a89a6;
+  background: repeating-linear-gradient(45deg, #eef2fa, #eef2fa 12px, #e6ecf7 12px, #e6ecf7 24px);
+  border-radius: 18px; border: 2px dashed #c3cfe6;
+}
+.img-placeholder i { font-size: 2rem; }
+.map-box { min-height: 300px; }
+
+/* ---------- รายการขั้นตอน (ใช้เลขเพราะเป็นลำดับจริง) ---------- */
+.step-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem; }
+.step-item { display: flex; gap: 1rem; align-items: flex-start; background: #fff; padding: 1.1rem 1.3rem; border-radius: 16px; border: 1px solid #e3e9f4; }
+.step-no { flex: none; width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; background: var(--navy); color: #fff; font-weight: 700; }
+.step-item h3 { font-size: 1.05rem; font-weight: 600; margin: 0 0 .2rem; }
+.step-item p { margin: 0; color: #5b6a86; font-size: .93rem; }
+
+/* ---------- ข้อมูลติดต่อ + ฟอร์ม ---------- */
+.contact-list { list-style: none; padding: 0; display: grid; gap: 1rem; }
+.contact-list li { display: flex; gap: .8rem; align-items: flex-start; }
+.contact-list i { color: var(--orange); font-size: 1.2rem; }
+form .form-control, form .form-select { border-radius: 12px; padding: .65rem .9rem; }
+form .form-control:focus, form .form-select:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(242,106,27,.2); }
+
+/* ---------- Footer ---------- */
+.site-footer { background: var(--navy); color: rgba(255,255,255,.85); padding: 3rem 0 1.5rem; margin-top: 3rem; }
+.site-footer a { color: rgba(255,255,255,.85); text-decoration: none; line-height: 2; }
+.site-footer a:hover { color: var(--gold); }
+.site-footer h2 { color: #fff; font-weight: 600; }
+.site-footer hr { border-color: rgba(255,255,255,.2); }
+.site-footer small { font-weight: 400; opacity: .75; }
+

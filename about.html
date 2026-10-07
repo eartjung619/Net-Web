@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ติดต่อเรา | วิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --maroon: #800000;
+      --maroon-deep: #4d0000;
+      --gold: #ffd966;
+      --ink: #2b2220;
+      --paper: #faf7f5;
+      --line: #d8cdc8;
+    }
+
+    body {
+      font-family: "IBM Plex Sans Thai", "Noto Sans Thai", system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+    }
+
+    /* ===== Navbar เดิม ===== */
+    .navbar .nav-link {
+      border-bottom: 3px solid transparent;
+      transition: all .2s;
+    }
+    .navbar .nav-link:hover { color: #ffd966; }
+    .navbar .nav-link.active {
+      color: #ffd966 !important;
+      font-weight: 600;
+      border-bottom: 3px solid #ffd966;
+    }
+
+    /* ===== ส่วนหัวหน้า: พื้นลายกระดาษเขียนแบบ ===== */
+    .page-hero {
+      background-color: var(--maroon);
+      background-image:
+        linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px);
+      background-size: 32px 32px;
+      color: #fff;
+      padding: 3.5rem 0 4.5rem;
+    }
+    .page-hero h1 {
+      font-weight: 700;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      line-height: 1.15;
+    }
+    .page-hero .lead {
+      max-width: 34rem;
+      color: rgba(255,255,255,.88);
+      font-size: 1.05rem;
+    }
+    .hero-actions .btn-gold {
+      background: var(--gold);
+      color: var(--maroon-deep);
+      font-weight: 600;
+      border: 0;
+    }
+    .hero-actions .btn-gold:hover { background: #ffe38f; }
+
+    /* ===== กรอบข้อมูลแบบ title block ของแบบงานช่าง ===== */
+    .title-block {
+      background: #fff;
+      color: var(--ink);
+      border: 2px solid var(--ink);
+      box-shadow: 6px 6px 0 var(--maroon-deep);
+    }
+    .title-block .tb-row {
+      display: grid;
+      grid-template-columns: 7.5rem 1fr;
+      border-top: 1px solid var(--ink);
+    }
+    .title-block .tb-row:first-child { border-top: 0; }
+    .title-block .tb-label {
+      background: #f1e9e5;
+      border-right: 1px solid var(--ink);
+      padding: .7rem .9rem;
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--maroon);
+    }
+    .title-block .tb-value { padding: .7rem 1rem; }
+    .title-block a { color: var(--ink); text-decoration: none; font-weight: 600; }
+    .title-block a:hover { color: var(--maroon); text-decoration: underline; }
+
+    /* ===== ส่วนเนื้อหา ===== */
+    .block { padding: 3.5rem 0; }
+    .block-title { font-weight: 700; font-size: 1.6rem; margin-bottom: .35rem; }
+    .block-sub { color: #6b5f5b; margin-bottom: 1.75rem; }
+
+    .map-frame {
+      border: 2px solid var(--ink);
+      background: #e9e2de;
+      height: 100%;
+      min-height: 440px;
+    }
+    .map-frame iframe { width: 100%; height: 100%; min-height: 440px; border: 0; display: block; }
+
+    .dept-table { background: #fff; border: 1px solid var(--line); }
+    .dept-table th { background: #f1e9e5; color: var(--maroon); font-weight: 600; white-space: nowrap; }
+    .dept-table td, .dept-table th { padding: .85rem 1rem; vertical-align: middle; }
+
+    .social-link {
+      display: flex; align-items: center; justify-content: center; gap: .9rem;
+      padding: 1rem 1.15rem;
+      background: #fff;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      text-decoration: none;
+      height: 100%;
+    }
+    .social-link:hover { border-color: var(--maroon); color: var(--maroon); }
+    .social-link i { font-size: 1.8rem; color: var(--maroon); }
+    .social-link small { display: block; color: #6b5f5b; }
+
+    .accordion-button:not(.collapsed) {
+      background: #f6ebe7; color: var(--maroon); box-shadow: none;
+    }
+    .accordion-button:focus { box-shadow: 0 0 0 .2rem rgba(128,0,0,.18); }
+
+    .next-step { background: var(--maroon-deep); color: #fff; padding: 2.5rem 0; }
+    .next-step .btn-gold { background: var(--gold); color: var(--maroon-deep); font-weight: 600; border: 0; }
+    .next-step .btn-gold:hover { background: #ffe38f; }
+
+    footer { background: #2b1a18; color: rgba(255,255,255,.7); font-size: .9rem; padding: 1.25rem 0; }
+
+    :focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+    .block :focus-visible { outline-color: var(--maroon); }
+
+    @media (max-width: 575.98px) {
+      .title-block .tb-row { grid-template-columns: 1fr; }
+      .title-block .tb-label { border-right: 0; border-bottom: 1px solid var(--ink); }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg shadow-sm" data-bs-theme="dark" style="background-color: #800000;">
+  <div class="container">
+
+    <a class="navbar-brand d-flex align-items-center" href="firstpage.html">
+      <img src="Images/Logo-NET.png" alt="Logo" height="50" class="me-2">
+      <span class="fw-semibold text-light">วิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ</span>
+    </a>
+
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse" data-bs-target="#mainNav"
+            aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNav">
+
+      <!--ส่วนของ Navbar หลัก -->
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-3">
+        <li class="nav-item"><a class="nav-link" href="register.html">สมัครเรียน</a></li>
+        <li class="nav-item"><a class="nav-link" href="class.html">หลักสูตรที่เปิดสอน</a></li>
+        <li class="nav-item">
+  <a class="nav-link" href="https://netc.sisacloud.com/" target="_blank" rel="noopener noreferrer">
+    Sisa <i class="bi bi-box-arrow-up-right small"></i>
+  </a>
+</li>
+        <li class="nav-item"><a class="nav-link" href="about.html">ติดต่อเรา</a></li>
+      </ul>  <!---->
+
+
+
+      <form class="d-flex mx-lg-3 mb-2 mb-lg-0" role="search">
+        <input class="form-control me-2" type="search" placeholder="ค้นหา..." aria-label="Search">
+        <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
+      </form>
+
+      <div class="d-flex align-items-center gap-3 fs-5">
+        <div class="dropdown">
+          <button class="btn btn-link text-white p-0 fs-5" type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false" title="เอกสารดาวน์โหลด">
+            <i class="bi bi-file-earmark-text"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="https://drive.google.com/drive/folders/1XTFbJcsvLQjKqA91GMtvhPvzMCY0NXLR?usp=sharing" target="_blank" rel="noopener noreferrer">
+               <i class="bi bi-file-earmark-pdf me-2"></i>เอกสารนักศึกษา</a></li>
+
+            <li><a class="dropdown-item" href="https://drive.google.com/drive/folders/1V5HM08kMsxBm9rwfMmq0HdB7_y5Mnrms?usp=sharing" target="_blank" rel="noopener noreferrer">
+               <i class="bi bi-file-earmark-pdf me-2"></i>เอกสารครู-บุคลากร</a></li>
+          </ul>
+        </div>
+             <a href="#" class="text-white"><i class="bi bi-cart3"></i></a>
+             <a href="#" class="text-white"><i class="bi bi-person-circle"></i></a>
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+<!-- ===== เนื้อหาของหน้านี้ (แก้ตรงนี้) ===== -->
+
+<!-- ส่วนหัว + ข้อมูลติดต่อหลัก -->
+<header class="page-hero">
+  <div class="container">
+    <div class="row align-items-center g-4 g-lg-5">
+      <div class="col-lg-5">
+        <h1 class="mb-3">ติดต่อเรา</h1>
+        <p class="lead mb-4">
+          สอบถามการสมัครเรียน หลักสูตร หรือการเดินทางมาวิทยาลัย
+          เดิมคือโรงเรียนช่างกลภาคตะวันออกเฉียงเหนือ สังกัดสำนักงานคณะกรรมการการอาชีวศึกษา
+        </p>
+        <div class="hero-actions d-flex flex-wrap gap-2">
+          <a class="btn btn-gold btn-lg" href="tel:043222781"><i class="bi bi-telephone-fill me-2"></i>โทร 043 222 781</a>
+          <a class="btn btn-outline-light btn-lg" target="_blank" rel="noopener noreferrer"
+             href="https://www.google.com/maps/dir/?api=1&destination=%E0%B8%A7%E0%B8%B4%E0%B8%97%E0%B8%A2%E0%B8%B2%E0%B8%A5%E0%B8%B1%E0%B8%A2%E0%B9%80%E0%B8%97%E0%B8%84%E0%B9%82%E0%B8%99%E0%B9%82%E0%B8%A5%E0%B8%A2%E0%B8%B5%E0%B8%A0%E0%B8%B2%E0%B8%84%E0%B8%95%E0%B8%B0%E0%B8%A7%E0%B8%B1%E0%B8%99%E0%B8%AD%E0%B8%AD%E0%B8%81%E0%B9%80%E0%B8%89%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B9%80%E0%B8%AB%E0%B8%99%E0%B8%B7%E0%B8%AD+%E0%B8%82%E0%B8%AD%E0%B8%99%E0%B9%81%E0%B8%81%E0%B9%88%E0%B8%99">
+            <i class="bi bi-geo-alt-fill me-2"></i>นำทางด้วย Google Maps
+          </a>
+        </div>
+      </div>
+
+      <div class="col-lg-7">
+        <div class="title-block">
+          <div class="tb-row">
+            <div class="tb-label">สถานศึกษา</div>
+            <div class="tb-value fw-semibold">วิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ</div>
+          </div>
+          <div class="tb-row">
+            <div class="tb-label">ที่อยู่</div>
+            <div class="tb-value">200 ถ.มิตรภาพ ตำบลในเมือง อำเภอเมืองขอนแก่น จังหวัดขอนแก่น 40000</div>
+          </div>
+          <div class="tb-row">
+            <div class="tb-label">โทรศัพท์</div>
+            <div class="tb-value"><a href="tel:043222781">043 222 781</a></div>
+          </div>
+          <div class="tb-row">
+            <div class="tb-label">อีเมล</div>
+            <!-- TODO: ใส่อีเมลจริงของวิทยาลัย -->
+            <div class="tb-value"><a href="mailto:info@example.ac.th">netc.college@gmail.com</a></div>
+          </div>
+          <div class="tb-row">
+            <div class="tb-label">เวลาทำการ</div>
+            <!-- TODO: แก้เวลาทำการให้ตรงกับจริง -->
+            <div class="tb-value">วันจันทร์–วันศุกร์ 08:30–16:30 น.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- แผนที่ -->
+<section class="block">
+  <div class="container">
+    <h2 class="block-title">แผนที่วิทยาลัย</h2>
+    <p class="block-sub">ตั้งอยู่ริมถนนมิตรภาพ ในเขตอำเภอเมืองขอนแก่น</p>
+    <div class="map-frame">
+      <iframe
+            title="แผนที่วิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://maps.google.com/maps?q=%E0%B8%A7%E0%B8%B4%E0%B8%97%E0%B8%A2%E0%B8%B2%E0%B8%A5%E0%B8%B1%E0%B8%A2%E0%B9%80%E0%B8%97%E0%B8%84%E0%B9%82%E0%B8%99%E0%B9%82%E0%B8%A5%E0%B8%A2%E0%B8%B5%E0%B8%A0%E0%B8%B2%E0%B8%84%E0%B8%95%E0%B8%B0%E0%B8%A7%E0%B8%B1%E0%B8%99%E0%B8%AD%E0%B8%AD%E0%B8%81%E0%B9%80%E0%B8%89%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B9%80%E0%B8%AB%E0%B8%99%E0%B8%B7%E0%B8%AD+%E0%B8%82%E0%B8%AD%E0%B8%99%E0%B9%81%E0%B8%81%E0%B9%88%E0%B8%99&z=16&hl=th&output=embed"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ช่องทางตามฝ่าย -->
+<section class="block pt-0">
+  <div class="container">
+    <h2 class="block-title">ติดต่อตามฝ่าย</h2>
+    <p class="block-sub">เลือกฝ่ายที่ตรงกับเรื่องของคุณเพื่อให้ได้คำตอบเร็วขึ้น</p>
+    <div class="table-responsive">
+      <table class="table dept-table mb-0">
+        <thead>
+          <tr><th>ฝ่าย</th><th>เรื่องที่ดูแล</th><th>เบอร์ติดต่อ</th></tr>
+        </thead>
+        <!-- TODO: ใส่เบอร์ภายในจริงแทน XXX -->
+        <tbody>
+          <tr><td class="fw-semibold">งานประชาสัมพันธ์</td><td>การสมัครเรียน เอกสารและกำหนดการ</td><td>092-5862951</td></tr>
+          <tr><td class="fw-semibold">งานทะเบียน</td><td>ผลการเรียน เอกสารรับรอง การลงทะเบียน</td><td>088-5518179</td></tr>
+          <tr><td class="fw-semibold">งานวิชาการ</td><td>งานแนะแนว งานห้องสมุด แหล่งเรียนรู้ </td><td>043 222 781 ต่อ 14</td></tr>
+          <tr><td class="fw-semibold">งานแผนงาน</td><td>วางแผนพัฒนาและแผนปฏิบัติการ</td><td>043 222 781 ต่อ 13</td></tr>
+           <tr><td class="fw-semibold">งานการเงิน</td><td>ค่าเล่าเรียน การชำระเงิน</td><td>043 222 781 ต่อ 12</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- โซเชียล -->
+<section class="block pt-0">
+  <div class="container">
+    <h2 class="block-title">ติดตามข่าวสารของวิทยาลัย</h2>
+    <p class="block-sub">ประกาศรับสมัครและกิจกรรมล่าสุดอยู่ที่ช่องทางเหล่านี้</p>
+    <!-- TODO: ใส่ลิงก์จริงแทน href="#" ของแต่ละช่องทาง -->
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-4 g-3 justify-content-center">
+      <div class="col">
+        <a class="social-link" href="https://www.facebook.com/netc.ac.th" target="_blank" rel="noopener noreferrer"><!-- ลิงก์ Facebook -->
+          <i class="bi bi-facebook"></i><span>Facebook<small>เพจวิทยาลัย</small></span>
+        </a>
+      </div>
+      <div class="col">
+        <a class="social-link" href="https://page.line.me/228bjrld?oat_content=url&openQrModal=true" target="_blank" rel="noopener noreferrer"><!-- ลิงก์ LINE Official -->
+          <i class="bi bi-line"></i><span>LINE Official<small>ถามเจ้าหน้าที่</small></span>
+        </a>
+      </div>
+      <div class="col">
+        <a class="social-link" href="https://www.tiktok.com/@netc.ac.th" target="_blank" rel="noopener noreferrer"><!-- ลิงก์ TikTok -->
+          <i class="bi bi-tiktok"></i><span>TikTok<small>คลิปกิจกรรม</small></span>
+        </a>
+      </div>
+      <div class="col">
+        <a class="social-link" href="https://www.instagram.com/net_khonkaen" target="_blank" rel="noopener noreferrer"><!-- ลิงก์ Instagram -->
+          <i class="bi bi-instagram"></i><span>Instagram<small>ภาพและสตอรี่</small></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="block pt-0">
+  <div class="container">
+    <h2 class="block-title">คำถามที่พบบ่อย</h2>
+    <p class="block-sub">ตัวอย่างคำถาม แก้ข้อความให้ตรงกับข้อมูลจริงของวิทยาลัยได้</p>
+    <div class="accordion" id="faq">
+      <div class="accordion-item">
+        <h3 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#q1" aria-expanded="true" aria-controls="q1">
+            สมัครเรียนต้องเตรียมเอกสารอะไรบ้าง
+          </button>
+        </h3>
+        <div id="q1" class="accordion-collapse collapse show" data-bs-parent="#faq">
+          <div class="accordion-body">ดูรายการเอกสารและขั้นตอนทั้งหมดได้ที่หน้า <a href="register.html">สมัครเรียน</a> หรือโทรสอบถามงานรับสมัคร</div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h3 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q2" aria-expanded="false" aria-controls="q2">
+            วิทยาลัยเปิดสอนสาขาวิชาอะไรบ้าง
+          </button>
+        </h3>
+        <div id="q2" class="accordion-collapse collapse" data-bs-parent="#faq">
+          <div class="accordion-body">ดูหลักสูตรและสาขาวิชาที่เปิดสอนได้ที่หน้า <a href="class.html">หลักสูตรที่เปิดสอน</a></div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h3 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q3" aria-expanded="false" aria-controls="q3">
+            เดินทางมาวิทยาลัยอย่างไร
+          </button>
+        </h3>
+        <div id="q3" class="accordion-collapse collapse" data-bs-parent="#faq">
+          <div class="accordion-body">วิทยาลัยอยู่ริมถนนมิตรภาพ (200 ถ.มิตรภาพ ตำบลในเมือง) กดปุ่ม "นำทางด้วย Google Maps" ด้านบนเพื่อดูเส้นทางจากตำแหน่งของคุณ</div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h3 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q4" aria-expanded="false" aria-controls="q4">
+            ตรวจสอบผลการเรียนและข้อมูลนักศึกษาได้ที่ไหน
+          </button>
+        </h3>
+        <div id="q4" class="accordion-collapse collapse" data-bs-parent="#faq">
+          <div class="accordion-body">เข้าระบบ Sisa ได้ที่ <a href="https://netc.sisacloud.com/" target="_blank" rel="noopener noreferrer">netc.sisacloud.com</a> หรือติดต่องานทะเบียน</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ปุ่มไปหน้าต่อไป -->
+<section class="next-step">
+  <div class="container d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+    <div>
+      <div class="fs-5 fw-semibold">พร้อมสมัครเรียนแล้วใช่ไหม</div>
+      <div class="text-white-50">ดูขั้นตอนและหลักสูตรได้เลย ไม่ต้องรอตอบกลับ</div>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+      <a href="register.html" class="btn btn-gold">สมัครเรียน</a>
+      <a href="class.html" class="btn btn-outline-light">ดูหลักสูตร</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container d-flex flex-column flex-md-row justify-content-between gap-1">
+    <span>© วิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ</span>
+    <span>200 ถ.มิตรภาพ ต.ในเมือง อ.เมืองขอนแก่น จ.ขอนแก่น 40000</span>
+  </div>
+</footer>
+<!-- ===================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // ใส่ active ให้ลิงก์ของหน้าปัจจุบัน
+  const currentPage = location.pathname.split("/").pop();
+  document.querySelectorAll("#mainNav .nav-link").forEach(link => {
+    if (link.getAttribute("href") === currentPage) {
+      link.classList.add("active");
+      link.setAttribute("aria-current", "page");
+    }
+  });
+</script>
+</body>
+</html>
