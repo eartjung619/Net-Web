@@ -9,6 +9,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
+/*ส่วนคลิปวีดีโอเริ่มต้นหน้าแรก */
+.hero-video video,
+.hero-video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  object-fit: cover;
+}    
+
     /* ฟอนต์ Prompt เฉพาะเนื้อหา (ไม่รวม navbar หลัก) */
     .sub-nav, main, footer, #viewerModal {
       font-family: 'Prompt', sans-serif;
@@ -299,16 +310,17 @@
 
 <main>
 
-  <!-- ===== วิดีโอหน้าแรก ===== -->
-  <div class="container hero-wrap">
-    <div class="hero-video">
-      <video autoplay muted loop playsinline controls preload="metadata">
-        <source src="./images/promote.mp4" type="video/mp4">
-        เบราว์เซอร์ของคุณไม่รองรับวิดีโอ
-      </video>
-    </div>
+  <!-- ===== วิดีโอหน้าแรก (YouTube) ===== -->
+<div class="container hero-wrap">
+  <div class="hero-video">
+    <iframe
+      src="https://www.youtube.com/embed/JNsJc99IQXk?autoplay=1&mute=1&loop=1&playlist=JNsJc99IQXk&rel=0"
+      title="วิดีโอแนะนำวิทยาลัย"
+      allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+      allowfullscreen
+      loading="lazy"></iframe>
   </div>
-
+</div>
   <!-- ===== สไลด์ภาพ (ต่อท้ายวิดีโอ) ===== -->
   <div class="container slide-wrap">
     <div id="heroCarousel" class="carousel slide carousel-fade hero-carousel" data-bs-ride="carousel" data-bs-interval="4000">

@@ -1,0 +1,9 @@
+<!-- ===== วิดีโอหน้าแรก ===== -->
+  <div class="container hero-wrap">
+    <div class="hero-video">
+      <video autoplay muted loop playsinline controls preload="metadata">
+        <source src="./images/promote.mp4" type="video/mp4">
+        เบราว์เซอร์ของคุณไม่รองรับวิดีโอ
+      </video>
+    </div>
+  </div>
