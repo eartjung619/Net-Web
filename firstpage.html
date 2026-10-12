@@ -8,31 +8,35 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
   <style>
-main,
-#viewerModal {
-  font-family: 'Prompt', sans-serif;
-  font-weight: 400;
-}
-main button,
-main input,
-#viewerModal button {
-  font-family: inherit;
-}
+    main,
+    #viewerModal {
+      font-family: 'Prompt', sans-serif;
+      font-weight: 400;
+    }
+    main button,
+    main input,
+    #viewerModal button {
+      font-family: inherit;
+    }
 
-
-
-    .hero-carousel .carousel-item img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 6;
-  object-fit: cover;
-  object-position: center;
-}
+    /* ===== วิดีโอหน้าแรก ===== */
     .hero-wrap { margin-top: 1.5rem; margin-bottom: 1.5rem; }
-    .hero-carousel {
+    .hero-video {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      max-height: 560px;
+      width: 100%;
       border-radius: 1.25rem;
       overflow: hidden;
+      background: #000;
       box-shadow: 0 .5rem 1.25rem rgba(0, 0, 0, .2);
+    }
+    .hero-video video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     /* จุดเด่นของลิงก์ที่ active */
@@ -46,11 +50,24 @@ main input,
       font-weight: 600;
       border-bottom: 3px solid #ffd966;
     }
+
+    /* ===== สไลด์ภาพ (ขนาดเดิม) ===== */
+.hero-carousel .carousel-item img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 6;
+  object-fit: cover;
+  object-position: center;
+}
+.hero-carousel {
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 .5rem 1.25rem rgba(0, 0, 0, .2);
+}
+.slide-wrap { margin-top: 0; margin-bottom: 1.5rem; }
   </style>
 </head>
 <body>
-
-
 
 <nav class="navbar navbar-expand-lg shadow-sm" data-bs-theme="dark" style="background-color: #800000;">
   <div class="container">
@@ -67,18 +84,17 @@ main input,
     </button>
 
     <div class="collapse navbar-collapse" id="mainNav">
-    <!--ส่วนของ Navbar หลัก -->
+      <!-- ส่วนของ Navbar หลัก -->
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-3">
         <li class="nav-item"><a class="nav-link" href="register.html">สมัครเรียน</a></li>
         <li class="nav-item"><a class="nav-link" href="class.html">หลักสูตรที่เปิดสอน</a></li>
-       <li class="nav-item">
-  <a class="nav-link" href="https://netc.sisacloud.com/" target="_blank" rel="noopener noreferrer">
-    Sisa <i class="bi bi-box-arrow-up-right small"></i>
-  </a>
-</li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://netc.sisacloud.com/" target="_blank" rel="noopener noreferrer">
+            Sisa <i class="bi bi-box-arrow-up-right small"></i>
+          </a>
+        </li>
         <li class="nav-item"><a class="nav-link" href="about.html">ติดต่อเรา</a></li>
       </ul>
-      <!-- -->
 
       <form class="d-flex mx-lg-3 mb-2 mb-lg-0" role="search">
         <input class="form-control me-2" type="search" placeholder="ค้นหา..." aria-label="Search">
@@ -92,27 +108,33 @@ main input,
             <i class="bi bi-file-earmark-text"></i>
           </button>
           <ul class="dropdown-menu dropdown-menu-end">
-  <li><h6 class="dropdown-header">เอกสารดาวน์โหลด </h6></li>
+            <li><h6 class="dropdown-header">เอกสารดาวน์โหลด </h6></li>
 
             <li><a class="dropdown-item" href="https://drive.google.com/drive/folders/1XTFbJcsvLQjKqA91GMtvhPvzMCY0NXLR?usp=sharing" target="_blank" rel="noopener noreferrer">
                <i class="bi bi-file-earmark-pdf me-2"></i>เอกสารนักศึกษา</a></li>
 
             <li><a class="dropdown-item" href="https://drive.google.com/drive/folders/1V5HM08kMsxBm9rwfMmq0HdB7_y5Mnrms?usp=sharing" target="_blank" rel="noopener noreferrer">
                <i class="bi bi-file-earmark-pdf me-2"></i>เอกสารครู-บุคลากร</a></li>
- 
-</ul>
-
+          </ul>
         </div>
-      
       </div>
 
     </div>
   </div>
 </nav>
 
+<!-- วิดีโอหน้าแรก -->
+<main class="container hero-wrap">
+  <div class="hero-video">
+    <video autoplay muted loop playsinline controls preload="metadata">
+      <source src="./images/promote.mp4" type="video/mp4">
+      เบราว์เซอร์ของคุณไม่รองรับวิดีโอ
+    </video>
+  </div>
+</main>
 
-<!-- สไลด์ภาพหน้าแรก -->
-<div class="container hero-wrap">
+<!-- สไลด์ภาพ (ต่อท้ายวิดีโอ) -->
+<div class="container slide-wrap">
   <div id="heroCarousel" class="carousel slide carousel-fade hero-carousel" data-bs-ride="carousel" data-bs-interval="4000">
 
     <div class="carousel-indicators">
@@ -123,13 +145,13 @@ main input,
 
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="./Images/slide1.png" class="d-block w-100 hero-img" alt="สไลด์ 1">
+        <img src="./Images/slide1.png" class="d-block w-100" alt="สไลด์ 1">
       </div>
       <div class="carousel-item">
-        <img src="./Images/slide2.png" class="d-block w-100 hero-img" alt="สไลด์ 2">
+        <img src="./Images/slide2.png" class="d-block w-100" alt="สไลด์ 2">
       </div>
       <div class="carousel-item">
-        <img src="https://picsum.photos/1920/600?random=3" class="d-block w-100 hero-img" alt="สไลด์ 3">
+        <img src="https://picsum.photos/1920/600?random=3" class="d-block w-100" alt="สไลด์ 3">
       </div>
     </div>
 
@@ -143,8 +165,7 @@ main input,
     </button>
 
   </div>
-</div>  <!-- สไลด์ภาพหน้าแรก -->
-
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
@@ -157,8 +178,6 @@ main input,
     }
   });
 </script>
-
-
 
 </body>
 </html>
