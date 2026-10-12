@@ -6,8 +6,21 @@
   <title>หลักสูตรที่เปิดสอน | วิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
+    /* ใช้ฟอนต์ Prompt เฉพาะเนื้อหาหน้า (ไม่รวม navbar) */
+main,
+#viewerModal {
+  font-family: 'Prompt', sans-serif;
+  font-weight: 400;
+}
+main button,
+main input,
+#viewerModal button {
+  font-family: inherit;
+}
+
     /* ===== navbar: จุดเด่นของลิงก์ที่ active ===== */
     .navbar .nav-link { border-bottom: 3px solid transparent; transition: all .2s; }
     .navbar .nav-link:hover { color: #ffd966; }
@@ -22,14 +35,32 @@
     .page-head h1 { color: #800000; font-weight: 700; }
     .page-head p  { color: #6c757d; margin-bottom: 0; }
 
+    /* ===== แท็บสลับระหว่างหน้าระดับ ===== */
+    .level-tabs a {
+      display: inline-block;
+      border: 2px solid #800000;
+      border-radius: 2rem;
+      padding: .4rem 1.4rem;
+      font-weight: 600;
+      color: #800000;
+      text-decoration: none;
+      transition: all .2s;
+    }
+    .level-tabs a:hover { background: #f6eaea; }
+    .level-tabs a.active { background: #800000; color: #fff; }
+    .level-tabs a:focus-visible { outline: 3px solid #ffd966; outline-offset: 2px; }
+
     /* ===== การ์ดสาขา ===== */
     .major-card {
       border: 1px solid #e6dcdc;
       border-radius: 1rem;
       overflow: hidden;
-      transition: box-shadow .2s;
+      transition: box-shadow .2s, transform .2s;
     }
-    .major-card:hover { box-shadow: 0 .5rem 1.25rem rgba(128, 0, 0, .15); }
+    .major-card:hover {
+      box-shadow: 0 .5rem 1.25rem rgba(128, 0, 0, .15);
+      transform: translateY(-3px);
+    }
 
     /* ภาพปกในการ์ด (คลิกเพื่อดูภาพทั้งหมด) */
     .cover-btn {
@@ -72,35 +103,6 @@
       background: #000;
     }
 
-    /* ปุ่มกรองตามระดับ */
-    .filter-btn {
-      border: 2px solid #800000;
-      background: #fff;
-      color: #800000;
-      font-weight: 600;
-      border-radius: 2rem;
-      padding: .4rem 1.4rem;
-      transition: all .2s;
-    }
-    .filter-btn:hover { background: #f6eaea; }
-    .filter-btn.active { background: #800000; color: #fff; }
-    .filter-btn:focus-visible { outline: 3px solid #ffd966; outline-offset: 2px; }
-
-    /* ปุ่มลิงก์ไปหน้ารอบคนทำงาน (หน้าตาเหมือนปุ่มกรอง แต่กดแล้วเปิดหน้าใหม่) */
-    .filter-link {
-      display: inline-block;
-      border: 2px solid #800000;
-      background: #fff;
-      color: #800000;
-      font-weight: 600;
-      border-radius: 2rem;
-      padding: .4rem 1.4rem;
-      text-decoration: none;
-      transition: all .2s;
-    }
-    .filter-link:hover { background: #f6eaea; color: #800000; }
-    .filter-link:focus-visible { outline: 3px solid #ffd966; outline-offset: 2px; }
-
     /* ป้ายระดับในการ์ด */
     .level-tag {
       display: inline-block;
@@ -113,12 +115,8 @@
     .level-tag.vc  { background: #800000; color: #fff; }
     .level-tag.hvc { background: #ffd966; color: #5c0000; }
 
-    .major-card .card-title { color: #800000; font-weight: 700; }
-    .major-card .card-text  { color: #444; line-height: 1.7; }
-    .major-card .card-footer {
-      background: #fff;
-      border-top: 1px solid #f0e6e6;
-    }
+    .major-card .card-title { color: #800000; font-weight: 600; font-size: 1.1rem; }
+    .major-card .card-text  { color: #555; line-height: 1.75; font-size: .95rem; }
   </style>
 </head>
 <body>
@@ -170,8 +168,7 @@
                <i class="bi bi-file-earmark-pdf me-2"></i>เอกสารครู-บุคลากร</a></li>
           </ul>
         </div>
-        <a href="#" class="text-white"><i class="bi bi-cart3"></i></a>
-        <a href="#" class="text-white"><i class="bi bi-person-circle"></i></a>
+        
       </div>
 
     </div>
@@ -186,18 +183,19 @@
     <p>เลือกดูรายละเอียดของแต่ละสาขาวิชาที่เปิดสอนในวิทยาลัย</p>
   </div>
 
-  <!-- ปุ่มกรองตามระดับ -->
-  <div class="d-flex flex-wrap align-items-center gap-2 mb-4" role="group" aria-label="กรองตามระดับ">
-    <button type="button" class="filter-btn active" data-filter="all" aria-pressed="true">ทั้งหมด</button>
-    <button type="button" class="filter-btn" data-filter="ปวช." aria-pressed="false">ปวช.</button>
-    <button type="button" class="filter-btn" data-filter="ปวส." aria-pressed="false">ปวส.</button>
-    <a href="class3.html" class="filter-link">รอบคนทำงาน</a>
+  <!-- แท็บสลับหน้า -->
+  <div class="d-flex flex-wrap align-items-center gap-2 mb-4">
+    <nav class="level-tabs d-flex flex-wrap gap-2" aria-label="เลือกระดับ">
+      <a href="class.html" class="active" aria-current="page">ทั้งหมด</a>
+      <a href="class1.html">ปวช.</a>
+      <a href="class2.html">ปวส.</a>
+      <a href="class3.html">รอบคนทำงาน</a>
+    </nav>
     <span class="ms-md-auto text-muted small" id="filterCount"></span>
   </div>
 
   <!-- การ์ดทั้ง 9 สาขา ถูกสร้างจากข้อมูลด้านล่าง -->
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="majorGrid"></div>
-  <p class="text-center text-muted py-5 d-none" id="emptyMsg">ยังไม่มีสาขาที่เปิดรับในระดับนี้</p>
 
 </main>
 
@@ -236,6 +234,7 @@
      - images : รายชื่อภาพสไลด์ของสาขานั้น (ใส่กี่รูปก็ได้)
      - desc   : คำอธิบายการเรียนของสาขานี้
      ===================================================== */
+
   const majors = [
     {
       name: "สาขาวิชาที่ 1",
@@ -293,7 +292,7 @@
     }
   ];
 
-  /* ภาพสำรอง: ถ้าหาไฟล์ภาพไม่เจอ จะแสดงกรอบสีเทาแทน */
+  /* ภาพสำรอง: ถ้าหาไฟล์ภาพไม่เจอ จะแสดงกรอบสีชมพูอ่อนแทน */
   const fallback = "data:image/svg+xml;utf8," + encodeURIComponent(
     '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450">' +
     '<rect width="100%" height="100%" fill="#efe6e6"/>' +
@@ -310,7 +309,7 @@
     const label = n > 1 ? `ดูภาพทั้งหมด (${n})` : "ดูภาพขยาย";
 
     grid.insertAdjacentHTML("beforeend", `
-      <div class="col" data-levels="${m.levels.join(',')}">
+      <div class="col">
         <article class="card major-card h-100">
           <button type="button" class="cover-btn" data-index="${i}" aria-label="${label} ${m.name}">
             <img src="${m.images[0]}" alt="${m.name}" loading="lazy"
@@ -319,35 +318,15 @@
           </button>
           <div class="card-body">
             <div class="mb-2">${tags}</div>
-            <h2 class="card-title h5">${m.name}</h2>
+            <h3 class="card-title">${m.name}</h3>
             <p class="card-text mb-0">${m.desc}</p>
           </div>
         </article>
       </div>`);
   });
 
-  /* ปุ่มกรองตามระดับ */
-  const filterBtns = document.querySelectorAll(".filter-btn");
-  const filterCount = document.getElementById("filterCount");
-  const emptyMsg = document.getElementById("emptyMsg");
-
-  function applyFilter(level) {
-    let shown = 0;
-    grid.querySelectorAll(".col").forEach(col => {
-      const ok = level === "all" || col.dataset.levels.split(",").includes(level);
-      col.classList.toggle("d-none", !ok);
-      if (ok) shown++;
-    });
-    filterBtns.forEach(b => {
-      const on = b.dataset.filter === level;
-      b.classList.toggle("active", on);
-      b.setAttribute("aria-pressed", on);
-    });
-    filterCount.textContent = `แสดง ${shown} สาขา`;
-    emptyMsg.classList.toggle("d-none", shown > 0);
-  }
-  filterBtns.forEach(b => b.addEventListener("click", () => applyFilter(b.dataset.filter)));
-  applyFilter("all");
+  /* แสดงจำนวนสาขาทั้งหมด */
+  document.getElementById("filterCount").textContent = `แสดง ${majors.length} สาขา`;
 
   /* หน้าต่างดูภาพใหญ่ */
   const viewerEl = document.getElementById("viewerModal");
