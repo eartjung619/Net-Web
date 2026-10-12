@@ -6,20 +6,48 @@
   <title>วิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    main,
-    #viewerModal {
+    /* ฟอนต์ Prompt เฉพาะเนื้อหา (ไม่รวม navbar หลัก) */
+    .sub-nav, main, footer, #viewerModal {
       font-family: 'Prompt', sans-serif;
       font-weight: 400;
     }
-    main button,
-    main input,
-    #viewerModal button {
-      font-family: inherit;
+    main button, main input, main a.btn, #viewerModal button { font-family: inherit; }
+
+    /* ===== navbar หลัก ===== */
+    .navbar .nav-link { border-bottom: 3px solid transparent; transition: all .2s; }
+    .navbar .nav-link:hover { color: #ffd966; }
+    .navbar .nav-link.active {
+      color: #ffd966 !important;
+      font-weight: 600;
+      border-bottom: 3px solid #ffd966;
     }
 
-    /* ===== วิดีโอหน้าแรก ===== */
+    /* ===== navbar สีฟ้า (แถบทางลัด) ===== */
+    .sub-nav {
+      background: linear-gradient(to bottom, #1565c0, #0d47a1);
+      box-shadow: 0 .25rem .5rem rgba(0, 0, 0, .15);
+    }
+    .sub-nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .75rem 1rem;
+      color: #fff;
+      font-weight: 500;
+      font-size: .95rem;
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: background .2s, border-color .2s;
+    }
+    .sub-nav a:hover { background: rgba(255, 255, 255, .15); border-bottom-color: #ffd966; color: #fff; }
+    .sub-scroll { overflow-x: auto; scrollbar-width: none; }
+    .sub-scroll::-webkit-scrollbar { display: none; }
+
+    /* ===== วิดีโอ + สไลด์หน้าแรก ===== */
     .hero-wrap { margin-top: 1.5rem; margin-bottom: 1.5rem; }
     .hero-video {
       position: relative;
@@ -31,50 +59,160 @@
       background: #000;
       box-shadow: 0 .5rem 1.25rem rgba(0, 0, 0, .2);
     }
-    .hero-video video {
-      position: absolute;
-      inset: 0;
+    .hero-video video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .hero-carousel .carousel-item img {
       width: 100%;
-      height: 100%;
+      height: auto;
+      aspect-ratio: 16 / 6;
       object-fit: cover;
+      object-position: center;
     }
+    .hero-carousel {
+      border-radius: 1.25rem;
+      overflow: hidden;
+      box-shadow: 0 .5rem 1.25rem rgba(0, 0, 0, .2);
+    }
+    .slide-wrap { margin-bottom: 1.5rem; }
 
-    /* จุดเด่นของลิงก์ที่ active */
-    .navbar .nav-link {
-      border-bottom: 3px solid transparent;
-      transition: all .2s;
-    }
-    .navbar .nav-link:hover { color: #ffd966; }
-    .navbar .nav-link.active {
-      color: #ffd966 !important;
+    /* ===== หัวข้อแต่ละส่วน ===== */
+    .section { margin-top: 3rem; }
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      font-size: 1.6rem;
       font-weight: 600;
-      border-bottom: 3px solid #ffd966;
+      color: #800000;
+      margin-bottom: 1.25rem;
+    }
+    .section-title::before {
+      content: "";
+      width: 6px;
+      height: 1.9rem;
+      background: #ffd966;
+      border-radius: 3px;
+    }
+    .section-sub { color: #6c757d; margin: -.75rem 0 1.25rem; }
+
+    /* ===== การ์ดเมนูลัด ===== */
+    .menu-card {
+      display: block;
+      height: 100%;
+      text-align: center;
+      text-decoration: none;
+      color: #800000;
+      background: #fff;
+      border: 1px solid #e6dcdc;
+      border-radius: 1rem;
+      padding: 1.5rem 1rem;
+      transition: box-shadow .2s, transform .2s, background .2s;
+    }
+    .menu-card:hover {
+      box-shadow: 0 .5rem 1.25rem rgba(128, 0, 0, .15);
+      transform: translateY(-4px);
+      background: #fffafa;
+      color: #800000;
+    }
+    .menu-card .bi { font-size: 2.4rem; display: block; margin-bottom: .6rem; }
+    .menu-card span { font-weight: 600; }
+
+    /* ===== การ์ดหลักสูตร ===== */
+    .course-card {
+      display: block;
+      height: 100%;
+      text-decoration: none;
+      color: #fff;
+      background: linear-gradient(135deg, #5c0a0a, #9a1515);
+      border-radius: 1rem;
+      padding: 2rem 1.5rem;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .course-card:hover { transform: translateY(-4px); box-shadow: 0 .75rem 1.5rem rgba(128, 0, 0, .3); color: #fff; }
+    .course-card h3 { font-weight: 700; font-size: 1.5rem; }
+    .course-card p { margin-bottom: 1rem; opacity: .9; }
+    .course-card .more { color: #ffd966; font-weight: 600; }
+
+    /* ===== การ์ดข้อมูล (ภาพ/วิดีโอ/ประกาศ) ===== */
+    .info-card {
+      height: 100%;
+      border: 1px solid #e6dcdc;
+      border-radius: 1rem;
+      overflow: hidden;
+      background: #fff;
+      transition: box-shadow .2s, transform .2s;
+    }
+    .info-card:hover { box-shadow: 0 .5rem 1.25rem rgba(128, 0, 0, .15); transform: translateY(-3px); }
+    .info-head {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .85rem 1.1rem;
+      background: #f6eaea;
+      border-bottom: 1px solid #ead7d7;
+      color: #800000;
+      font-weight: 600;
+    }
+    .info-head .bi { font-size: 1.3rem; }
+    .info-head .head-date { margin-left: auto; font-size: .82rem; font-weight: 500; color: #6c757d; }
+    .info-body { padding: 1rem 1.1rem 1.15rem; }
+    .info-body h3 { font-size: 1.05rem; font-weight: 600; color: #800000; margin-bottom: .35rem; }
+    .info-body p { color: #555; line-height: 1.7; font-size: .95rem; margin-bottom: 0; }
+
+    .notice-tag {
+      display: inline-block;
+      background: #800000;
+      color: #fff;
+      border-radius: .4rem;
+      padding: .05rem .6rem;
+      font-size: .78rem;
+      font-weight: 600;
+      margin-bottom: .4rem;
     }
 
-    /* ===== สไลด์ภาพ (ขนาดเดิม) ===== */
-.hero-carousel .carousel-item img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 6;
-  object-fit: cover;
-  object-position: center;
-}
-.hero-carousel {
-  border-radius: 1.25rem;
-  overflow: hidden;
-  box-shadow: 0 .5rem 1.25rem rgba(0, 0, 0, .2);
-}
-.slide-wrap { margin-top: 0; margin-bottom: 1.5rem; }
+    /* สไลด์ในการ์ด (กดที่ภาพเพื่อขยาย) */
+    .card-slide { position: relative; background: #efe6e6; }
+    .card-slide .carousel-item img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      cursor: zoom-in;
+    }
+    .zoom-hint {
+      position: absolute;
+      top: .6rem;
+      right: .6rem;
+      z-index: 3;
+      background: rgba(0, 0, 0, .65);
+      color: #fff;
+      border-radius: 2rem;
+      padding: .15rem .7rem;
+      font-size: .8rem;
+      pointer-events: none;
+    }
+
+    /* หน้าต่างดูภาพใหญ่ */
+    #viewerModal .carousel-item img {
+      width: 100%;
+      max-height: 78vh;
+      object-fit: contain;
+      background: #000;
+    }
+
+    /* ===== footer ===== */
+    .site-footer { background: #5c0a0a; color: #f3dede; margin-top: 4rem; padding: 2rem 0 1.25rem; }
+    .site-footer a { color: #ffd966; text-decoration: none; }
+    .site-footer a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
 
+<!-- ===== NAVBAR หลัก ===== -->
 <nav class="navbar navbar-expand-lg shadow-sm" data-bs-theme="dark" style="background-color: #800000;">
   <div class="container">
 
     <a class="navbar-brand d-flex align-items-center" href="firstpage.html">
       <img src="./Images/Logo-NET.png" alt="Logo" height="50" class="me-2">
-      <span class="fw-semibold text-light">วิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ </span>
+      <span class="fw-semibold text-light">วิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ</span>
     </a>
 
     <button class="navbar-toggler" type="button"
@@ -84,16 +222,38 @@
     </button>
 
     <div class="collapse navbar-collapse" id="mainNav">
-      <!-- ส่วนของ Navbar หลัก -->
+
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-3">
         <li class="nav-item"><a class="nav-link" href="register.html">สมัครเรียน</a></li>
-        <li class="nav-item"><a class="nav-link" href="class.html">หลักสูตรที่เปิดสอน</a></li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="class.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            หลักสูตรที่เปิดสอน
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="class.html">ทั้งหมด</a></li>
+            <li><a class="dropdown-item" href="class2.html">ระดับ ปวส.</a></li>
+            <li><a class="dropdown-item" href="class1.html">ระดับ ปวช.</a></li>
+            <li><a class="dropdown-item" href="class3.html">รอบคนทำงาน</a></li>
+          </ul>
+        </li>
+
         <li class="nav-item">
           <a class="nav-link" href="https://netc.sisacloud.com/" target="_blank" rel="noopener noreferrer">
-            Sisa <i class="bi bi-box-arrow-up-right small"></i>
+            ระบบ SISA <i class="bi bi-box-arrow-up-right small"></i>
           </a>
         </li>
-        <li class="nav-item"><a class="nav-link" href="about.html">ติดต่อเรา</a></li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="about.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            ติดต่อ
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="about.html">ที่ตั้งและการติดต่อ</a></li>
+            <li><a class="dropdown-item" href="https://www.facebook.com/messages/t/209337135889087" target="_blank" rel="noopener noreferrer">Facebook Messenger</a></li>
+            <li><a class="dropdown-item" href="https://line.me/R/ti/p/@228bjrld?oat_content=url" target="_blank" rel="noopener noreferrer">LineOA</a></li>
+          </ul>
+        </li>
       </ul>
 
       <form class="d-flex mx-lg-3 mb-2 mb-lg-0" role="search">
@@ -108,11 +268,9 @@
             <i class="bi bi-file-earmark-text"></i>
           </button>
           <ul class="dropdown-menu dropdown-menu-end">
-            <li><h6 class="dropdown-header">เอกสารดาวน์โหลด </h6></li>
-
+            <li><h6 class="dropdown-header">เอกสารดาวน์โหลด</h6></li>
             <li><a class="dropdown-item" href="https://drive.google.com/drive/folders/1XTFbJcsvLQjKqA91GMtvhPvzMCY0NXLR?usp=sharing" target="_blank" rel="noopener noreferrer">
                <i class="bi bi-file-earmark-pdf me-2"></i>เอกสารนักศึกษา</a></li>
-
             <li><a class="dropdown-item" href="https://drive.google.com/drive/folders/1V5HM08kMsxBm9rwfMmq0HdB7_y5Mnrms?usp=sharing" target="_blank" rel="noopener noreferrer">
                <i class="bi bi-file-earmark-pdf me-2"></i>เอกสารครู-บุคลากร</a></li>
           </ul>
@@ -123,53 +281,352 @@
   </div>
 </nav>
 
-<!-- วิดีโอหน้าแรก -->
-<main class="container hero-wrap">
-  <div class="hero-video">
-    <video autoplay muted loop playsinline controls preload="metadata">
-      <source src="./images/promote.mp4" type="video/mp4">
-      เบราว์เซอร์ของคุณไม่รองรับวิดีโอ
-    </video>
+<!-- ===== NAVBAR สีฟ้า (แถบทางลัด) ===== -->
+<nav class="sub-nav" aria-label="ทางลัด">
+  <div class="container sub-scroll">
+    <div class="d-flex justify-content-lg-center">
+      <a href="class.html"><i class="bi bi-journal-bookmark"></i>หลักสูตร</a>
+      <a href="about.html"><i class="bi bi-building"></i>เกี่ยวกับวิทยาลัย</a>
+      <a href="https://www.facebook.com/Alumni.NETC.KK" target="_blank" rel="noopener noreferrer"><i class="bi bi-people"></i>ศิษย์เก่า</a>
+      <a href="#"><i class="bi bi-award"></i>ทุนการศึกษา</a>
+      <a href="https://www.facebook.com/netDSL2564" target="_blank" rel="noopener noreferrer"><i class="bi bi-cash-coin"></i>กองทุนกู้ยืม</a>
+      <a href="https://www.facebook.com/profile.php?id=61569609743951" target="_blank" rel="noopener noreferrer"><i class="bi bi-lightbulb"></i>ศูนย์บ่มเพาะ</a>
+      <a href="#"><i class="bi bi-patch-check"></i>ประกันคุณภาพ</a>
+      <a href="https://www.facebook.com/profile.php?id=100083373210912" target="_blank" rel="noopener noreferrer"><i class="bi bi-briefcase"></i>แนะแนวอาชีพ</a>
+    </div>
   </div>
+</nav>
+
+<main>
+
+  <!-- ===== วิดีโอหน้าแรก ===== -->
+  <div class="container hero-wrap">
+    <div class="hero-video">
+      <video autoplay muted loop playsinline controls preload="metadata">
+        <source src="./images/promote.mp4" type="video/mp4">
+        เบราว์เซอร์ของคุณไม่รองรับวิดีโอ
+      </video>
+    </div>
+  </div>
+
+  <!-- ===== สไลด์ภาพ (ต่อท้ายวิดีโอ) ===== -->
+  <div class="container slide-wrap">
+    <div id="heroCarousel" class="carousel slide carousel-fade hero-carousel" data-bs-ride="carousel" data-bs-interval="4000">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="สไลด์ 1"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="สไลด์ 2"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="สไลด์ 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active"><img src="./Images/slide1.png" class="d-block w-100" alt="สไลด์ 1"></div>
+        <div class="carousel-item"><img src="./Images/slide2.png" class="d-block w-100" alt="สไลด์ 2"></div>
+        <div class="carousel-item"><img src="https://picsum.photos/1920/600?random=3" class="d-block w-100" alt="สไลด์ 3"></div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">ก่อนหน้า</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">ถัดไป</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== เมนูลัด ===== -->
+  <section class="container section">
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-3">
+      <div class="col"><a class="menu-card" href="register.html"><i class="bi bi-pencil-square"></i><span>สมัครเรียน</span></a></div>
+      <div class="col"><a class="menu-card" href="class.html"><i class="bi bi-journal-bookmark"></i><span>หลักสูตร</span></a></div>
+      <div class="col"><a class="menu-card" href="https://netc.sisacloud.com/" target="_blank" rel="noopener noreferrer"><i class="bi bi-person-badge"></i><span>ระบบ SISA</span></a></div>
+      <div class="col"><a class="menu-card" href="https://drive.google.com/drive/folders/1XTFbJcsvLQjKqA91GMtvhPvzMCY0NXLR?usp=sharing" target="_blank" rel="noopener noreferrer"><i class="bi bi-file-earmark-text"></i><span>เอกสารนักศึกษา</span></a></div>
+      <div class="col"><a class="menu-card" href="#"><i class="bi bi-award"></i><span>ทุนการศึกษา</span></a></div>
+      <div class="col"><a class="menu-card" href="about.html"><i class="bi bi-geo-alt"></i><span>ติดต่อเรา</span></a></div>
+    </div>
+  </section>
+
+  <!-- ===== หลักสูตรที่เปิดสอน ===== -->
+  <section class="container section">
+    <h2 class="section-title">หลักสูตรที่เปิดสอน</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col">
+        <a class="course-card" href="class1.html">
+          <h3>ระดับ ปวช.</h3>
+          <p>ประกาศนียบัตรวิชาชีพ</p>
+          <span class="more">ดูรายละเอียด <i class="bi bi-arrow-right"></i></span>
+        </a>
+      </div>
+      <div class="col">
+        <a class="course-card" href="class2.html">
+          <h3>ระดับ ปวส.</h3>
+          <p>ประกาศนียบัตรวิชาชีพชั้นสูง</p>
+          <span class="more">ดูรายละเอียด <i class="bi bi-arrow-right"></i></span>
+        </a>
+      </div>
+      <div class="col">
+        <a class="course-card" href="class3.html">
+          <h3>รอบคนทำงาน</h3>
+          <p>สำหรับผู้ที่ทำงานอยู่และต้องการเรียนต่อ</p>
+          <span class="more">ดูรายละเอียด <i class="bi bi-arrow-right"></i></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ภาพและวิดีโอเกี่ยวกับวิทยาลัย (สร้างจากข้อมูลด้านล่าง) ===== -->
+  <section class="container section">
+    <h2 class="section-title">ภาพและวิดีโอเกี่ยวกับวิทยาลัย</h2>
+    <p class="section-sub">กดที่ภาพเพื่อขยายดู</p>
+    <div class="row row-cols-1 row-cols-lg-2 g-4" id="aboutGrid"></div>
+  </section>
+
+  <!-- ===== ประชาสัมพันธ์ / ประกาศภายในวิทยาลัย (สร้างจากข้อมูลด้านล่าง) ===== -->
+  <section class="container section">
+    <h2 class="section-title">ประชาสัมพันธ์และประกาศภายในวิทยาลัย</h2>
+    <p class="section-sub">กดที่ภาพเพื่อขยายดู เลื่อนซ้าย-ขวาเพื่อดูภาพถัดไป</p>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="noticeGrid"></div>
+  </section>
+
 </main>
 
-<!-- สไลด์ภาพ (ต่อท้ายวิดีโอ) -->
-<div class="container slide-wrap">
-  <div id="heroCarousel" class="carousel slide carousel-fade hero-carousel" data-bs-ride="carousel" data-bs-interval="4000">
-
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="สไลด์ 1"></button>
-      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="สไลด์ 2"></button>
-      <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="สไลด์ 3"></button>
-    </div>
-
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="./Images/slide1.png" class="d-block w-100" alt="สไลด์ 1">
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row g-3 align-items-center">
+      <div class="col-md-8">
+        <strong>วิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ</strong><br>
+        <small>ใส่ที่อยู่และเบอร์โทรของวิทยาลัยที่นี่</small>
       </div>
-      <div class="carousel-item">
-        <img src="./Images/slide2.png" class="d-block w-100" alt="สไลด์ 2">
-      </div>
-      <div class="carousel-item">
-        <img src="https://picsum.photos/1920/600?random=3" class="d-block w-100" alt="สไลด์ 3">
+      <div class="col-md-4 text-md-end">
+        <a href="https://www.facebook.com/messages/t/209337135889087" target="_blank" rel="noopener noreferrer" class="me-3"><i class="bi bi-facebook"></i> Facebook</a>
+        <a href="https://line.me/R/ti/p/@228bjrld?oat_content=url" target="_blank" rel="noopener noreferrer"><i class="bi bi-line"></i> LINE</a>
       </div>
     </div>
+    <hr style="border-color: rgba(255,255,255,.2);">
+    <small>Copyright © 2026 วิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ</small>
+  </div>
+</footer>
 
-    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">ก่อนหน้า</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">ถัดไป</span>
-    </button>
-
+<!-- ===== หน้าต่างดูภาพใหญ่ (ใช้ร่วมกันทุกการ์ด) ===== -->
+<div class="modal fade" id="viewerModal" tabindex="-1" aria-labelledby="viewerTitle" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header border-secondary">
+        <h2 class="modal-title fs-5" id="viewerTitle"></h2>
+        <span class="ms-3 small text-white-50" id="viewerCount"></span>
+        <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="modal" aria-label="ปิด"></button>
+      </div>
+      <div class="modal-body p-0">
+        <div id="viewerCarousel" class="carousel slide">
+          <div class="carousel-inner" id="viewerInner"></div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#viewerCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">ก่อนหน้า</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#viewerCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">ถัดไป</span>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  // ใส่ active ให้ลิงก์ของหน้าปัจจุบัน
+  /* =====================================================
+     ข้อมูลส่วน "ภาพและวิดีโอเกี่ยวกับวิทยาลัย"  (แก้ตรงนี้)
+     - type "images" : ใส่ images: [...]  (ภาพสไลด์ กดขยายได้)
+     - type "video"  : ใส่ src: "ลิงก์ฝังวิดีโอ" (Facebook/YouTube embed)
+     ===================================================== */
+  const aboutCards = [
+    {
+      type: "images",
+      icon: "bi-buildings",
+      title: "ภาพบรรยากาศวิทยาลัย",
+      images: ["images/about1-1.jpg", "images/about1-2.jpg", "images/about1-3.jpg"],
+      desc: "ใส่คำอธิบายสั้นๆ เช่น อาคารเรียน โรงฝึกงาน และบรรยากาศภายในวิทยาลัย"
+    },
+    {
+      type: "video",
+      icon: "bi-play-circle",
+      title: "วิดีโอแนะนำวิทยาลัย",
+      src: "https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Fnetc.ac.th%2Fvideos%2F1494652308589444%2F&show_text=false&width=560&t=0",
+      desc: "ใส่คำอธิบายวิดีโอที่นี่"
+    },
+    {
+      type: "images",
+      icon: "bi-people",
+      title: "ภาพกิจกรรมนักศึกษา",
+      images: ["images/about2-1.jpg", "images/about2-2.jpg", "images/about2-3.jpg"],
+      desc: "ใส่คำอธิบายสั้นๆ เช่น กิจกรรมกีฬาสี วันไหว้ครู และกิจกรรมจิตอาสา"
+    },
+    {
+      type: "video",
+      icon: "bi-camera-video",
+      title: "วิดีโอกิจกรรม",
+      src: "https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Fnetc.ac.th%2Fvideos%2F1442138117057287%2F&show_text=false&width=560&t=0",
+      desc: "ใส่คำอธิบายวิดีโอที่นี่"
+    }
+  ];
+
+  /* =====================================================
+     ข้อมูลส่วน "ประชาสัมพันธ์และประกาศภายในวิทยาลัย"  (แก้ตรงนี้)
+     - 1 ก้อน = 1 การ์ด,  images = ภาพสไลด์ของประกาศนั้น
+     เพิ่มประกาศ: คัดลอกก้อน { ... }, ไปต่อท้าย
+     ===================================================== */
+  const notices = [
+    {
+      tag: "ประกาศวิทยาลัย",
+      date: "12 ตุลาคม 2569",
+      title: "ใส่หัวข้อประกาศที่ 1",
+      images: ["images/notice1-1.jpg", "images/notice1-2.jpg"],
+      desc: "ใส่รายละเอียดสั้นๆ ของประกาศนี้"
+    },
+    {
+      tag: "ประชาสัมพันธ์",
+      date: "10 ตุลาคม 2569",
+      title: "ใส่หัวข้อประชาสัมพันธ์ที่ 2",
+      images: ["images/notice2-1.jpg", "images/notice2-2.jpg", "images/notice2-3.jpg"],
+      desc: "ใส่รายละเอียดสั้นๆ ของประกาศนี้"
+    },
+    {
+      tag: "ประกาศวิทยาลัย",
+      date: "2 ตุลาคม 2569",
+      title: "ใส่หัวข้อประกาศที่ 3",
+      images: ["images/notice3-1.jpg"],
+      desc: "ใส่รายละเอียดสั้นๆ ของประกาศนี้"
+    }
+  ];
+
+  /* ภาพสำรอง: ถ้าหาไฟล์ภาพไม่เจอ จะแสดงกรอบสีชมพูอ่อนแทน */
+  const fallback = "data:image/svg+xml;utf8," + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450">' +
+    '<rect width="100%" height="100%" fill="#efe6e6"/>' +
+    '<text x="50%" y="50%" fill="#800000" font-size="28" text-anchor="middle" ' +
+    'dominant-baseline="middle" font-family="sans-serif">ใส่ภาพที่นี่</text></svg>'
+  );
+
+  /* ชุดภาพทั้งหมดที่กดขยายได้ (อ้างด้วยเลขลำดับ) */
+  const viewerSets = [];
+
+  /* สร้างสไลด์ภาพในการ์ด */
+  function buildSlides(cid, images, title) {
+    const setIndex = viewerSets.push({ title, images }) - 1;
+    const n = images.length;
+
+    const items = images.map((src, k) => `
+      <div class="carousel-item${k === 0 ? " active" : ""}">
+        <img src="${src}" alt="${title} ภาพที่ ${k + 1}" class="zoomable d-block w-100" loading="lazy"
+             onerror="this.onerror=null;this.src='${fallback}'">
+      </div>`).join("");
+
+    const dots = n > 1 ? `
+      <div class="carousel-indicators">
+        ${images.map((_, k) => `<button type="button" data-bs-target="#${cid}" data-bs-slide-to="${k}"
+          ${k === 0 ? 'class="active" aria-current="true"' : ""} aria-label="ภาพที่ ${k + 1}"></button>`).join("")}
+      </div>` : "";
+
+    const arrows = n > 1 ? `
+      <button class="carousel-control-prev" type="button" data-bs-target="#${cid}" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">ก่อนหน้า</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#${cid}" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">ถัดไป</span>
+      </button>` : "";
+
+    return `
+      <div id="${cid}" class="carousel slide card-slide" data-set="${setIndex}">
+        ${dots}
+        <div class="carousel-inner">${items}</div>
+        ${arrows}
+        <span class="zoom-hint"><i class="bi bi-arrows-fullscreen me-1"></i>กดเพื่อขยาย</span>
+      </div>`;
+  }
+
+  /* การ์ดภาพ/วิดีโอเกี่ยวกับวิทยาลัย */
+  const aboutGrid = document.getElementById("aboutGrid");
+  aboutCards.forEach((c, i) => {
+    const media = c.type === "video"
+      ? `<div class="ratio ratio-16x9 bg-black">
+           <iframe src="${c.src}" title="${c.title}" loading="lazy" allowfullscreen style="border:0;"></iframe>
+         </div>`
+      : buildSlides(`aboutSlide${i}`, c.images, c.title);
+
+    aboutGrid.insertAdjacentHTML("beforeend", `
+      <div class="col">
+        <article class="info-card">
+          <div class="info-head"><i class="bi ${c.icon}"></i>${c.title}</div>
+          ${media}
+          <div class="info-body"><p>${c.desc}</p></div>
+        </article>
+      </div>`);
+  });
+
+  /* การ์ดประกาศ */
+  const noticeGrid = document.getElementById("noticeGrid");
+  notices.forEach((n, i) => {
+    noticeGrid.insertAdjacentHTML("beforeend", `
+      <div class="col">
+        <article class="info-card">
+          <div class="info-head"><i class="bi bi-megaphone"></i>${n.tag}<span class="head-date">${n.date}</span></div>
+          ${buildSlides(`noticeSlide${i}`, n.images, n.title)}
+          <div class="info-body">
+            <h3>${n.title}</h3>
+            <p>${n.desc}</p>
+          </div>
+        </article>
+      </div>`);
+  });
+
+  /* หน้าต่างดูภาพใหญ่ */
+  const viewerEl = document.getElementById("viewerModal");
+  const viewerCarousel = document.getElementById("viewerCarousel");
+  const viewerInner = document.getElementById("viewerInner");
+  const viewerTitle = document.getElementById("viewerTitle");
+  const viewerCount = document.getElementById("viewerCount");
+  const viewerArrows = viewerCarousel.querySelectorAll(".carousel-control-prev, .carousel-control-next");
+  const viewer = new bootstrap.Modal(viewerEl);
+  let total = 0;
+
+  function openViewer(setIndex, start) {
+    const s = viewerSets[setIndex];
+    total = s.images.length;
+    viewerTitle.textContent = s.title;
+    viewerCount.textContent = total > 1 ? `${start + 1} / ${total}` : "";
+    viewerInner.innerHTML = "";
+
+    s.images.forEach((src, k) => {
+      const item = document.createElement("div");
+      item.className = "carousel-item" + (k === start ? " active" : "");
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = `${s.title} ภาพที่ ${k + 1}`;
+      img.onerror = () => { img.onerror = null; img.src = fallback; };
+      item.appendChild(img);
+      viewerInner.appendChild(item);
+    });
+
+    viewerArrows.forEach(btn => btn.style.display = total > 1 ? "" : "none");
+    viewer.show();
+  }
+
+  /* กดที่ภาพในการ์ด -> เปิดภาพใหญ่ที่ภาพเดียวกับที่กำลังแสดง */
+  document.addEventListener("click", e => {
+    const img = e.target.closest(".zoomable");
+    if (!img) return;
+    const slider = img.closest("[data-set]");
+    const items = [...slider.querySelectorAll(".carousel-item")];
+    const start = Math.max(items.findIndex(el => el.classList.contains("active")), 0);
+    openViewer(Number(slider.dataset.set), start);
+  });
+
+  viewerCarousel.addEventListener("slid.bs.carousel", e => {
+    viewerCount.textContent = `${e.to + 1} / ${total}`;
+  });
+
+  /* ใส่ active ให้ลิงก์ของหน้าปัจจุบัน */
   const currentPage = location.pathname.split("/").pop();
   document.querySelectorAll("#mainNav .nav-link").forEach(link => {
     if (link.getAttribute("href") === currentPage) {
