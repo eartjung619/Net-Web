@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>เกี่ยวกับ เทคโนภาคฯ | วิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --maroon: #800000;
+      --maroon-dark: #4a0808;
+      --blue: #1565c0;
+      --navy: #0b2f63;
+      --gold: #ffd966;
+      --cream: #fbf5ee;
+      --ink: #2b2b2b;
+      --muted: #5f5f5f;
+      --line: #d9cbc4;
+    }
+
+    /* ฟอนต์ Prompt เฉพาะเนื้อหา (ไม่รวม navbar หลัก) */
+    .sub-nav, main {
+      font-family: 'Prompt', sans-serif;
+      font-weight: 400;
+    }
+    body { background: var(--cream); }
+
+    /* ===== navbar หลัก ===== */
+    .navbar .nav-link { border-bottom: 3px solid transparent; transition: all .2s; }
+    .navbar .nav-link:hover { color: #ffd966; }
+    .navbar .nav-link.active {
+      color: #ffd966 !important;
+      font-weight: 600;
+      border-bottom: 3px solid #ffd966;
+    }
+
+    /* ===== navbar สีฟ้า ===== */
+    .sub-nav {
+      background: linear-gradient(to bottom, #1565c0, #0d47a1);
+      box-shadow: 0 .25rem .5rem rgba(0, 0, 0, .15);
+    }
+    .sub-nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .75rem 1rem;
+      color: #fff;
+      font-weight: 500;
+      font-size: .95rem;
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: background .2s, border-color .2s;
+    }
+    .sub-nav a:hover { background: rgba(255, 255, 255, .15); border-bottom-color: #ffd966; color: #fff; }
+    .sub-nav a.active { background: rgba(255, 255, 255, .18); border-bottom-color: #ffd966; font-weight: 600; }
+    .sub-scroll { overflow-x: auto; scrollbar-width: none; }
+    .sub-scroll::-webkit-scrollbar { display: none; }
+
+    /* ===== เนื้อหา ===== */
+    main { color: var(--ink); }
+
+    /* ===== หัวหน้า (พื้นสว่าง ตัดกับ navbar เข้ม) ===== */
+    .page-hero {
+      background: linear-gradient(180deg, #fff 0%, #fbeede 100%);
+      border-bottom: 5px solid var(--gold);
+      padding: 2.75rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: "";
+      position: absolute;
+      right: -90px;
+      top: -90px;
+      width: 330px;
+      height: 330px;
+      border-radius: 50%;
+      border: 44px solid rgba(21, 101, 192, .08);
+    }
+    .page-hero::after {
+      content: "";
+      position: absolute;
+      left: -60px;
+      bottom: -110px;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      border: 36px solid rgba(128, 0, 0, .07);
+    }
+    .page-hero .container { position: relative; z-index: 1; }
+    .page-hero h1 { color: var(--maroon); font-weight: 700; font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: .35rem; }
+    .page-hero p { color: var(--navy); font-weight: 600; margin: 0; letter-spacing: .5px; }
+    .hero-logo {
+      width: 130px;
+      height: 130px;
+      object-fit: contain;
+      background: #fff;
+      border-radius: 50%;
+      padding: .6rem;
+      border: 4px solid var(--maroon);
+      box-shadow: 0 .5rem 1.25rem rgba(128, 0, 0, .2);
+    }
+
+    .content-wrap { padding-bottom: 3.5rem; }
+    .block { margin-top: 2.25rem; }
+
+    /* ===== การ์ดกลาง ===== */
+    .card-x {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 1.1rem;
+      overflow: hidden;
+      height: 100%;
+      box-shadow: 0 .25rem .75rem rgba(60, 20, 20, .08);
+      transition: box-shadow .25s, transform .25s;
+    }
+    .card-x:hover { box-shadow: 0 .7rem 1.5rem rgba(60, 20, 20, .16); transform: translateY(-3px); }
+    .card-x .card-pad { padding: 1.5rem 1.6rem; }
+    .t-maroon { border-top: 6px solid var(--maroon); }
+    .t-blue   { border-top: 6px solid var(--blue); }
+    .t-gold   { border-top: 6px solid var(--gold); }
+
+    .card-head { display: flex; align-items: center; gap: .75rem; margin-bottom: 1rem; }
+    .card-head .icon {
+      flex: 0 0 auto;
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      font-size: 1.4rem;
+      border-radius: .8rem;
+      color: #fff;
+      background: var(--maroon);
+    }
+    .icon.ic-blue { background: var(--blue); }
+    .icon.ic-gold { background: var(--gold); color: var(--maroon-dark); }
+    .card-head h2 { font-size: 1.35rem; font-weight: 600; color: var(--maroon); margin: 0; }
+    .card-head small { display: block; color: var(--muted); font-weight: 400; font-size: .85rem; }
+    .head-blue h2 { color: var(--navy); }
+
+    /* ===== วิสัยทัศน์ (พื้นเข้ม ตัวอักษรขาว) ===== */
+    .vision-card {
+      background: linear-gradient(135deg, var(--maroon-dark), var(--maroon));
+      border: 0;
+      border-left: 8px solid var(--gold);
+      color: #fff;
+    }
+    .vision-card .card-head h2 { color: #fff; }
+    .vision-card .card-head small { color: #f0d6d6; }
+    .vision-card .icon { background: var(--gold); color: var(--maroon-dark); }
+    .quote {
+      font-size: 1.3rem;
+      line-height: 1.9;
+      color: #fff;
+      font-weight: 500;
+      margin: 0;
+      position: relative;
+      padding-left: 2.8rem;
+    }
+    .quote::before {
+      content: "\201C";
+      position: absolute;
+      left: 0;
+      top: -.7rem;
+      font-size: 4.2rem;
+      line-height: 1;
+      color: var(--gold);
+      font-family: Georgia, serif;
+    }
+
+    /* ===== พันธกิจ ===== */
+    .mission-list { list-style: none; padding: 0; margin: 0; counter-reset: m; }
+    .mission-list li {
+      counter-increment: m;
+      display: flex;
+      gap: .9rem;
+      align-items: flex-start;
+      padding: .85rem 0;
+      border-bottom: 1px dashed var(--line);
+      line-height: 1.75;
+    }
+    .mission-list li:last-child { border-bottom: 0; }
+    .mission-list li::before {
+      content: counter(m);
+      flex: 0 0 auto;
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      background: var(--maroon);
+      color: #fff;
+      font-weight: 700;
+      border-radius: 50%;
+    }
+
+    /* ===== อัตลักษณ์ / เอกลักษณ์ ===== */
+    .identity-card { text-align: center; border: 0; color: #fff; }
+    .identity-card.id-maroon { background: linear-gradient(135deg, var(--maroon-dark), var(--maroon)); }
+    .identity-card.id-blue { background: linear-gradient(135deg, var(--navy), var(--blue)); }
+    .identity-card .big { font-size: 1.5rem; font-weight: 600; line-height: 1.6; margin: 0; color: #fff; }
+    .identity-card .tag {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--maroon-dark);
+      font-weight: 700;
+      border-radius: 2rem;
+      padding: .15rem 1.1rem;
+      font-size: .85rem;
+      margin-bottom: .8rem;
+    }
+
+    /* ===== ปรัชญา ===== */
+    .philosophy-banner {
+      background: linear-gradient(135deg, var(--navy), var(--blue));
+      color: #fff;
+      border-radius: 1.1rem;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      margin-bottom: 1.25rem;
+      border-bottom: 6px solid var(--gold);
+    }
+    .philosophy-banner .label { color: var(--gold); font-weight: 600; letter-spacing: 1px; }
+    .philosophy-banner h2 { font-weight: 700; font-size: clamp(1.5rem, 3.5vw, 2.1rem); margin: .3rem 0 0; color: #fff; }
+
+    .value-card .num { font-size: 2.8rem; font-weight: 700; line-height: 1; }
+    .value-card.t-maroon .num { color: rgba(128, 0, 0, .22); }
+    .value-card.t-blue .num { color: rgba(21, 101, 192, .25); }
+    .value-card.t-gold .num { color: rgba(214, 160, 0, .45); }
+    .value-card h3 { font-size: 1.2rem; font-weight: 600; margin: .2rem 0 .6rem; }
+    .value-card.t-maroon h3 { color: var(--maroon); }
+    .value-card.t-blue h3 { color: var(--navy); }
+    .value-card.t-gold h3 { color: #7a5b00; }
+    .value-card p { margin: 0; line-height: 1.8; font-size: .96rem; }
+
+    /* ===== ช่องรูปภาพ ===== */
+    .img-slot { background: #efe6e6; width: 100%; overflow: hidden; }
+    .img-slot img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .ratio-wide { aspect-ratio: 16 / 9; }
+    .ratio-square { aspect-ratio: 1 / 1; }
+    .img-contain img { object-fit: contain; padding: 1rem; }
+
+    /* ===== สัญลักษณ์ ===== */
+    .part-item {
+      display: flex;
+      gap: .85rem;
+      align-items: flex-start;
+      padding: .9rem 1rem;
+      background: var(--cream);
+      border-left: 5px solid var(--maroon);
+      border-radius: .6rem;
+      margin-top: .75rem;
+    }
+    .part-item:nth-of-type(2) { border-left-color: var(--blue); }
+    .part-item:nth-of-type(3) { border-left-color: #d6a000; }
+    .part-item .bi { font-size: 1.5rem; color: var(--maroon); line-height: 1.2; }
+    .part-item:nth-of-type(2) .bi { color: var(--blue); }
+    .part-item:nth-of-type(3) .bi { color: #b58900; }
+    .part-item strong { color: var(--ink); display: block; }
+    .abbr-box {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--maroon);
+      color: #fff;
+      border-radius: .7rem;
+      padding: .35rem 1rem;
+      font-weight: 600;
+      margin: .3rem .4rem 0 0;
+    }
+    .abbr-box small { color: var(--gold); font-weight: 500; }
+    .abbr-box.b2 { background: var(--blue); }
+
+    /* ===== สีประจำวิทยาลัย ===== */
+    .color-card { text-align: center; }
+    .swatch { height: 110px; display: grid; place-items: center; font-weight: 700; letter-spacing: 1px; }
+    .swatch.maroon { background: var(--maroon); color: #fff; }
+    .swatch.yellow { background: var(--gold); color: var(--maroon-dark); }
+    .swatch.blue { background: var(--blue); color: #fff; }
+    .color-card h3 { font-size: 1.15rem; font-weight: 600; color: var(--ink); margin: 0 0 .25rem; }
+    .color-card p { margin: 0; color: var(--muted); }
+
+    /* ===== ทำเนียบผู้อำนวยการ ===== */
+    .dir-card { text-align: center; position: relative; }
+    .dir-card .img-slot { aspect-ratio: 3 / 4; }
+    .dir-order {
+      position: absolute;
+      top: .7rem;
+      left: .7rem;
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      background: var(--maroon);
+      color: #fff;
+      font-weight: 700;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      z-index: 2;
+    }
+    .dir-card h3 { font-size: 1.02rem; font-weight: 600; color: var(--maroon); margin: 0 0 .25rem; }
+    .dir-year { color: var(--muted); font-size: .9rem; margin: 0; }
+    .now-badge {
+      display: inline-block;
+      background: var(--blue);
+      color: #fff;
+      font-size: .75rem;
+      font-weight: 600;
+      border-radius: 2rem;
+      padding: .1rem .75rem;
+      margin-top: .45rem;
+    }
+    .dir-card.current { border: 3px solid var(--blue); }
+    .dir-card.current .dir-order { background: var(--blue); }
+
+    @media (min-width: 992px) {
+      .row-5 > * { flex: 0 0 auto; width: 20%; }
+    }
+
+/* ===== ไอคอนที่ใช้โลโก้แทน ===== */
+.icon.icon-logo {
+  width: 58px;
+  height: 58px;
+  padding: 4px;
+  background: #fff;
+  border: 2px solid var(--blue);
+  overflow: hidden;
+}
+.icon-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+/* ถ้ายังไม่มีไฟล์โลโก้ จะแสดงไอคอนธงแทนชั่วคราว */
+.icon-logo .bi { display: none; color: var(--blue); }
+.icon-logo.no-logo .bi { display: block; }
+
+/* ภาพที่ขยายเต็มความสูงของการ์ดอัตโนมัติ */
+.img-fill {
+  position: relative;
+  height: 100%;
+  min-height: 260px;
+  background: #efe6e6;
+  overflow: hidden;
+}
+.img-fill img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;      /* เต็มช่อง ตัดส่วนเกิน */
+  object-position: center;
+}
+/* จอเล็ก: การ์ดเรียงลงมา ใช้สัดส่วนภาพแทน */
+@media (max-width: 991.98px) {
+  .img-fill { height: auto; min-height: 0; aspect-ratio: 16 / 9; }
+}
+
+  </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR หลัก ===== -->
+<nav class="navbar navbar-expand-lg shadow-sm" data-bs-theme="dark" style="background-color: #800000;">
+  <div class="container">
+
+    <a class="navbar-brand d-flex align-items-center" href="firstpage.html">
+      <img src="./Images/Logo-NET.png" alt="Logo" height="50" class="me-2">
+      <span class="fw-semibold text-light">วิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ</span>
+    </a>
+
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse" data-bs-target="#mainNav"
+            aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNav">
+
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-3">
+        <li class="nav-item"><a class="nav-link" href="register.html">สมัครเรียน</a></li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="class.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            หลักสูตรที่เปิดสอน
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="class.html">ทั้งหมด</a></li>
+            <li><a class="dropdown-item" href="class2.html">ระดับ ปวส.</a></li>
+            <li><a class="dropdown-item" href="class1.html">ระดับ ปวช.</a></li>
+            <li><a class="dropdown-item" href="class3.html">รอบคนทำงาน</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://netc.sisacloud.com/" target="_blank" rel="noopener noreferrer">
+            ระบบ SISA <i class="bi bi-box-arrow-up-right small"></i>
+          </a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="about.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            ติดต่อ
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="about.html">ที่ตั้งและการติดต่อ</a></li>
+            <li><a class="dropdown-item" href="https://www.facebook.com/messages/t/209337135889087" target="_blank" rel="noopener noreferrer">Facebook Messenger</a></li>
+            <li><a class="dropdown-item" href="https://line.me/R/ti/p/@228bjrld?oat_content=url" target="_blank" rel="noopener noreferrer">LineOA</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <form class="d-flex mx-lg-3 mb-2 mb-lg-0" role="search">
+        <input class="form-control me-2" type="search" placeholder="ค้นหา..." aria-label="Search">
+        <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
+      </form>
+
+      <div class="d-flex align-items-center gap-3 fs-5">
+        <div class="dropdown">
+          <button class="btn btn-link text-white p-0 fs-5" type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false" title="เอกสารดาวน์โหลด">
+            <i class="bi bi-file-earmark-text"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><h6 class="dropdown-header">เอกสารดาวน์โหลด</h6></li>
+            <li><a class="dropdown-item" href="https://drive.google.com/drive/folders/1XTFbJcsvLQjKqA91GMtvhPvzMCY0NXLR?usp=sharing" target="_blank" rel="noopener noreferrer">
+               <i class="bi bi-file-earmark-pdf me-2"></i>เอกสารนักศึกษา</a></li>
+            <li><a class="dropdown-item" href="https://drive.google.com/drive/folders/1V5HM08kMsxBm9rwfMmq0HdB7_y5Mnrms?usp=sharing" target="_blank" rel="noopener noreferrer">
+               <i class="bi bi-file-earmark-pdf me-2"></i>เอกสารครู-บุคลากร</a></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+<!-- ===== NAVBAR สีฟ้า ===== -->
+<nav class="sub-nav" aria-label="ทางลัด">
+  <div class="container sub-scroll">
+    <div class="d-flex justify-content-lg-center">
+      <a href="class.html"><i class="bi bi-journal-bookmark"></i>หลักสูตร</a>
+      <a href="about2.html"><i class="bi bi-building"></i>เกี่ยวกับวิทยาลัย</a>
+      <a href="https://www.facebook.com/Alumni.NETC.KK" target="_blank" rel="noopener noreferrer"><i class="bi bi-people"></i>ศิษย์เก่า</a>
+      <a href="product.html" class="active" aria-current="page"><i class="bi bi-award"></i>ทุนการศึกษา</a>
+      <a href="https://www.facebook.com/netDSL2564" target="_blank" rel="noopener noreferrer"><i class="bi bi-cash-coin"></i>กองทุนกู้ยืม</a>
+      <a href="https://www.facebook.com/profile.php?id=61569609743951" target="_blank" rel="noopener noreferrer"><i class="bi bi-lightbulb"></i>ศูนย์บ่มเพาะ</a>
+      <a href="#"><i class="bi bi-patch-check"></i>ประกันคุณภาพ</a>
+      <a href="https://www.facebook.com/profile.php?id=100083373210912" target="_blank" rel="noopener noreferrer"><i class="bi bi-briefcase"></i>แนะแนวอาชีพ</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ===== หัวหน้า ===== -->
+  <header class="page-hero">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-auto">
+          <img class="hero-logo" src="images/New Logo 04.png" alt="ตราวิทยาลัย" data-fallback>
+        </div>
+        <div class="col">
+          <h1>เกี่ยวกับ เทคโนภาคฯ</h1>
+          <p>NORTHEASTERN TECHNOLOGICAL COLLEGE</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container content-wrap">
+
+    <!-- ===== วิสัยทัศน์ ===== -->
+    <section class="block">
+      <div class="card-x vision-card">
+        <div class="card-pad">
+          <div class="card-head">
+            <span class="icon"><i class="bi bi-eye"></i></span>
+            <h2>วิสัยทัศน์ <small>Vision</small></h2>
+          </div>
+          <p class="quote">เป็นผู้นำด้านอาชีวศึกษา ผลิตและพัฒนากำลังคนด้านอาชีวศึกษาสู่มาตรฐานวิชาชีพ มีวินัย จิตสำนึกรักษ์สิ่งแวดล้อม</p>
+        </div>
+      </div>
+    </section>
+
+   <!-- ===== พันธกิจ ===== -->
+<section class="block">
+  <div class="card-x t-blue">
+    <div class="card-pad">
+      <div class="card-head head-blue">
+        <span class="icon icon-logo">
+          <img src="images/logo-panthakit.png" alt="โลโก้วิทยาลัย"
+               onerror="this.style.display='none'; this.parentNode.classList.add('no-logo');">
+          <i class="bi bi-flag"></i>
+        </span>
+        <h2>พันธกิจ <small>Mission</small></h2>
+      </div>
+      <ol class="mission-list">
+        <li>ผลิตและพัฒนากำลังคนด้านอาชีวศึกษาสู่มาตรฐานวิชาชีพ มีคุณลักษณะอันพึงประสงค์ สอดคล้องกับความต้องการของสถานประกอบการ ชุมชน สังคม</li>
+        <li>พัฒนาหลักสูตรและกระบวนการเรียน-การสอน ให้มีความยืดหยุ่น เชื่อมโยงกับมาตรฐานวิชาชีพ</li>
+        <li>พัฒนาเครือข่ายความร่วมมือกับสถานประกอบการ ศิษย์เก่า และหน่วยงานทั้งภาครัฐและเอกชน</li>
+        <li>ส่งเสริมการวิจัย นวัตกรรม และสิ่งประดิษฐ์ของครูและผู้เรียนเพื่อพัฒนาวิชาชีพอย่างเป็นระบบ</li>
+        <li>ส่งเสริมและพัฒนาสมรรถนะครูและบุคลากรทางการศึกษา</li>
+        <li>ปลูกฝัง วินัย จิตอาสาและจิตสำนึกรักษ์สิ่งแวดล้อม โดยยึดหลักปรัชญาของเศรษฐกิจพอเพียง</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+    <!-- ===== อัตลักษณ์ / เอกลักษณ์ ===== -->
+    <section class="block">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card-x identity-card id-maroon">
+            <div class="card-pad py-4">
+              <span class="tag">อัตลักษณ์</span>
+              <p class="big">“ทักษะดี มีวินัย ใฝ่เรียนรู้”</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card-x identity-card id-blue">
+            <div class="card-pad py-4">
+              <span class="tag">เอกลักษณ์</span>
+              <p class="big">“วิทยาลัยแห่งการสร้างอาชีพ”</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ปรัชญา ===== -->
+    <section class="block">
+      <div class="philosophy-banner">
+        <div class="label">ปรัชญา</div>
+        <h2>“คุณวุฒิ คุณธรรม คุณภาพ”</h2>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="card-x value-card t-maroon">
+            <div class="card-pad">
+              <div class="num">01</div>
+              <h3>คุณวุฒิ</h3>
+              <p>ความรู้ที่ผู้จบการศึกษาจะได้รับหลังจากสำเร็จการศึกษาจากสถาบัน ซึ่งแสดงถึงความรู้ ความสามารถและทักษะด้านวิชาชีพ โดยนักศึกษาเกิดทักษะและมีความรู้ความสามารถแต่ละสาขา สามารถนำความรู้และทักษะที่ได้ไปใช้อย่างมีประสิทธิภาพ และสามารถนำความรู้ไปประกอบอาชีพได้อย่างมีความสุข</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card-x value-card t-blue">
+            <div class="card-pad">
+              <div class="num">02</div>
+              <h3>คุณธรรม</h3>
+              <p>การประพฤติปฏิบัติในสิ่งที่ดีงาม ได้แก่ การทำความดี ไม่เบียดเบียนผู้อื่น มีความซื่อสัตย์ ความเสียสละ ความอดทน และความรับผิดชอบ การทำความดีทั้งทางด้านร่างกาย จิตใจ อารมณ์ และสิ่งแวดล้อม สามารถทำงานร่วมกับสังคมได้ ไม่เอารัดเอาเปรียบสังคมและไม่ทำให้ผู้อื่นเดือดร้อน</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card-x value-card t-gold">
+            <div class="card-pad">
+              <div class="num">03</div>
+              <h3>คุณภาพ</h3>
+              <p>ความสามารถและทักษะวิชาชีพ ผู้สำเร็จการศึกษาแต่ละสาขาวิชาชีพ ได้เป็นบุคลากรที่มีคุณค่าของสังคม สามารถนำความรู้และทักษะที่ได้ไปใช้ในการประกอบอาชีพได้อย่างมีประสิทธิภาพ</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== สัญลักษณ์ ===== -->
+    <section class="block">
+      <div class="card-x t-maroon">
+        <div class="row g-0">
+          <div class="col-lg-5">
+            <div class="img-slot img-contain ratio-square h-100" style="min-height:300px;">
+              <img src="images/Logo-NET.png" alt="สัญลักษณ์วิทยาลัย" data-fallback>
+            </div>
+          </div>
+          <div class="col-lg-7">
+            <div class="card-pad">
+              <div class="card-head">
+                <span class="icon"><i class="bi bi-gear"></i></span>
+                <h2>สัญลักษณ์ <small>ตราประจำวิทยาลัย</small></h2>
+              </div>
+              <p style="line-height:1.85;">เป็นรูปของฟันเฟืองมีจำนวน 32 ฟัน หมายถึง ช่างอุตสาหกรรม ที่มีการทำงานสัมพันธ์กันอย่างต่อเนื่อง ขยายความ รูปฟันเฟืองล้อมรอบภายในมีรูปวงกลม 2 วง ระหว่าง 2 วงนั้น มีตัวหนังสือ ชื่อวิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ อยู่ภายในเป็นส่วนครึ่งวงกลมด้านบนเป็นภาษาไทย และครึ่งวงกลมด้านล่างเป็นภาษาอังกฤษ NORTHEASTERN TECHNOLOGICAL COLLEGE</p>
+
+              <p class="fw-semibold mb-0" style="color:var(--maroon);">ภายในวงกลมแบ่งออกเป็น 3 ส่วน</p>
+              <div class="part-item">
+                <i class="bi bi-car-front"></i>
+                <div><strong>ส่วนที่ 1</strong>ส่วนบนเป็นรูปรถยนต์ และรถแทรกเตอร์ หมายถึงรถยนต์</div>
+              </div>
+              <div class="part-item">
+                <i class="bi bi-lightning-charge"></i>
+                <div><strong>ส่วนที่ 2</strong>ส่วนล่างด้านซ้ายเป็นเสาไฟฟ้าแรงสูง หมายถึง ช่างไฟฟ้ากำลังและช่างอิเล็กทรอนิกส์</div>
+              </div>
+              <div class="part-item">
+                <i class="bi bi-water"></i>
+                <div><strong>ส่วนที่ 3</strong>ส่วนล่างด้านขวาเป็นรูปเรือสำเภา หมายถึง พาณิชยกรรมและบริหารธุรกิจ</div>
+              </div>
+
+              <p class="fw-semibold mt-4 mb-1" style="color:var(--maroon);">อักษรย่อ</p>
+              <span class="abbr-box"><small>ภาษาไทย</small> ว.ภ.น.</span>
+              <span class="abbr-box b2"><small>ภาษาอังกฤษ</small> N.E.T.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== สีประจำวิทยาลัย ===== -->
+    <section class="block">
+      <div class="card-head">
+        <span class="icon ic-blue"><i class="bi bi-palette"></i></span>
+        <h2 style="color:var(--navy);">สีประจำวิทยาลัย</h2>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card-x color-card">
+            <div class="swatch maroon">เลือดหมู</div>
+            <div class="card-pad">
+              <h3>เลือดหมู</h3>
+              <p>หมายถึง ช่างอุตสาหกรรม</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-x color-card">
+            <div class="swatch yellow">เหลือง</div>
+            <div class="card-pad">
+              <h3>เหลือง</h3>
+              <p>หมายถึง สีประจำจังหวัด คือ สีของดอกคูน</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-x color-card">
+            <div class="swatch blue">ฟ้า</div>
+            <div class="card-pad">
+              <h3>ฟ้า</h3>
+              <p>หมายถึง พาณิชยกรรมและบริหารธุรกิจ</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ต้นไม้ประจำวิทยาลัย ===== -->
+    <section class="block">
+      <div class="card-x t-gold">
+        <div class="row g-0">
+          <div class="col-lg-5 order-lg-2">
+            <div class="img-fill">
+  <img src="images/tree01.png" alt="ต้นเฟื่องฟ้า" data-fallback>
+</div>
+          </div>
+          <div class="col-lg-7 order-lg-1">
+            <div class="card-pad">
+              <div class="card-head">
+                <span class="icon ic-gold"><i class="bi bi-flower1"></i></span>
+                <h2>ต้นไม้ประจำวิทยาลัย <small>ต้นเฟื่องฟ้า</small></h2>
+              </div>
+              <p style="line-height:1.85; margin:0;">ต้นเฟื่องฟ้า ซึ่งหมายถึง ความเป็นสิริมงคล ค้ำจุนให้กิจการวิทยาลัยมีความเจริญก้าวหน้า ยั่งยืน และมีความมั่นคงสืบต่อไป</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ตราสัญลักษณ์รอง ===== -->
+    <section class="block">
+      <div class="card-x t-blue">
+        <div class="row g-0">
+          <div class="col-lg-5">
+            <div class="img-slot img-contain ratio-wide h-100" style="min-height:260px;">
+              <img src="images/New Logo 04.png" alt="Sub-Logo Signature" data-fallback>
+            </div>
+          </div>
+          <div class="col-lg-7">
+            <div class="card-pad">
+              <div class="card-head head-blue">
+                <span class="icon ic-blue"><i class="bi bi-patch-check"></i></span>
+                <h2>ตราสัญลักษณ์รองอย่างเป็นทางการ <small>Sub-Logo Signature</small></h2>
+              </div>
+              <p style="line-height:1.85;">ตราสัญลักษณ์รองอย่างเป็นทางการ (Sub-Logo Signature) ถูกออกแบบเพื่อเป็นเครื่องหมายในการสื่อสารที่เป็นแบบเดียวกันทั้งวิทยาลัย เพื่อให้นักเรียน นักศึกษา บุคลากร ตลอดจนประชาชนทั่วไป สามารถจดจำและมีความน่าเชื่อถือต่อวิทยาลัย โดยมีตัวอักษรย่อ NET College ซึ่งย่อมาจากชื่อภาษาอังกฤษของวิทยาลัย คือ “NORTHEASTERN TECHNOLOGICAL COLLEGE” ตัว N มีลูกศรชี้ขึ้นบ่งบอกถึงการก้าวไปสู่วิทยาลัยแห่งการสร้างอาชีพ ตัวอักษรอวบอิ่ม แสดงถึงความอุดมสมบูรณ์</p>
+              <p style="line-height:1.85; margin:0;">สีของตราสัญลักษณ์ มาจากสีประจำสถาบัน ได้แก่ สีเลือดหมู สีเหลือง สีฟ้า ถูกออกแบบให้ดูทันสมัย สไตล์โมเดิร์น และมีสีสันสดใส ฟันเฟือง 3 ดวง หมายถึง การพัฒนาอย่างไม่หยุดนิ่ง และสีเลือดหมู แทนช่างอุตสาหกรรม สีเหลือง แทนศิลปกรรม และสีฟ้าแทนพาณิชยกรรมและบริหารธุรกิจ และสีดำ คำว่า “COLLEGE” แทนความรอบรู้ เชี่ยวชาญและประสบการณ์ของบุคลากรในวิทยาลัย</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ทำเนียบผู้อำนวยการ ===== -->
+<section class="block">
+  <div class="card-head">
+    <span class="icon"><i class="bi bi-person-badge"></i></span>
+    <h2>ทำเนียบครูใหญ่/ผู้อำนวยการ <small>วิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ จังหวัดขอนแก่น</small></h2>
+  </div>
+
+  <div class="row g-4 row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center">
+    <div class="col">
+      <div class="card-x dir-card">
+        <span class="dir-num">1</span>
+        <span class="dir-label">ลำดับที่ 1</span>
+        <h3>ดร.มังกร ภักดิ์โพธิ์</h3>
+        <p class="dir-year"><i class="bi bi-calendar3"></i>พ.ศ. 2518 - 2542</p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card-x dir-card">
+        <span class="dir-num">2</span>
+        <span class="dir-label">ลำดับที่ 2</span>
+        <h3>ดร.ชำนาญ อุปฮาด</h3>
+        <p class="dir-year"><i class="bi bi-calendar3"></i>พ.ศ. 2542 - 2557</p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card-x dir-card">
+        <span class="dir-num">3</span>
+        <span class="dir-label">ลำดับที่ 3</span>
+        <h3>นายสมใจ คงคาชาติ</h3>
+        <p class="dir-year"><i class="bi bi-calendar3"></i>พ.ศ. 2558 - 2564</p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card-x dir-card">
+        <span class="dir-num">4</span>
+        <span class="dir-label">ลำดับที่ 4</span>
+        <h3>ดร.สุคนธ์ สุคนธรัตนสุข</h3>
+        <p class="dir-year"><i class="bi bi-calendar3"></i>พ.ศ. 2564 - 2566</p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card-x dir-card current">
+        <span class="dir-num">5</span>
+        <span class="dir-label">ลำดับที่ 5<span class="now-badge">ปัจจุบัน</span></span>
+        <h3>นายภิเษกสิทธิ์ ชุมแวงวาปี</h3>
+        <p class="dir-year"><i class="bi bi-calendar3"></i>พ.ศ. 2567 - ปัจจุบัน</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  /* ถ้ายังไม่มีไฟล์ภาพ จะแสดงกรอบสีชมพูอ่อนพร้อมข้อความ "ใส่ภาพที่นี่" แทน */
+  const fallback = "data:image/svg+xml;utf8," + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600">' +
+    '<rect width="100%" height="100%" fill="#efe6e6"/>' +
+    '<text x="50%" y="50%" fill="#800000" font-size="32" text-anchor="middle" ' +
+    'dominant-baseline="middle" font-family="sans-serif">ใส่ภาพที่นี่</text></svg>'
+  );
+  document.querySelectorAll("img[data-fallback]").forEach(img => {
+    const swap = () => { img.onerror = null; img.src = fallback; };
+    img.addEventListener("error", swap, { once: true });
+    if (img.complete && img.naturalWidth === 0) swap();
+  });
+
+  /* ใส่ active ให้ลิงก์ของหน้าปัจจุบันใน navbar หลัก */
+  const currentPage = location.pathname.split("/").pop();
+  document.querySelectorAll("#mainNav .nav-link").forEach(link => {
+    if (link.getAttribute("href") === currentPage) {
+      link.classList.add("active");
+      link.setAttribute("aria-current", "page");
+    }
+  });
+</script>
+
+</body>
+</html>

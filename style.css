@@ -280,3 +280,207 @@ form .form-control:focus, form .form-select:focus { border-color: var(--orange);
 .site-footer hr { border-color: rgba(255,255,255,.2); }
 .site-footer small { font-weight: 400; opacity: .75; }
 
+/*ส่วนคลิปวีดีโอเริ่มต้นหน้าแรก */
+.hero-video video,
+.hero-video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  object-fit: cover;
+}    
+
+    /* ฟอนต์ Prompt เฉพาะเนื้อหา (ไม่รวม navbar หลัก) */
+    .sub-nav, main, footer, #viewerModal {
+      font-family: 'Prompt', sans-serif;
+      font-weight: 400;
+    }
+    main button, main input, main a.btn, #viewerModal button { font-family: inherit; }
+
+    /* ===== navbar หลัก ===== */
+    .navbar .nav-link { border-bottom: 3px solid transparent; transition: all .2s; }
+    .navbar .nav-link:hover { color: #ffd966; }
+    .navbar .nav-link.active {
+      color: #ffd966 !important;
+      font-weight: 600;
+      border-bottom: 3px solid #ffd966;
+    }
+
+    /* ===== navbar สีฟ้า (แถบทางลัด) ===== */
+    .sub-nav {
+      background: linear-gradient(to bottom, #1565c0, #0d47a1);
+      box-shadow: 0 .25rem .5rem rgba(0, 0, 0, .15);
+    }
+    .sub-nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .75rem 1rem;
+      color: #fff;
+      font-weight: 500;
+      font-size: .95rem;
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: background .2s, border-color .2s;
+    }
+    .sub-nav a:hover { background: rgba(255, 255, 255, .15); border-bottom-color: #ffd966; color: #fff; }
+    .sub-scroll { overflow-x: auto; scrollbar-width: none; }
+    .sub-scroll::-webkit-scrollbar { display: none; }
+
+    /* ===== วิดีโอ + สไลด์หน้าแรก ===== */
+    .hero-wrap { margin-top: 1.5rem; margin-bottom: 1.5rem; }
+    .hero-video {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      max-height: 560px;
+      width: 100%;
+      border-radius: 1.25rem;
+      overflow: hidden;
+      background: #000;
+      box-shadow: 0 .5rem 1.25rem rgba(0, 0, 0, .2);
+    }
+    .hero-video video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .hero-carousel .carousel-item img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 6;
+      object-fit: cover;
+      object-position: center;
+    }
+    .hero-carousel {
+      border-radius: 1.25rem;
+      overflow: hidden;
+      box-shadow: 0 .5rem 1.25rem rgba(0, 0, 0, .2);
+    }
+    .slide-wrap { margin-bottom: 1.5rem; }
+
+    /* ===== หัวข้อแต่ละส่วน ===== */
+    .section { margin-top: 3rem; }
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #800000;
+      margin-bottom: 1.25rem;
+    }
+    .section-title::before {
+      content: "";
+      width: 6px;
+      height: 1.9rem;
+      background: #ffd966;
+      border-radius: 3px;
+    }
+    .section-sub { color: #6c757d; margin: -.75rem 0 1.25rem; }
+
+    /* ===== การ์ดเมนูลัด ===== */
+    .menu-card {
+      display: block;
+      height: 100%;
+      text-align: center;
+      text-decoration: none;
+      color: #800000;
+      background: #fff;
+      border: 1px solid #e6dcdc;
+      border-radius: 1rem;
+      padding: 1.5rem 1rem;
+      transition: box-shadow .2s, transform .2s, background .2s;
+    }
+    .menu-card:hover {
+      box-shadow: 0 .5rem 1.25rem rgba(128, 0, 0, .15);
+      transform: translateY(-4px);
+      background: #fffafa;
+      color: #800000;
+    }
+    .menu-card .bi { font-size: 2.4rem; display: block; margin-bottom: .6rem; }
+    .menu-card span { font-weight: 600; }
+
+    /* ===== การ์ดหลักสูตร ===== */
+    .course-card {
+      display: block;
+      height: 100%;
+      text-decoration: none;
+      color: #fff;
+      background: linear-gradient(135deg, #5c0a0a, #9a1515);
+      border-radius: 1rem;
+      padding: 2rem 1.5rem;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .course-card:hover { transform: translateY(-4px); box-shadow: 0 .75rem 1.5rem rgba(128, 0, 0, .3); color: #fff; }
+    .course-card h3 { font-weight: 700; font-size: 1.5rem; }
+    .course-card p { margin-bottom: 1rem; opacity: .9; }
+    .course-card .more { color: #ffd966; font-weight: 600; }
+
+    /* ===== การ์ดข้อมูล (ภาพ/วิดีโอ/ประกาศ) ===== */
+    .info-card {
+      height: 100%;
+      border: 1px solid #e6dcdc;
+      border-radius: 1rem;
+      overflow: hidden;
+      background: #fff;
+      transition: box-shadow .2s, transform .2s;
+    }
+    .info-card:hover { box-shadow: 0 .5rem 1.25rem rgba(128, 0, 0, .15); transform: translateY(-3px); }
+    .info-head {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .85rem 1.1rem;
+      background: #f6eaea;
+      border-bottom: 1px solid #ead7d7;
+      color: #800000;
+      font-weight: 600;
+    }
+    .info-head .bi { font-size: 1.3rem; }
+    .info-head .head-date { margin-left: auto; font-size: .82rem; font-weight: 500; color: #6c757d; }
+    .info-body { padding: 1rem 1.1rem 1.15rem; }
+    .info-body h3 { font-size: 1.05rem; font-weight: 600; color: #800000; margin-bottom: .35rem; }
+    .info-body p { color: #555; line-height: 1.7; font-size: .95rem; margin-bottom: 0; }
+
+    .notice-tag {
+      display: inline-block;
+      background: #800000;
+      color: #fff;
+      border-radius: .4rem;
+      padding: .05rem .6rem;
+      font-size: .78rem;
+      font-weight: 600;
+      margin-bottom: .4rem;
+    }
+
+    /* สไลด์ในการ์ด (กดที่ภาพเพื่อขยาย) */
+    .card-slide { position: relative; background: #efe6e6; }
+    .card-slide .carousel-item img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      cursor: zoom-in;
+    }
+    .zoom-hint {
+      position: absolute;
+      top: .6rem;
+      right: .6rem;
+      z-index: 3;
+      background: rgba(0, 0, 0, .65);
+      color: #fff;
+      border-radius: 2rem;
+      padding: .15rem .7rem;
+      font-size: .8rem;
+      pointer-events: none;
+    }
+
+    /* หน้าต่างดูภาพใหญ่ */
+    #viewerModal .carousel-item img {
+      width: 100%;
+      max-height: 78vh;
+      object-fit: contain;
+      background: #000;
+    }
+
+    /* ===== footer ===== */
+    .site-footer { background: #5c0a0a; color: #f3dede; margin-top: 4rem; padding: 2rem 0 1.25rem; }
+    .site-footer a { color: #ffd966; text-decoration: none; }
+    .site-footer a:hover { text-decoration: underline; }

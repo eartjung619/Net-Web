@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ทุนการศึกษา | วิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --maroon: #800000;
+      --maroon-dark: #4a0808;
+      --blue: #1565c0;
+      --navy: #0b2f63;
+      --gold: #ffd966;
+      --cream: #fbf5ee;
+      --ink: #2b2b2b;
+      --muted: #5f5f5f;
+      --line: #d9cbc4;
+    }
+
+    /* ฟอนต์ Prompt เฉพาะเนื้อหา (ไม่รวม navbar หลัก) */
+    .sub-nav, main {
+      font-family: 'Prompt', sans-serif;
+      font-weight: 400;
+    }
+    body { background: var(--cream); }
+    main { color: var(--ink); }
+
+    /* ===== navbar หลัก ===== */
+    .navbar .nav-link { border-bottom: 3px solid transparent; transition: all .2s; }
+    .navbar .nav-link:hover { color: #ffd966; }
+    .navbar .nav-link.active {
+      color: #ffd966 !important;
+      font-weight: 600;
+      border-bottom: 3px solid #ffd966;
+    }
+
+    /* ===== navbar สีฟ้า ===== */
+    .sub-nav {
+      background: linear-gradient(to bottom, #1565c0, #0d47a1);
+      box-shadow: 0 .25rem .5rem rgba(0, 0, 0, .15);
+    }
+    .sub-nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .75rem 1rem;
+      color: #fff;
+      font-weight: 500;
+      font-size: .95rem;
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: background .2s, border-color .2s;
+    }
+    .sub-nav a:hover { background: rgba(255, 255, 255, .15); border-bottom-color: #ffd966; color: #fff; }
+    .sub-nav a.active { background: rgba(255, 255, 255, .18); border-bottom-color: #ffd966; font-weight: 600; }
+    .sub-scroll { overflow-x: auto; scrollbar-width: none; }
+    .sub-scroll::-webkit-scrollbar { display: none; }
+
+    /* ===== หัวหน้า ===== */
+    .page-hero {
+      background: linear-gradient(180deg, #fff 0%, #fbeede 100%);
+      border-bottom: 5px solid var(--gold);
+      padding: 2.75rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: "";
+      position: absolute;
+      right: -90px;
+      top: -90px;
+      width: 330px;
+      height: 330px;
+      border-radius: 50%;
+      border: 44px solid rgba(21, 101, 192, .08);
+    }
+    .page-hero::after {
+      content: "";
+      position: absolute;
+      left: -60px;
+      bottom: -110px;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      border: 36px solid rgba(128, 0, 0, .07);
+    }
+    .page-hero .container { position: relative; z-index: 1; }
+    .page-hero h1 { color: var(--maroon); font-weight: 700; font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: .35rem; }
+    .page-hero p { color: var(--navy); font-weight: 600; margin: 0; }
+    .hero-icon {
+      width: 110px;
+      height: 110px;
+      display: grid;
+      place-items: center;
+      font-size: 3.2rem;
+      color: var(--maroon);
+      background: #fff;
+      border: 4px solid var(--maroon);
+      border-radius: 50%;
+      box-shadow: 0 .5rem 1.25rem rgba(128, 0, 0, .2);
+    }
+
+    .content-wrap { padding-bottom: 3.5rem; }
+
+    /* ===== กล่องแนะนำ ===== */
+    .intro-box {
+      margin-top: 2rem;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-left: 8px solid var(--gold);
+      border-radius: 1rem;
+      padding: 1.25rem 1.5rem;
+      line-height: 1.8;
+      box-shadow: 0 .25rem .75rem rgba(60, 20, 20, .06);
+    }
+
+    /* ===== หัวข้อแต่ละ section ===== */
+    .sch-section { margin-top: 3rem; }
+    .sec-head {
+      display: flex;
+      align-items: center;
+      gap: .9rem;
+      padding-bottom: .8rem;
+      margin-bottom: 1.4rem;
+      border-bottom: 3px solid var(--c);
+    }
+    .sec-head .sec-icon {
+      flex: 0 0 auto;
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      font-size: 1.6rem;
+      color: var(--c-text, #fff);
+      background: var(--c);
+      border-radius: .9rem;
+    }
+    .sec-head h2 { font-size: 1.55rem; font-weight: 700; color: var(--c-title); margin: 0; }
+    .sec-head small { display: block; color: var(--muted); font-weight: 400; font-size: .9rem; }
+
+    /* สีของแต่ละ section / การ์ด */
+    .c-maroon { --c: #800000; --c-soft: #f8e9e9; --c-title: #800000; }
+    .c-blue   { --c: #1565c0; --c-soft: #e6f0fb; --c-title: #0b2f63; }
+    .c-gold   { --c: #ffd966; --c-soft: #fff6d6; --c-title: #7a5b00; --c-text: #4a0808; }
+
+    /* ===== การ์ดทุน ===== */
+    .sch-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-top: 6px solid var(--c);
+      border-radius: 1.1rem;
+      overflow: hidden;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 .25rem .75rem rgba(60, 20, 20, .08);
+      transition: box-shadow .25s, transform .25s;
+    }
+    .sch-card:hover { box-shadow: 0 .7rem 1.5rem rgba(60, 20, 20, .16); transform: translateY(-3px); }
+
+    .sch-head { padding: 1.3rem 1.5rem .4rem; display: flex; align-items: center; gap: .8rem; grid-area: head; }
+    .sch-head .icon {
+      flex: 0 0 auto;
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      font-size: 1.4rem;
+      color: var(--c-text, #fff);
+      background: var(--c);
+      border-radius: .8rem;
+    }
+    .sch-head h3 { font-size: 1.25rem; font-weight: 600; color: var(--c-title); margin: 0; }
+
+    /* ตัวเลขสำคัญ */
+    .sch-stats {
+      padding: 1rem 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .75rem;
+      grid-area: stats;
+      align-content: start;
+    }
+    .stat {
+      background: var(--c-soft);
+      border-radius: .8rem;
+      padding: .7rem .9rem;
+      text-align: center;
+    }
+    .stat-label { display: block; font-size: .8rem; font-weight: 500; color: var(--muted); }
+    .stat-val { display: block; font-size: 1.5rem; font-weight: 700; color: var(--c-title); line-height: 1.3; }
+    .stat small { color: var(--muted); }
+    .stat.amount {
+      grid-column: 1 / -1;
+      background: var(--c);
+      padding: .9rem;
+    }
+    .stat.amount .stat-label { color: var(--c-text, #fff); opacity: .9; }
+    .stat.amount .stat-val { color: var(--c-text, #fff); font-size: 2rem; }
+    .stat.amount small { color: var(--c-text, #fff); opacity: .9; }
+
+    .sch-body { padding: .25rem 1.5rem 1.5rem; flex: 1; grid-area: body; }
+    .sch-body .desc { line-height: 1.8; color: #444; margin-bottom: .8rem; }
+    .sch-body ul { list-style: none; padding: 0; margin: 0; }
+    .sch-body li {
+      position: relative;
+      padding: .35rem 0 .35rem 1.6rem;
+      line-height: 1.7;
+      border-bottom: 1px dashed var(--line);
+    }
+    .sch-body li:last-child { border-bottom: 0; }
+    .sch-body li::before {
+      content: "\F26A"; /* bi-check-circle-fill */
+      font-family: "bootstrap-icons";
+      position: absolute;
+      left: 0;
+      top: .35rem;
+      color: var(--c-title);
+    }
+
+    /* การ์ดกว้าง (section ที่มีทุนเดียว) */
+    @media (min-width: 992px) {
+      .sch-card.wide {
+        display: grid;
+        grid-template-columns: 1fr 360px;
+        grid-template-areas: "head stats" "body stats";
+        grid-template-rows: auto 1fr;
+      }
+      .sch-card.wide .sch-stats { background: var(--c-soft); padding: 1.5rem; border-left: 1px solid var(--line); grid-template-columns: 1fr; align-content: center; }
+      .sch-card.wide .stat:not(.amount) { background: #fff; }
+    }
+    @media (max-width: 991.98px) {
+      .sch-head, .sch-stats, .sch-body { grid-area: auto; }
+    }
+
+    /* ===== สนใจสมัคร ===== */
+    .cta-box {
+      margin-top: 3rem;
+      background: linear-gradient(135deg, var(--maroon-dark), var(--maroon));
+      color: #fff;
+      border-left: 8px solid var(--gold);
+      border-radius: 1.1rem;
+      padding: 1.75rem 1.75rem;
+    }
+    .cta-box h2 { font-size: 1.4rem; font-weight: 600; margin: 0 0 .25rem; }
+    .cta-box p { margin: 0; color: #f0d6d6; }
+    .cta-box .btn-gold {
+      background: var(--gold);
+      color: var(--maroon-dark);
+      font-weight: 700;
+      border-radius: 2rem;
+      padding: .5rem 1.5rem;
+      border: 0;
+    }
+    .cta-box .btn-gold:hover { background: #ffe58f; color: var(--maroon-dark); }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR หลัก ===== -->
+<nav class="navbar navbar-expand-lg shadow-sm" data-bs-theme="dark" style="background-color: #800000;">
+  <div class="container">
+
+    <a class="navbar-brand d-flex align-items-center" href="firstpage.html">
+      <img src="./Images/Logo-NET.png" alt="Logo" height="50" class="me-2">
+      <span class="fw-semibold text-light">วิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ</span>
+    </a>
+
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse" data-bs-target="#mainNav"
+            aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNav">
+
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-3">
+        <li class="nav-item"><a class="nav-link" href="register.html">สมัครเรียน</a></li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="class.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            หลักสูตรที่เปิดสอน
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="class.html">ทั้งหมด</a></li>
+            <li><a class="dropdown-item" href="class2.html">ระดับ ปวส.</a></li>
+            <li><a class="dropdown-item" href="class1.html">ระดับ ปวช.</a></li>
+            <li><a class="dropdown-item" href="class3.html">รอบคนทำงาน</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://netc.sisacloud.com/" target="_blank" rel="noopener noreferrer">
+            ระบบ SISA <i class="bi bi-box-arrow-up-right small"></i>
+          </a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="about.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            ติดต่อ
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="about.html">ที่ตั้งและการติดต่อ</a></li>
+            <li><a class="dropdown-item" href="https://www.facebook.com/messages/t/209337135889087" target="_blank" rel="noopener noreferrer">Facebook Messenger</a></li>
+            <li><a class="dropdown-item" href="https://line.me/R/ti/p/@228bjrld?oat_content=url" target="_blank" rel="noopener noreferrer">LineOA</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <form class="d-flex mx-lg-3 mb-2 mb-lg-0" role="search">
+        <input class="form-control me-2" type="search" placeholder="ค้นหา..." aria-label="Search">
+        <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
+      </form>
+
+      <div class="d-flex align-items-center gap-3 fs-5">
+        <div class="dropdown">
+          <button class="btn btn-link text-white p-0 fs-5" type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false" title="เอกสารดาวน์โหลด">
+            <i class="bi bi-file-earmark-text"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><h6 class="dropdown-header">เอกสารดาวน์โหลด</h6></li>
+            <li><a class="dropdown-item" href="https://drive.google.com/drive/folders/1XTFbJcsvLQjKqA91GMtvhPvzMCY0NXLR?usp=sharing" target="_blank" rel="noopener noreferrer">
+               <i class="bi bi-file-earmark-pdf me-2"></i>เอกสารนักศึกษา</a></li>
+            <li><a class="dropdown-item" href="https://drive.google.com/drive/folders/1V5HM08kMsxBm9rwfMmq0HdB7_y5Mnrms?usp=sharing" target="_blank" rel="noopener noreferrer">
+               <i class="bi bi-file-earmark-pdf me-2"></i>เอกสารครู-บุคลากร</a></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+<!-- ===== NAVBAR สีฟ้า (แถบทางลัด) ===== -->
+<nav class="sub-nav" aria-label="ทางลัด">
+  <div class="container sub-scroll">
+    <div class="d-flex justify-content-lg-center">
+      <a href="class.html"><i class="bi bi-journal-bookmark"></i>หลักสูตร </a>
+      <a href="about2.html"><i class="bi bi-building"></i>เกี่ยวกับวิทยาลัย</a>
+      <a href="https://www.facebook.com/Alumni.NETC.KK" target="_blank" rel="noopener noreferrer"><i class="bi bi-people"></i>ศิษย์เก่า</a>
+      <a href="product.html"><i class="bi bi-award"></i>ทุนการศึกษา</a>
+      <a href="https://www.facebook.com/netDSL2564" target="_blank" rel="noopener noreferrer"><i class="bi bi-cash-coin"></i>กองทุนกู้ยืม</a>
+      <a href="https://www.facebook.com/profile.php?id=61569609743951" target="_blank" rel="noopener noreferrer"><i class="bi bi-lightbulb"></i>ศูนย์บ่มเพาะ</a>
+      <a href="#"><i class="bi bi-patch-check"></i>ประกันคุณภาพ</a>
+      <a href="https://www.facebook.com/profile.php?id=100083373210912" target="_blank" rel="noopener noreferrer"><i class="bi bi-briefcase"></i>แนะแนวอาชีพ</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ===== หัวหน้า ===== -->
+  <header class="page-hero">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-auto"><div class="hero-icon"><i class="bi bi-award"></i></div></div>
+        <div class="col">
+          <h1>ทุนการศึกษา</h1>
+          <p>โอกาสทางการศึกษาสำหรับนักเรียน นักศึกษา วิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container content-wrap">
+
+    <!-- ===== กล่องแนะนำ (แก้ข้อความตรงนี้) ===== -->
+    <div class="intro-box">
+      ใส่ข้อความแนะนำภาพรวมของทุนการศึกษา เช่น วัตถุประสงค์ของทุน ใครสมัครได้ และช่วงเวลารับสมัคร
+    </div>
+
+    <!-- ทุกส่วนด้านล่างถูกสร้างจากข้อมูลท้ายไฟล์ -->
+    <div id="sectionsRoot"></div>
+
+    <!-- ===== สนใจสมัคร ===== -->
+    <div class="cta-box d-flex flex-wrap align-items-center justify-content-between gap-3">
+      <div>
+        <h2>สนใจสมัครรับทุนการศึกษา</h2>
+        <p>ใส่ข้อความแนะนำการติดต่อ/สมัครที่นี่ เช่น ติดต่อฝ่ายแนะแนวหรือฝ่ายทะเบียน</p>
+      </div>
+      <a href="register.html" class="btn btn-gold"><i class="bi bi-pencil-square me-1"></i>สมัครเรียน</a>
+    </div>
+
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  /* =====================================================
+     ข้อมูลทุนการศึกษา  (แก้ข้อมูลเฉพาะตรงนี้)
+
+     sections = หมวดทุน (1 หมวด = 1 section)
+       - title    : ชื่อหมวด
+       - subtitle : คำอธิบายสั้นๆ ใต้ชื่อหมวด
+       - icon     : ไอคอน (ชื่อจาก icons.getbootstrap.com เช่น "bi-trophy")
+       - color    : "maroon" (แดง) | "blue" (น้ำเงิน) | "gold" (เหลือง)
+       - cards    : รายการทุนในหมวดนั้น
+           - name     : ชื่อทุน
+           - icon     : ไอคอนของทุน
+           - amount   : เงินมอบตัวเริ่มต้น (บาท)
+           - entryGpa : เกรดที่ใช้สมัคร/รับทุน
+           - keepGpa  : เกรดที่ต้องรักษา
+           - desc     : รายละเอียดสั้นๆ
+           - points   : เงื่อนไข/สิ่งที่ได้รับ (ใส่กี่ข้อก็ได้)
+
+     หมวดที่มีทุนเดียวจะแสดงเป็นการ์ดกว้างเต็มแถวอัตโนมัติ
+     เพิ่มทุน: คัดลอกก้อน { name: ..., ... }, ในหมวดนั้น
+     ===================================================== */
+  const sections = [
+    {
+      title: "ทุนกีฬา",
+      subtitle: "สำหรับนักกีฬาที่มีความสามารถพิเศษ",
+      icon: "bi-trophy",
+      color: "maroon",
+      cards: [
+        {
+          name: "ทุนกีฬาฟุตบอล",
+          icon: "bi-trophy",
+          amount: "x,xxx",
+          entryGpa: "x.xx",
+          keepGpa: "x.xx",
+          desc: "ใส่รายละเอียดของทุนกีฬาฟุตบอลที่นี่",
+          points: ["ใส่เงื่อนไขข้อที่ 1", "ใส่เงื่อนไขข้อที่ 2", "ใส่สิ่งที่ได้รับ"]
+        },
+        {
+          name: "ทุนกีฬาฟุตซอล",
+          icon: "bi-people",
+          amount: "x,xxx",
+          entryGpa: "x.xx",
+          keepGpa: "x.xx",
+          desc: "ใส่รายละเอียดของทุนกีฬาฟุตซอลที่นี่",
+          points: ["ใส่เงื่อนไขข้อที่ 1", "ใส่เงื่อนไขข้อที่ 2", "ใส่สิ่งที่ได้รับ"]
+        },
+        {
+          name: "ทุนกีฬาบาสเกตบอล",
+          icon: "bi-dribbble",
+          amount: "x,xxx",
+          entryGpa: "x.xx",
+          keepGpa: "x.xx",
+          desc: "ใส่รายละเอียดของทุนกีฬาบาสเกตบอลที่นี่",
+          points: ["ใส่เงื่อนไขข้อที่ 1", "ใส่เงื่อนไขข้อที่ 2", "ใส่สิ่งที่ได้รับ"]
+        }
+      ]
+    },
+    {
+      title: "ทุนเรียนดี",
+      subtitle: "สำหรับผู้มีผลการเรียนดีเด่น",
+      icon: "bi-mortarboard",
+      color: "blue",
+      cards: [
+        {
+          name: "ทุนเรียนดี",
+          icon: "bi-mortarboard",
+          amount: "x,xxx",
+          entryGpa: "x.xx",
+          keepGpa: "x.xx",
+          desc: "ใส่รายละเอียดของทุนเรียนดีที่นี่",
+          points: ["ใส่เงื่อนไขข้อที่ 1", "ใส่เงื่อนไขข้อที่ 2", "ใส่สิ่งที่ได้รับ"]
+        }
+      ]
+    },
+    {
+      title: "ทุนสายสามัญสู่สายอาชีพ",
+      subtitle: "สำหรับผู้ที่จบสายสามัญและต้องการเรียนต่อสายอาชีพ",
+      icon: "bi-signpost-split",
+      color: "gold",
+      cards: [
+        {
+          name: "ทุนสายสามัญสู่สายอาชีพ",
+          icon: "bi-arrow-up-right-circle",
+          amount: "x,xxx",
+          entryGpa: "x.xx",
+          keepGpa: "x.xx",
+          desc: "ใส่รายละเอียดของทุนสายสามัญสู่สายอาชีพที่นี่",
+          points: ["ใส่เงื่อนไขข้อที่ 1", "ใส่เงื่อนไขข้อที่ 2", "ใส่สิ่งที่ได้รับ"]
+        }
+      ]
+    },
+    {
+      title: "ทุน Content Creator",
+      subtitle: "สำหรับผู้มีความสามารถด้านการผลิตสื่อและคอนเทนต์",
+      icon: "bi-camera-video",
+      color: "maroon",
+      cards: [
+        {
+          name: "ทุน Content Creator",
+          icon: "bi-camera-video",
+          amount: "x,xxx",
+          entryGpa: "x.xx",
+          keepGpa: "x.xx",
+          desc: "ใส่รายละเอียดของทุน Content Creator ที่นี่",
+          points: ["ใส่เงื่อนไขข้อที่ 1", "ใส่เงื่อนไขข้อที่ 2", "ใส่สิ่งที่ได้รับ"]
+        }
+      ]
+    },
+    {
+      title: "ทุนนาฏศิลป์",
+      subtitle: "สำหรับผู้มีความสามารถด้านนาฏศิลป์และการแสดง",
+      icon: "bi-music-note-beamed",
+      color: "blue",
+      cards: [
+        {
+          name: "ทุนนาฏศิลป์",
+          icon: "bi-music-note-beamed",
+          amount: "x,xxx",
+          entryGpa: "x.xx",
+          keepGpa: "x.xx",
+          desc: "ใส่รายละเอียดของทุนนาฏศิลป์ที่นี่",
+          points: ["ใส่เงื่อนไขข้อที่ 1", "ใส่เงื่อนไขข้อที่ 2", "ใส่สิ่งที่ได้รับ"]
+        }
+      ]
+    }
+  ];
+
+  /* สร้างการ์ดทุนหนึ่งใบ */
+  function buildCard(c, wide) {
+    const points = (c.points || []).map(p => `<li>${p}</li>`).join("");
+    return `
+      <article class="sch-card${wide ? " wide" : ""}">
+        <div class="sch-head">
+          <span class="icon"><i class="bi ${c.icon}"></i></span>
+          <h3>${c.name}</h3>
+        </div>
+
+        <div class="sch-stats">
+          <div class="stat amount">
+            <span class="stat-label">เงินมอบตัวเริ่มต้น</span>
+            <span class="stat-val">฿${c.amount}</span>
+            <small>บาท</small>
+          </div>
+          <div class="stat">
+            <span class="stat-label">เกรดที่รับ</span>
+            <span class="stat-val">${c.entryGpa}</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">รักษาเกรด</span>
+            <span class="stat-val">${c.keepGpa}</span>
+          </div>
+        </div>
+
+        <div class="sch-body">
+          <p class="desc">${c.desc}</p>
+          <ul>${points}</ul>
+        </div>
+      </article>`;
+  }
+
+  /* สร้างทุก section */
+  const root = document.getElementById("sectionsRoot");
+
+  sections.forEach(s => {
+    const single = s.cards.length === 1;
+    const cols = s.cards.map(c =>
+      `<div class="col">${buildCard(c, single)}</div>`
+    ).join("");
+
+    root.insertAdjacentHTML("beforeend", `
+      <section class="sch-section c-${s.color}">
+        <div class="sec-head">
+          <span class="sec-icon"><i class="bi ${s.icon}"></i></span>
+          <h2>${s.title}<small>${s.subtitle}</small></h2>
+        </div>
+        <div class="row g-4 ${single ? "row-cols-1" : "row-cols-1 row-cols-md-2 row-cols-lg-3"}">${cols}</div>
+      </section>`);
+  });
+
+  /* ใส่ active ให้ลิงก์ของหน้าปัจจุบันใน navbar หลัก */
+  const currentPage = location.pathname.split("/").pop();
+  document.querySelectorAll("#mainNav .nav-link").forEach(link => {
+    if (link.getAttribute("href") === currentPage) {
+      link.classList.add("active");
+      link.setAttribute("aria-current", "page");
+    }
+  });
+</script>
+
+</body>
+</html>

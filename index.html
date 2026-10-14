@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>วิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --maroon: #800000;
+      --maroon-dark: #3a0505;
+      --gold: #ffd966;
+      --blue: #1565c0;
+    }
+
+    html, body { height: 100%; margin: 0; }
+    body {
+      font-family: 'Prompt', sans-serif;
+      color: #fff;
+      background: #120202;
+      overflow: hidden;
+    }
+
+    /* ===== พื้นหลัง ===== */
+    .stage {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    /* ใส่ภาพอาคารวิทยาลัยได้ที่นี่ (ถ้าไม่มีไฟล์ จะเห็นแค่ไล่สี) */
+    .bg-photo {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(120deg, rgba(18,2,2,.92), rgba(80,8,8,.78) 55%, rgba(11,47,99,.80)),
+        url("./Images/intro-bg.jpg") center / cover no-repeat;
+      transform: scale(1.08);
+      animation: slowZoom 18s ease-in-out infinite alternate;
+    }
+    @keyframes slowZoom { to { transform: scale(1.18); } }
+
+    /* ลูกแสงลอย */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: .45;
+      animation: float 12s ease-in-out infinite alternate;
+    }
+    .orb.o1 { width: 420px; height: 420px; background: #b30000; top: -120px; left: -100px; }
+    .orb.o2 { width: 380px; height: 380px; background: #1565c0; bottom: -120px; right: -80px; animation-delay: -4s; }
+    .orb.o3 { width: 260px; height: 260px; background: #d6a000; top: 40%; left: 45%; opacity: .25; animation-delay: -8s; }
+    @keyframes float {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(40px, -30px) scale(1.15); }
+    }
+
+    #particles { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+    /* ===== เนื้อหา ===== */
+    .content {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .3rem 1rem;
+      border: 1px solid rgba(255, 217, 102, .5);
+      border-radius: 2rem;
+      color: var(--gold);
+      font-size: .9rem;
+      letter-spacing: .5px;
+      background: rgba(255, 217, 102, .08);
+      backdrop-filter: blur(4px);
+    }
+    .eyebrow .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--gold);
+      animation: blink 1.4s infinite;
+    }
+    @keyframes blink { 50% { opacity: .2; } }
+
+    .headline {
+      font-weight: 800;
+      font-size: clamp(2rem, 4.6vw, 3.6rem);
+      line-height: 1.25;
+      margin: 1.2rem 0 .8rem;
+      min-height: 2.6em;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, .5);
+    }
+    .headline .gold { color: var(--gold); }
+    .caret {
+      display: inline-block;
+      width: 3px;
+      height: .95em;
+      margin-left: 4px;
+      vertical-align: -.1em;
+      background: var(--gold);
+      animation: blink .9s steps(1) infinite;
+    }
+
+    .subline {
+      font-size: clamp(1.05rem, 1.8vw, 1.45rem);
+      color: #f3dede;
+      margin-bottom: 2rem;
+    }
+
+    /* ===== ปุ่มเข้าสู่เว็บไซต์ ===== */
+    .enter-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: .7rem;
+      padding: .95rem 2.4rem;
+      font-family: inherit;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #fff;
+      text-decoration: none;
+      background: linear-gradient(135deg, #1565c0, #0b2f63);
+      border: 2px solid rgba(255, 255, 255, .85);
+      border-radius: .9rem;
+      overflow: hidden;
+      cursor: pointer;
+      animation: glow 2.4s ease-in-out infinite;
+      transition: transform .2s;
+    }
+    .enter-btn:hover { transform: translateY(-3px) scale(1.04); color: #fff; }
+    .enter-btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
+    .enter-btn .bi { transition: transform .25s; }
+    .enter-btn:hover .bi { transform: translateX(6px); }
+    /* แสงสะท้อนวิ่งผ่านปุ่ม */
+    .enter-btn::after {
+      content: "";
+      position: absolute;
+      top: 0; left: -80%;
+      width: 50%; height: 100%;
+      background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .55), transparent);
+      transform: skewX(-20deg);
+      animation: shine 3.2s ease-in-out infinite;
+    }
+    @keyframes shine { 0% { left: -80%; } 55%, 100% { left: 140%; } }
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 14px rgba(255, 217, 102, .35), 0 8px 22px rgba(0, 0, 0, .4); }
+      50%      { box-shadow: 0 0 34px rgba(255, 217, 102, .8),  0 8px 22px rgba(0, 0, 0, .4); }
+    }
+
+    .skip-link {
+      display: inline-block;
+      margin-left: 1.2rem;
+      color: #e8cfcf;
+      font-size: .95rem;
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(255, 255, 255, .4);
+    }
+    .skip-link:hover { color: var(--gold); }
+
+    /* ===== โลโก้ฝั่งขวา ===== */
+    .logo-zone { text-align: center; }
+    .logo-wrap {
+      position: relative;
+      width: clamp(200px, 26vw, 300px);
+      aspect-ratio: 1;
+      margin: 0 auto 1.2rem;
+      display: grid;
+      place-items: center;
+    }
+    .logo-wrap img {
+      position: relative;
+      z-index: 2;
+      width: 78%;
+      height: 78%;
+      object-fit: contain;
+      background: #fff;
+      border-radius: 50%;
+      padding: 1rem;
+      box-shadow: 0 0 50px rgba(255, 217, 102, .45);
+      animation: logoIn 1.2s cubic-bezier(.2, .9, .3, 1.2) both .3s;
+    }
+    @keyframes logoIn {
+      from { opacity: 0; transform: scale(.3) rotate(-120deg); }
+      to   { opacity: 1; transform: scale(1) rotate(0); }
+    }
+    .ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 2px dashed rgba(255, 217, 102, .7);
+      animation: spin 24s linear infinite;
+    }
+    .ring.r2 {
+      inset: -16px;
+      border: 1px solid rgba(255, 255, 255, .25);
+      border-top-color: var(--gold);
+      border-bottom-color: var(--gold);
+      animation-duration: 9s;
+      animation-direction: reverse;
+    }
+    .ring.r3 {
+      inset: -34px;
+      border: 1px dotted rgba(255, 255, 255, .25);
+      animation-duration: 40s;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    /* คลื่นกระจายออกจากโลโก้ */
+    .pulse {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 217, 102, .6);
+      animation: pulse 3s ease-out infinite;
+    }
+    .pulse.p2 { animation-delay: 1.5s; }
+    @keyframes pulse { from { transform: scale(1); opacity: .8; } to { transform: scale(1.7); opacity: 0; } }
+
+    .school-th { font-size: clamp(1.3rem, 2.4vw, 1.9rem); font-weight: 700; margin: 0; line-height: 1.3; }
+    .school-en {
+      font-size: clamp(.85rem, 1.4vw, 1.05rem);
+      letter-spacing: 2px;
+      color: var(--gold);
+      margin: .3rem 0 0;
+      text-transform: uppercase;
+    }
+
+    /* ===== แอนิเมชันเข้าฉากทีละส่วน ===== */
+    .reveal { opacity: 0; transform: translateY(28px); animation: rise .9s cubic-bezier(.2, .8, .3, 1) forwards; }
+    .d1 { animation-delay: .2s; } .d2 { animation-delay: .5s; }
+    .d3 { animation-delay: 1.4s; } .d4 { animation-delay: 1.8s; }
+    @keyframes rise { to { opacity: 1; transform: none; } }
+
+    /* ===== แถบท้ายหน้า ===== */
+    .bottom-bar {
+      position: relative;
+      z-index: 2;
+      padding: .8rem 1rem;
+      text-align: center;
+      font-size: .95rem;
+      background: linear-gradient(90deg, #0b47a1, #1e88e5, #0b47a1);
+      background-size: 200% 100%;
+      animation: slide 8s linear infinite;
+    }
+    @keyframes slide { to { background-position: 200% 0; } }
+
+    /* ===== ม่านเปลี่ยนหน้า ===== */
+    .curtain {
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--maroon-dark), var(--maroon));
+      transform: translateY(100%);
+      transition: transform .75s cubic-bezier(.77, 0, .18, 1);
+    }
+    .curtain.on { transform: translateY(0); }
+    .curtain img { width: 110px; background: #fff; border-radius: 50%; padding: .5rem; opacity: 0; transition: opacity .4s .35s; }
+    .curtain.on img { opacity: 1; }
+
+    /* ===== มือถือ ===== */
+    @media (max-width: 991.98px) {
+      body { overflow-y: auto; }
+      .stage { min-height: 100svh; }
+      .content { padding: 2.5rem 0 2rem; }
+      .text-zone { text-align: center; order: 2; }
+      .logo-zone { order: 1; }
+      .headline { min-height: 3.6em; }
+      .skip-link { display: block; margin: 1rem 0 0; }
+    }
+
+    /* ผู้ใช้ที่ปิดการเคลื่อนไหวในระบบ */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="bg-photo"></div>
+  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+  <canvas id="particles" aria-hidden="true"></canvas>
+
+  <main class="content">
+    <div class="container">
+      <div class="row align-items-center g-5">
+
+        <!-- ข้อความซ้าย -->
+        <div class="col-lg-6 text-zone">
+          <span class="eyebrow reveal d1"><span class="dot"></span>ยินดีต้อนรับสู่เว็บไซต์วิทยาลัย</span>
+
+          <!-- พิมพ์ทีละตัวอักษร: แก้ข้อความที่ data-lines (คั่นแต่ละบรรทัดด้วย |) -->
+          <h1 class="headline reveal d2" id="headline"
+              data-lines="เรียนจริง ปฏิบัติจริง|สู่อาชีพที่มั่นคง">
+            <span id="typed"></span><span class="caret"></span>
+          </h1>
+
+          <p class="subline reveal d3">วิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ</p>
+
+          <div class="reveal d4">
+            <a class="enter-btn" id="enterBtn" href="firstpage.html">
+              เข้าสู่เว็บไซต์ <i class="bi bi-arrow-right-circle-fill"></i>
+            </a>
+            <a class="skip-link" href="firstpage.html">ข้ามการแนะนำ</a>
+          </div>
+        </div>
+
+        <!-- โลโก้ขวา -->
+        <div class="col-lg-6 logo-zone">
+          <div class="logo-wrap">
+            <span class="pulse"></span><span class="pulse p2"></span>
+            <span class="ring r3"></span><span class="ring r2"></span><span class="ring"></span>
+            <img src="./Images/New Logo 04.png" alt="ตราวิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ">
+          </div>
+          <h2 class="school-th reveal d3">วิทยาลัยเทคโนโลยี<br>ภาคตะวันออกเฉียงเหนือ</h2>
+          <p class="school-en reveal d4">Northeastern Technological College</p>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="bottom-bar">
+    วิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ | Copyright © 2026 Powered by Sarawut Phangma
+  </footer>
+</div>
+
+<!-- ม่านเปลี่ยนหน้า -->
+<div class="curtain" id="curtain"><img src="./Images/Logo-NET.png" alt=""></div>
+
+<script>
+  /* ===== พิมพ์ข้อความทีละตัวอักษร ===== */
+  (function () {
+    const out = document.getElementById("typed");
+    const lines = document.getElementById("headline").dataset.lines.split("|");
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) { out.innerHTML = lines.join("<br>"); return; }
+
+    let l = 0, c = 0;
+    function tick() {
+      if (l >= lines.length) return;
+      const done = lines.slice(0, l).join("<br>") + (l ? "<br>" : "");
+      const cur = lines[l].slice(0, ++c);
+      out.innerHTML = done + (l === lines.length - 1 ? `<span class="gold">${cur}</span>` : cur);
+      if (c >= lines[l].length) { l++; c = 0; setTimeout(tick, 450); }
+      else setTimeout(tick, 70);
+    }
+    setTimeout(tick, 900);
+  })();
+
+  /* ===== อนุภาคสีทองลอย + เส้นเชื่อม ===== */
+  (function () {
+    const cv = document.getElementById("particles");
+    const ctx = cv.getContext("2d");
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let w, h, dots = [];
+
+    function resize() {
+      w = cv.width = innerWidth;
+      h = cv.height = innerHeight;
+      const n = Math.min(70, Math.floor(w * h / 18000));
+      dots = Array.from({ length: n }, () => ({
+        x: Math.random() * w, y: Math.random() * h,
+        vx: (Math.random() - .5) * .4, vy: (Math.random() - .5) * .4,
+        r: Math.random() * 2 + .8
+      }));
+    }
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+      dots.forEach((p, i) => {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > w) p.vx *= -1;
+        if (p.y < 0 || p.y > h) p.vy *= -1;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, 6.283);
+        ctx.fillStyle = "rgba(255,217,102,.8)";
+        ctx.fill();
+        for (let j = i + 1; j < dots.length; j++) {
+          const q = dots[j], d = Math.hypot(p.x - q.x, p.y - q.y);
+          if (d < 120) {
+            ctx.strokeStyle = `rgba(255,217,102,${(1 - d / 120) * .25})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke();
+          }
+        }
+      });
+      requestAnimationFrame(draw);
+    }
+    addEventListener("resize", resize);
+    resize(); draw();
+  })();
+
+  /* ===== กดปุ่ม -> ม่านเลื่อนขึ้น แล้วไปหน้า firstpage.html ===== */
+  const curtain = document.getElementById("curtain");
+  document.getElementById("enterBtn").addEventListener("click", e => {
+    e.preventDefault();
+    const url = e.currentTarget.href;
+    curtain.classList.add("on");
+    setTimeout(() => { location.href = url; }, 950);
+  });
+  /* กลับมาด้วยปุ่ม Back แล้วม่านต้องไม่ค้าง */
+  addEventListener("pageshow", () => curtain.classList.remove("on"));
+</script>
+
+</body>
+</html>
