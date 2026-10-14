@@ -58,7 +58,7 @@
   <div class="container">
 
     <a class="navbar-brand d-flex align-items-center" href="firstpage.html">
-      <img src="./Images/Logo-NET.png" alt="Logo" height="50" class="me-2">
+      <img src="./assets/images/Logo-NET.png" alt="Logo" height="50" class="me-2">
       <span class="fw-semibold text-light">วิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ </span>
     </a>
 
@@ -112,7 +112,7 @@
 <main class="container hero-wrap">
   <div class="hero-video">
     <video autoplay muted loop playsinline controls preload="metadata">
-      <source src="./images/promote.mp4" type="video/mp4">
+      <source src="./assets/images/promote.mp4" type="video/mp4">
       เบราว์เซอร์ของคุณไม่รองรับวิดีโอ
     </video>
   </div>
