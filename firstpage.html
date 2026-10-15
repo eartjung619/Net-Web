@@ -9,6 +9,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
+/* Responsive สัดส่วนหน้าจอ ของเว็บ ให้พอดี */
+@media (max-width: 991.98px) {
+  /* ชื่อวิทยาลัยให้ขึ้นบรรทัดใหม่ได้ และย่อตามความกว้างจอ */
+  .navbar-brand { white-space: normal; flex: 1 1 0; min-width: 0; margin-right: .5rem; }
+  .navbar-brand img { height: 40px; }
+  .navbar-brand span { font-size: clamp(.8rem, 3.8vw, 1.1rem); line-height: 1.25; }
+
+  /* แถบสีฟ้า: ให้ขึ้นหลายบรรทัดแทนการเลื่อนข้าง (เลือกใช้ถ้าไม่อยากให้เลื่อน) */
+  .sub-nav .d-flex { flex-wrap: wrap; justify-content: center; }
+  .sub-nav a { padding: .55rem .75rem; font-size: .85rem; }
+
+  /* ปุ่มบริการ: ย่อไอคอนและตัวอักษรให้ข้อความไม่โดนตัด */
+  .svc-fallback { font-size: .8rem; padding: .6rem; gap: .3rem; }
+  .svc-fallback .bi { font-size: 2rem; }
+}
+
+
+
+
+
     /* ส่วนคลิปวีดีโอเริ่มต้นหน้าแรก */
     .hero-video video,
     .hero-video iframe {

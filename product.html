@@ -21,6 +21,24 @@
       --line: #d9cbc4;
     }
 
+/* Responsive สัดส่วนหน้าจอ ของเว็บ ให้พอดี */
+@media (max-width: 991.98px) {
+  /* ชื่อวิทยาลัยให้ขึ้นบรรทัดใหม่ได้ และย่อตามความกว้างจอ */
+  .navbar-brand { white-space: normal; flex: 1 1 0; min-width: 0; margin-right: .5rem; }
+  .navbar-brand img { height: 40px; }
+  .navbar-brand span { font-size: clamp(.8rem, 3.8vw, 1.1rem); line-height: 1.25; }
+
+  /* แถบสีฟ้า: ให้ขึ้นหลายบรรทัดแทนการเลื่อนข้าง (เลือกใช้ถ้าไม่อยากให้เลื่อน) */
+  .sub-nav .d-flex { flex-wrap: wrap; justify-content: center; }
+  .sub-nav a { padding: .55rem .75rem; font-size: .85rem; }
+
+  /* ปุ่มบริการ: ย่อไอคอนและตัวอักษรให้ข้อความไม่โดนตัด */
+  .svc-fallback { font-size: .8rem; padding: .6rem; gap: .3rem; }
+  .svc-fallback .bi { font-size: 2rem; }
+}
+
+
+
     /* ฟอนต์ Prompt เฉพาะเนื้อหา (ไม่รวม navbar หลัก) */
     .sub-nav, main {
       font-family: 'Prompt', sans-serif;
@@ -163,6 +181,28 @@
     }
     .sch-card:hover { box-shadow: 0 .7rem 1.5rem rgba(60, 20, 20, .16); transform: translateY(-3px); }
 
+    /* ภาพประกอบทุน (ถ้ายังไม่มีไฟล์ภาพ จะแสดงไอคอนบนพื้นสีของหมวดแทน) */
+    .sch-media {
+      position: relative;
+      grid-area: media;
+      aspect-ratio: 16 / 9;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--c), var(--c-title));
+      color: var(--c-text, #fff);
+    }
+    .sch-media .bi { font-size: 4.5rem; opacity: .9; }
+    .sch-media img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s;
+    }
+    .sch-card:hover .sch-media img { transform: scale(1.05); }
+
     .sch-head { padding: 1.3rem 1.5rem .4rem; display: flex; align-items: center; gap: .8rem; grid-area: head; }
     .sch-head .icon {
       flex: 0 0 auto;
@@ -228,14 +268,15 @@
       .sch-card.wide {
         display: grid;
         grid-template-columns: 1fr 360px;
-        grid-template-areas: "head stats" "body stats";
-        grid-template-rows: auto 1fr;
+        grid-template-areas: "media media" "head stats" "body stats";
+        grid-template-rows: auto auto 1fr;
       }
+      .sch-card.wide .sch-media { aspect-ratio: auto; height: 300px; }
       .sch-card.wide .sch-stats { background: var(--c-soft); padding: 1.5rem; border-left: 1px solid var(--line); grid-template-columns: 1fr; align-content: center; }
       .sch-card.wide .stat:not(.amount) { background: #fff; }
     }
     @media (max-width: 991.98px) {
-      .sch-head, .sch-stats, .sch-body { grid-area: auto; }
+      .sch-media, .sch-head, .sch-stats, .sch-body { grid-area: auto; }
     }
 
     /* ===== สนใจสมัคร ===== */
@@ -370,19 +411,34 @@
 
   <div class="container content-wrap">
 
-    <!-- ===== กล่องแนะนำ (แก้ข้อความตรงนี้) ===== -->
+    <!-- ===== กล่องแนะนำ / ประกาศ ===== -->
     <div class="intro-box">
-      ใส่ข้อความแนะนำภาพรวมของทุนการศึกษา เช่น วัตถุประสงค์ของทุน ใครสมัครได้ และช่วงเวลารับสมัคร
+      <p class="mb-2"><strong>(สงวนสิทธิ์ทุนการศึกษา เฉพาะนักศึกษารับเข้า ภาคเรียนที่ 1 เท่านั้น)</strong></p>
+      <p class="mb-1 fw-semibold" style="color: var(--maroon);">ประกาศรายชื่อโควตาพิเศษ DEK70 ปวช. รอบที่ 1</p>
+      <p class="mb-2">
+        รอบรายงานตัว รอบที่ 1 : วันที่ 15-22 ตุลาคม 2569<br>
+        เวลา 08.30-16.30 น. ทุกวันจันทร์-ศุกร์<br>
+        สถานที่ ณ งานรับสมัครนักเรียนนักศึกษาใหม่ ตึกอำนวยการ ชั้น 2<br>
+        วิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ (เทคโนภาคฯ)
+      </p>
+      <a class="btn btn-sm btn-primary" href="https://drive.google.com/file/d/1E1uI1E8xeBKz9RIbF8reJDwF2hFMKsA9/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+        <i class="bi bi-file-earmark-text me-1"></i>คลิกดูรายชื่อผู้ได้รับคัดเลือก
+      </a>
     </div>
 
     <!-- ทุกส่วนด้านล่างถูกสร้างจากข้อมูลท้ายไฟล์ -->
     <div id="sectionsRoot"></div>
 
+    <p class="text-muted small mt-4 mb-0">*เงื่อนไขเป็นไปตามที่วิทยาลัยกำหนด</p>
+
     <!-- ===== สนใจสมัคร ===== -->
     <div class="cta-box d-flex flex-wrap align-items-center justify-content-between gap-3">
       <div>
         <h2>สนใจสมัครรับทุนการศึกษา</h2>
-        <p>ใส่ข้อความแนะนำการติดต่อ/สมัครที่นี่ เช่น ติดต่อฝ่ายแนะแนวหรือฝ่ายทะเบียน</p>
+        <p>
+          งานรับสมัครนักศึกษาใหม่ ตึกอำนวยการ ชั้น 2 วิทยาลัยเทคโนโลยีภาคตะวันออกเฉียงเหนือ<br>
+          200 หมู่ 17 ถนนมิตรภาพ ตำบลในเมือง อำเภอเมืองขอนแก่น จังหวัดขอนแก่น
+        </p>
       </div>
       <a href="register.html" class="btn btn-gold"><i class="bi bi-pencil-square me-1"></i>สมัครเรียน</a>
     </div>
@@ -401,148 +457,140 @@
        - icon     : ไอคอน (ชื่อจาก icons.getbootstrap.com เช่น "bi-trophy")
        - color    : "maroon" (แดง) | "blue" (น้ำเงิน) | "gold" (เหลือง)
        - cards    : รายการทุนในหมวดนั้น
-           - name     : ชื่อทุน
-           - icon     : ไอคอนของทุน
-           - amount   : เงินมอบตัวเริ่มต้น (บาท)
-           - entryGpa : เกรดที่ใช้สมัคร/รับทุน
-           - keepGpa  : เกรดที่ต้องรักษา
-           - desc     : รายละเอียดสั้นๆ
-           - points   : เงื่อนไข/สิ่งที่ได้รับ (ใส่กี่ข้อก็ได้)
+           - name   : ชื่อทุน
+           - icon   : ไอคอนของทุน (แสดงแทนภาพ ถ้ายังไม่มีไฟล์ภาพ)
+           - img    : ไฟล์ภาพประกอบทุน (แนะนำสัดส่วน 16:9 เช่น 1280×720 px)
+           - stats  : กล่องตัวเลขสำคัญ (ใส่กี่กล่องก็ได้ แนะนำ 1 กล่องเด่น + 2 กล่องเล็ก)
+               { label: "หัวข้อ", val: "ค่า", unit: "หน่วย/หมายเหตุ (ไม่ใส่ก็ได้)", hero: true }
+               hero: true = กล่องเด่นเต็มแถว
+           - desc   : รายละเอียดสั้นๆ
+           - points : เงื่อนไข/สิ่งที่ได้รับ (ใส่กี่ข้อก็ได้)
 
      หมวดที่มีทุนเดียวจะแสดงเป็นการ์ดกว้างเต็มแถวอัตโนมัติ
      เพิ่มทุน: คัดลอกก้อน { name: ..., ... }, ในหมวดนั้น
+     ข้อมูลนำมาจาก sites.google.com/netc.ac.th/admission-netc (หน้าทุนการศึกษา)
      ===================================================== */
   const sections = [
     {
-      title: "ทุนกีฬา",
-      subtitle: "สำหรับนักกีฬาที่มีความสามารถพิเศษ",
-      icon: "bi-trophy",
-      color: "maroon",
-      cards: [
-        {
-          name: "ทุนกีฬาฟุตบอล",
-          icon: "bi-trophy",
-          amount: "x,xxx",
-          entryGpa: "x.xx",
-          keepGpa: "x.xx",
-          desc: "ใส่รายละเอียดของทุนกีฬาฟุตบอลที่นี่",
-          points: ["ใส่เงื่อนไขข้อที่ 1", "ใส่เงื่อนไขข้อที่ 2", "ใส่สิ่งที่ได้รับ"]
-        },
-        {
-          name: "ทุนกีฬาฟุตซอล",
-          icon: "bi-people",
-          amount: "x,xxx",
-          entryGpa: "x.xx",
-          keepGpa: "x.xx",
-          desc: "ใส่รายละเอียดของทุนกีฬาฟุตซอลที่นี่",
-          points: ["ใส่เงื่อนไขข้อที่ 1", "ใส่เงื่อนไขข้อที่ 2", "ใส่สิ่งที่ได้รับ"]
-        },
-        {
-          name: "ทุนกีฬาบาสเกตบอล",
-          icon: "bi-dribbble",
-          amount: "x,xxx",
-          entryGpa: "x.xx",
-          keepGpa: "x.xx",
-          desc: "ใส่รายละเอียดของทุนกีฬาบาสเกตบอลที่นี่",
-          points: ["ใส่เงื่อนไขข้อที่ 1", "ใส่เงื่อนไขข้อที่ 2", "ใส่สิ่งที่ได้รับ"]
-        }
-      ]
-    },
-    {
-      title: "ทุนเรียนดี",
-      subtitle: "สำหรับผู้มีผลการเรียนดีเด่น",
+      title: "ทุนเรียนดี ปวช./ปวส.",
+      subtitle: "สำหรับผู้จบ ม.3 (เข้า ปวช.) และผู้จบ ม.6 (เข้า ปวส.) ที่มีผลการเรียนดี",
       icon: "bi-mortarboard",
       color: "blue",
       cards: [
         {
-          name: "ทุนเรียนดี",
+          name: "ทุนเรียนดี ระดับ ปวช.",
           icon: "bi-mortarboard",
-          amount: "x,xxx",
-          entryGpa: "x.xx",
-          keepGpa: "x.xx",
-          desc: "ใส่รายละเอียดของทุนเรียนดีที่นี่",
-          points: ["ใส่เงื่อนไขข้อที่ 1", "ใส่เงื่อนไขข้อที่ 2", "ใส่สิ่งที่ได้รับ"]
+          img: "images/scholarship/good-pvc.jpg",
+          stats: [
+            { label: "ชำระค่าเทอมเพียง", val: "฿1,500", unit: "บาท/เทอม*", hero: true },
+            { label: "เกรดเฉลี่ยสะสม (GPAX 5 ภาคเรียน)", val: "2.50", unit: "ขึ้นไป" },
+            { label: "จำนวนที่รับ", val: "สาขาละ 10 ทุน", unit: "รวม 90 ทุน" }
+          ],
+          desc: "รับผู้จบ ม.3 เรียนต่อในระดับประกาศนียบัตรวิชาชีพ (ปวช.) 3 ปี",
+          points: [
+            "มีประกันอุบัติเหตุ รพ.เอกชน",
+            "ชุดนักเรียนฟรีในวงเงิน 950 บาท ชุดพละฟรี อุปกรณ์การเรียนฟรี หนังสือเรียนฟรี ตลอดหลักสูตร 3 ปี*"
+          ]
+        },
+        {
+          name: "ทุนเรียนดี ระดับ ปวส.",
+          icon: "bi-award",
+          img: "images/scholarship/good-pvs.jpg",
+          stats: [
+            { label: "ส่วนลดค่าเทอมทันที", val: "30%", unit: "และต่อเนื่องจนจบหลักสูตร*", hero: true },
+            { label: "เกรดเฉลี่ยสะสม (GPAX 5 ภาคเรียน)", val: "3.50", unit: "ขึ้นไป" },
+            { label: "จำนวนที่รับ", val: "สาขาละ 2 ทุน", unit: "รวม 18 ทุน" }
+          ],
+          desc: "รับผู้จบ ม.6 เรียนต่อในระดับประกาศนียบัตรวิชาชีพชั้นสูง (ปวส.) 2 ปี",
+          points: [
+            "รับส่วนลดค่าเทอมทันที 30% ทันที และต่อเนื่องจนจบหลักสูตร*",
+            "มีประกันอุบัติเหตุ รพ.เอกชน",
+            "ค่าธรรมเนียมที่เหลือแบ่งจ่ายได้*"
+          ]
         }
       ]
     },
     {
-      title: "ทุนสายสามัญสู่สายอาชีพ",
-      subtitle: "สำหรับผู้ที่จบสายสามัญและต้องการเรียนต่อสายอาชีพ",
+      title: "ทุนสายสามัญสู่สายอาชีพ ปวช.",
+      subtitle: "รับผู้จบ ม.3 ไม่จำกัดเกรดเฉลี่ยสะสม ขอเพียงจบ ม.3 ปกติ",
       icon: "bi-signpost-split",
       color: "gold",
       cards: [
         {
-          name: "ทุนสายสามัญสู่สายอาชีพ",
+          name: "ทุนสายสามัญสู่สายอาชีพ ปวช.",
           icon: "bi-arrow-up-right-circle",
-          amount: "x,xxx",
-          entryGpa: "x.xx",
-          keepGpa: "x.xx",
-          desc: "ใส่รายละเอียดของทุนสายสามัญสู่สายอาชีพที่นี่",
-          points: ["ใส่เงื่อนไขข้อที่ 1", "ใส่เงื่อนไขข้อที่ 2", "ใส่สิ่งที่ได้รับ"]
+          img: "images/scholarship/general-to-vocational.jpg",
+          stats: [
+            { label: "ชำระค่าเทอมเพียง", val: "฿2,775", unit: "บาท/เทอม*", hero: true },
+            { label: "เกรดเฉลี่ยสะสม", val: "ไม่จำกัด", unit: "ขอเพียงจบ ม.3 ปกติ" },
+            { label: "จำนวนที่รับ", val: "สาขาละ 5 ทุน", unit: "รวม 45 ทุน" }
+          ],
+          desc: "รับผู้จบ ม.3 ไม่จำกัดเกรดเฉลี่ยสะสม ขอเพียงจบ ม.3 ปกติ เรียนต่อในระดับประกาศนียบัตรวิชาชีพ (ปวช.) 3 ปี",
+          points: [
+            "ชำระค่าเทอมเพียง 2,775 บาท/เทอม*",
+            "มีประกันอุบัติเหตุ รพ.เอกชน",
+            "ชุดนักเรียนฟรีในวงเงิน 950 บาท ชุดพละฟรี อุปกรณ์การเรียนฟรี หนังสือเรียนฟรี ตลอดหลักสูตร 3 ปี*"
+          ]
         }
       ]
     },
     {
-      title: "ทุน Content Creator",
-      subtitle: "สำหรับผู้มีความสามารถด้านการผลิตสื่อและคอนเทนต์",
-      icon: "bi-camera-video",
+      title: "ทุนนักกีฬาฟุตบอล-ฟุตซอล ปวช.",
+      subtitle: "รับผู้จบ ม.3 ไม่จำกัดเกรดเฉลี่ยสะสม ไม่จำกัดสาขาวิชา",
+      icon: "bi-trophy",
       color: "maroon",
       cards: [
         {
-          name: "ทุน Content Creator",
-          icon: "bi-camera-video",
-          amount: "x,xxx",
-          entryGpa: "x.xx",
-          keepGpa: "x.xx",
-          desc: "ใส่รายละเอียดของทุน Content Creator ที่นี่",
-          points: ["ใส่เงื่อนไขข้อที่ 1", "ใส่เงื่อนไขข้อที่ 2", "ใส่สิ่งที่ได้รับ"]
-        }
-      ]
-    },
-    {
-      title: "ทุนนาฏศิลป์",
-      subtitle: "สำหรับผู้มีความสามารถด้านนาฏศิลป์และการแสดง",
-      icon: "bi-music-note-beamed",
-      color: "blue",
-      cards: [
-        {
-          name: "ทุนนาฏศิลป์",
-          icon: "bi-music-note-beamed",
-          amount: "x,xxx",
-          entryGpa: "x.xx",
-          keepGpa: "x.xx",
-          desc: "ใส่รายละเอียดของทุนนาฏศิลป์ที่นี่",
-          points: ["ใส่เงื่อนไขข้อที่ 1", "ใส่เงื่อนไขข้อที่ 2", "ใส่สิ่งที่ได้รับ"]
+          name: "ทุนนักกีฬาฟุตบอล-ฟุตซอล ปวช.",
+          icon: "bi-trophy",
+          img: "images/scholarship/football-futsal.jpg",
+          stats: [
+            { label: "จำนวนที่รับรวม", val: "80 ทุน", unit: "ไม่จำกัดสาขาวิชา", hero: true },
+            { label: "เกรดเฉลี่ยสะสม", val: "ไม่จำกัด", unit: "ขอเพียงจบ ม.3 ปกติ" },
+            { label: "ระยะเวลาเรียน", val: "3 ปี", unit: "ระดับ ปวช." }
+          ],
+          desc: "รับผู้จบ ม.3 ไม่จำกัดเกรดเฉลี่ยสะสม ขอเพียงจบ ม.3 ปกติ ไม่จำกัดสาขาวิชา รับรวม 80 ทุน เรียนต่อในระดับประกาศนียบัตรวิชาชีพ (ปวช.) 3 ปี",
+          points: [
+            "มีโอกาสเข้าคัดเลือกในลิสต์เยาวชนทีมชาติไทย",
+            "พัฒนาศักยภาพด้านกีฬาฟุตบอล-ฟุตซอลถึงขีดสุด",
+            "ฝึกฝนโดยโค้ช A LICENSE มากฝีมือและประสบการณ์",
+            "มีหอพักภายในวิทยาลัย",
+            "มีประกันอุบัติเหตุ รพ.เอกชน",
+            "ชุดนักเรียนฟรีในวงเงิน 950 บาท ชุดพละฟรี อุปกรณ์การเรียนฟรี หนังสือเรียนฟรี ตลอดหลักสูตร 3 ปี*"
+          ]
         }
       ]
     }
   ];
 
+  /* สร้างกล่องตัวเลขหนึ่งกล่อง */
+  function buildStat(s) {
+    const unit = s.unit ? `<small>${s.unit}</small>` : "";
+    return `
+      <div class="stat${s.hero ? " amount" : ""}">
+        <span class="stat-label">${s.label}</span>
+        <span class="stat-val">${s.val}</span>
+        ${unit}
+      </div>`;
+  }
+
   /* สร้างการ์ดทุนหนึ่งใบ */
   function buildCard(c, wide) {
     const points = (c.points || []).map(p => `<li>${p}</li>`).join("");
+    const stats = (c.stats || []).map(buildStat).join("");
+    const img = c.img
+      ? `<img src="${c.img}" alt="${c.name}" loading="lazy" onerror="this.style.display='none'">`
+      : "";
     return `
       <article class="sch-card${wide ? " wide" : ""}">
+        <div class="sch-media"><i class="bi ${c.icon}"></i>${img}</div>
+
         <div class="sch-head">
           <span class="icon"><i class="bi ${c.icon}"></i></span>
           <h3>${c.name}</h3>
         </div>
 
-        <div class="sch-stats">
-          <div class="stat amount">
-            <span class="stat-label">เงินมอบตัวเริ่มต้น</span>
-            <span class="stat-val">฿${c.amount}</span>
-            <small>บาท</small>
-          </div>
-          <div class="stat">
-            <span class="stat-label">เกรดที่รับ</span>
-            <span class="stat-val">${c.entryGpa}</span>
-          </div>
-          <div class="stat">
-            <span class="stat-label">รักษาเกรด</span>
-            <span class="stat-val">${c.keepGpa}</span>
-          </div>
-        </div>
+        <div class="sch-stats">${stats}</div>
 
         <div class="sch-body">
           <p class="desc">${c.desc}</p>
@@ -566,7 +614,7 @@
           <span class="sec-icon"><i class="bi ${s.icon}"></i></span>
           <h2>${s.title}<small>${s.subtitle}</small></h2>
         </div>
-        <div class="row g-4 ${single ? "row-cols-1" : "row-cols-1 row-cols-md-2 row-cols-lg-3"}">${cols}</div>
+        <div class="row g-4 ${single ? "row-cols-1" : "row-cols-1 row-cols-md-2"}">${cols}</div>
       </section>`);
   });
 
