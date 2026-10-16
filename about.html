@@ -140,8 +140,12 @@
       .title-block .tb-row { grid-template-columns: 1fr; }
       .title-block .tb-label { border-right: 0; border-bottom: 1px solid var(--ink); }
     }
+/*กำกับ ระยะห่างมุมมอง หน้าจอ ส่วน Socail ที่กดลิงค์มาจาก หน้า firstpage */
+    html { scroll-behavior: smooth; }
+#social { scroll-margin-top: 2rem; }
   </style>
   <link href="./assets/site.css" rel="stylesheet">
+  
 </head>
 <body>
 
@@ -310,7 +314,7 @@
 </section>
 
 <!-- โซเชียล -->
-<section class="block pt-0">
+<section class="block pt-0" id="social">
   <div class="container">
     <h2 class="block-title">ติดตามข่าวสารของวิทยาลัย</h2>
     <p class="block-sub">ประกาศรับสมัครและกิจกรรมล่าสุดอยู่ที่ช่องทางเหล่านี้</p>

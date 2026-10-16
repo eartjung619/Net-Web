@@ -259,58 +259,63 @@ main input,
 
   const majors = [
     {
-      name: "สาขาวิชาที่ 1",
+      name: "สาขาช่างยนต์ และ เทคนิคเครื่องยนต์",
       levels: ["ปวช.", "ปวส."],
-      images: ["./assets/images/major1-1.png", "./assets/images/major1-2.png", "./assets/images/major1-3.png", "./assets/images/major1-4.png"],
-      desc: "พิมพ์รายละเอียดการเรียนของสาขานี้ที่นี่ เช่น เรียนเกี่ยวกับอะไร ได้ฝึกทักษะอะไร และจบแล้วประกอบอาชีพอะไรได้"
+      images: ["class-images/car1.jpg", "class-images/car2.jpg", "class-images/car3.jpg","class-images/car4.jpg","class-images/car5.jpg","class-images/car6.jpg",
+                   "class-images/car7.jpg","class-images/car8.jpg","class-images/car10.jpg","class-images/car9.jpg"],
+          desc: "เรียนรู้การตรวจเช็ก ซ่อมบำรุง และวิเคราะห์ปัญหารถยนต์ เพื่อก้าวสู่อาชีพช่างยนต์มืออาชีพ"
     },
     {
-      name: "สาขาวิชาที่ 2",
+      name: "สาขาช่างไฟฟ้า",
+      levels: ["ปวช.", "ปวส.", "รอบคนทำงาน"],
+      images: ["class-images/elec1.jpg", "class-images/elec4.jpg",],
+          desc: "เรียนรู้การติดตั้งระบบไฟฟ้า ตรวจสอบและซ่อมบำรุงอุปกรณ์ไฟฟ้า เพื่อทำงานด้านไฟฟ้าอย่างมืออาชีพ"
+    },
+    {
+      name: "สาขาช่างกลโรงงาน และ เทคนิคการผลิต",
       levels: ["ปวช.", "ปวส."],
-      images: ["./assets/images/major2-1.png", "./assets/images/major2-2.png", "./assets/images/major2-3.png"],
-      desc: "พิมพ์รายละเอียดการเรียนของสาขานี้ที่นี่ เช่น เรียนเกี่ยวกับอะไร ได้ฝึกทักษะอะไร และจบแล้วประกอบอาชีพอะไรได้"
+       images: ["class-images/chk1.jpg", "class-images/chk2.jpg", "class-images/chk3.jpg","class-images/chk4.jpg","class-images/chk5.jpg",
+                   "class-images/chk6.jpg","class-images/chk7.jpg",],
+          desc: "เรียนรู้การใช้เครื่องจักรกล การผลิตชิ้นงาน และการเขียนแบบทางช่าง เพื่อสร้างชิ้นงานที่มีคุณภาพและแม่นยำ"
     },
     {
-      name: "สาขาวิชาที่ 3",
+      name: "สาขาช่างก่อสร้าง และ โยธา",
+      levels: ["ปวช.", "ปวส.", "รอบคนทำงาน"],
+      images: ["class-images/build1.jpg", "class-images/build2.jpg", "class-images/build3.jpg","class-images/build4.jpg","class-images/build5.jpg",
+                   "class-images/build6.jpg","class-images/build7.jpg",],
+          desc: "เรียนรู้การอ่านแบบ เขียนแบบ และก่อสร้างอาคาร เพื่อพัฒนาทักษะสู่อาชีพด้านงานก่อสร้าง"
+    },
+    {
+      name: "สาขาเทคโนโลยีธุรกิจดิจิทัล",
+      levels: ["ปวช.", "ปวส.", "รอบคนทำงาน"],
+      images: ["class-images/code1.jpg", "class-images/code2.jpg", "class-images/code3.jpg","class-images/code4.jpg","class-images/code5.jpg",],
+          desc: "เรียนรู้การใช้เทคโนโลยีดิจิทัล โปรแกรมคอมพิวเตอร์ และระบบออนไลน์ เพื่อขับเคลื่อนธุรกิจในยุคดิจิทัล"
+    },
+    {
+      name: "สาขาการบัญชี",
+      levels: ["ปวช.", "ปวส.", "รอบคนทำงาน"],
+      images: ["class-images/money1.jpg", "class-images/money2.jpg","class-images/money3.jpg","class-images/money4.jpg"],
+          desc: "เรียนรู้การบันทึกบัญชี จัดทำงบการเงิน และคำนวณรายรับรายจ่าย เพื่อจัดการข้อมูลทางการเงินอย่างถูกต้อง"
+    },
+    {
+      name: "สาขาการตลาด",
+      levels: ["ปวช.", "ปวส.", "รอบคนทำงาน"],
+       images: ["class-images/marketing3.jpg", "class-images/marketing4.jpg", "class-images/marketing5.jpg", "class-images/marketing6.jpg"],
+          desc: "เรียนรู้การวางแผนการตลาด การสร้างแบรนด์ และการขายทั้งออนไลน์และออฟไลน์ เพื่อสร้างโอกาสทางธุรกิจ"
+    },
+    {
+      name: "สาขาดิจิทัลกราฟิก",
       levels: ["ปวช.", "ปวส."],
-      images: ["./assets/images/major3-1.png", "./assets/images/major3-2.png", "./assets/images/major3-3.png"],
-      desc: "พิมพ์รายละเอียดการเรียนของสาขานี้ที่นี่ เช่น เรียนเกี่ยวกับอะไร ได้ฝึกทักษะอะไร และจบแล้วประกอบอาชีพอะไรได้"
+       images: ["class-images/cg1.jpg", "class-images/cg2.jpg","class-images/cg3.jpg","class-images/cg4.jpg","class-images/cg5.jpg",
+                   "class-images/cg6.jpg","class-images/cg7.jpg", "class-images/cg8.jpg","class-images/cg9.jpg","class-images/cg13.jpg",
+          ],
+          desc: "เรียนรู้การออกแบบกราฟิก สร้างสรรค์ภาพประกอบ โปสเตอร์ และสื่อดิจิทัล เพื่อพัฒนาความคิดสร้างสรรค์สู่นักออกแบบมืออาชีพ"
     },
     {
-      name: "สาขาวิชาที่ 4",
+      name: "สาขาธุรกิจกีฬา",
       levels: ["ปวช."],
-      images: ["./assets/images/major4-1.png", "./assets/images/major4-2.png", "./assets/images/major4-3.png"],
-      desc: "พิมพ์รายละเอียดการเรียนของสาขานี้ที่นี่ เช่น เรียนเกี่ยวกับอะไร ได้ฝึกทักษะอะไร และจบแล้วประกอบอาชีพอะไรได้"
-    },
-    {
-      name: "สาขาวิชาที่ 5",
-      levels: ["ปวช."],
-      images: ["./assets/images/major5-1.png", "./assets/images/major5-2.png", "./assets/images/major5-3.png"],
-      desc: "พิมพ์รายละเอียดการเรียนของสาขานี้ที่นี่ เช่น เรียนเกี่ยวกับอะไร ได้ฝึกทักษะอะไร และจบแล้วประกอบอาชีพอะไรได้"
-    },
-    {
-      name: "สาขาวิชาที่ 6",
-      levels: ["ปวช."],
-      images: ["./assets/images/major6-1.png", "./assets/images/major6-2.png", "./assets/images/major6-3.png"],
-      desc: "พิมพ์รายละเอียดการเรียนของสาขานี้ที่นี่ เช่น เรียนเกี่ยวกับอะไร ได้ฝึกทักษะอะไร และจบแล้วประกอบอาชีพอะไรได้"
-    },
-    {
-      name: "สาขาวิชาที่ 7",
-      levels: ["ปวส."],
-      images: ["./assets/images/major7-1.png", "./assets/images/major7-2.png", "./assets/images/major7-3.png"],
-      desc: "พิมพ์รายละเอียดการเรียนของสาขานี้ที่นี่ เช่น เรียนเกี่ยวกับอะไร ได้ฝึกทักษะอะไร และจบแล้วประกอบอาชีพอะไรได้"
-    },
-    {
-      name: "สาขาวิชาที่ 8",
-      levels: ["ปวส."],
-      images: ["./assets/images/major8-1.png", "./assets/images/major8-2.png", "./assets/images/major8-3.png"],
-      desc: "พิมพ์รายละเอียดการเรียนของสาขานี้ที่นี่ เช่น เรียนเกี่ยวกับอะไร ได้ฝึกทักษะอะไร และจบแล้วประกอบอาชีพอะไรได้"
-    },
-    {
-      name: "สาขาวิชาที่ 9",
-      levels: ["ปวส."],
-      images: ["./assets/images/major9-1.png", "./assets/images/major9-2.png", "./assets/images/major9-3.png"],
-      desc: "พิมพ์รายละเอียดการเรียนของสาขานี้ที่นี่ เช่น เรียนเกี่ยวกับอะไร ได้ฝึกทักษะอะไร และจบแล้วประกอบอาชีพอะไรได้"
+      images: ["class-images/sport2.jpg", "class-images/sport1.jpg", "class-images/sport3.jpg", "class-images/sport4.jpg", "class-images/sport5.jpg", "class-images/sport6.jpg"],
+          desc: "เรียนรู้การจัดการธุรกิจกีฬา การจัดกิจกรรมแข่งขัน และการตลาดด้านกีฬา เพื่อพัฒนาสู่อาชีพในอุตสาหกรรมกีฬา"
     }
   ];
 
