@@ -21,24 +21,6 @@
       --line: #d9cbc4;
     }
 
-/* Responsive สัดส่วนหน้าจอ ของเว็บ ให้พอดี */
-@media (max-width: 991.98px) {
-  /* ชื่อวิทยาลัยให้ขึ้นบรรทัดใหม่ได้ และย่อตามความกว้างจอ */
-  .navbar-brand { white-space: normal; flex: 1 1 0; min-width: 0; margin-right: .5rem; }
-  .navbar-brand img { height: 40px; }
-  .navbar-brand span { font-size: clamp(.8rem, 3.8vw, 1.1rem); line-height: 1.25; }
-
-  /* แถบสีฟ้า: ให้ขึ้นหลายบรรทัดแทนการเลื่อนข้าง (เลือกใช้ถ้าไม่อยากให้เลื่อน) */
-  .sub-nav .d-flex { flex-wrap: wrap; justify-content: center; }
-  .sub-nav a { padding: .55rem .75rem; font-size: .85rem; }
-
-  /* ปุ่มบริการ: ย่อไอคอนและตัวอักษรให้ข้อความไม่โดนตัด */
-  .svc-fallback { font-size: .8rem; padding: .6rem; gap: .3rem; }
-  .svc-fallback .bi { font-size: 2rem; }
-}
-
-
-
     /* ฟอนต์ Prompt เฉพาะเนื้อหา (ไม่รวม navbar หลัก) */
     .sub-nav, main {
       font-family: 'Prompt', sans-serif;
@@ -76,8 +58,6 @@
     }
     .sub-nav a:hover { background: rgba(255, 255, 255, .15); border-bottom-color: #ffd966; color: #fff; }
     .sub-nav a.active { background: rgba(255, 255, 255, .18); border-bottom-color: #ffd966; font-weight: 600; }
-    .sub-scroll { overflow-x: auto; scrollbar-width: none; }
-    .sub-scroll::-webkit-scrollbar { display: none; }
 
     /* ===== หัวหน้า ===== */
     .page-hero {
@@ -300,6 +280,7 @@
     }
     .cta-box .btn-gold:hover { background: #ffe58f; color: var(--maroon-dark); }
   </style>
+  <link href="./assets/site.css" rel="stylesheet">
 </head>
 <body>
 
@@ -380,12 +361,12 @@
 
 <!-- ===== NAVBAR สีฟ้า (แถบทางลัด) ===== -->
 <nav class="sub-nav" aria-label="ทางลัด">
-  <div class="container sub-scroll">
-    <div class="d-flex justify-content-lg-center">
+  <div class="container sub-scroll" id="subScroll">
+    <div class="sub-track">
       <a href="class.html"><i class="bi bi-journal-bookmark"></i>หลักสูตร </a>
       <a href="about2.html"><i class="bi bi-building"></i>เกี่ยวกับวิทยาลัย</a>
       <a href="https://www.facebook.com/Alumni.NETC.KK" target="_blank" rel="noopener noreferrer"><i class="bi bi-people"></i>ศิษย์เก่า</a>
-      <a href="product.html"><i class="bi bi-award"></i>ทุนการศึกษา</a>
+      <a href="product.html" class="active" aria-current="page"><i class="bi bi-award"></i>ทุนการศึกษา</a>
       <a href="https://www.facebook.com/netDSL2564" target="_blank" rel="noopener noreferrer"><i class="bi bi-cash-coin"></i>กองทุนกู้ยืม</a>
       <a href="https://www.facebook.com/profile.php?id=61569609743951" target="_blank" rel="noopener noreferrer"><i class="bi bi-lightbulb"></i>ศูนย์บ่มเพาะ</a>
       <a href="#"><i class="bi bi-patch-check"></i>ประกันคุณภาพ</a>
@@ -628,5 +609,6 @@
   });
 </script>
 
+<script src="./assets/site.js"></script>
 </body>
 </html>

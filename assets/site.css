@@ -1,0 +1,66 @@
+/* =====================================================
+   site.css  —  ส่วนที่ใช้ร่วมกันทุกหน้า
+   - Navbar หลัก: ไม่ล้นจอบนมือถือ
+   - แถบสีฟ้า (sub-nav): ปัดซ้าย-ขวาได้ + เงาขอบบอกว่ายังเลื่อนต่อได้
+   - ตัวกันหน้าเว็บกว้างเกินจอ
+   วางไฟล์นี้ที่ assets/site.css แล้วเรียกท้าย <head> (หลังแท็ก <style> ของแต่ละหน้า)
+   ===================================================== */
+
+/* ===== ตัวกันกว้างเกินจอ ===== */
+html, body { max-width: 100%; }
+body { overflow-x: clip; }
+img, iframe, video { max-width: 100%; }
+main { overflow-wrap: break-word; }
+
+/* ===== แถบสีฟ้า: เลื่อนซ้าย-ขวาได้ (ปัดนิ้วบนมือถือ / ลากเมาส์บนคอม) ===== */
+.sub-nav { position: relative; }
+.sub-nav a.active { background: rgba(255, 255, 255, .18); border-bottom-color: #ffd966; font-weight: 600; }
+
+.sub-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  touch-action: pan-x;
+  scroll-snap-type: x proximity;
+  cursor: grab;
+}
+.sub-scroll::-webkit-scrollbar { display: none; }
+.sub-scroll.dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+.sub-scroll.dragging a { pointer-events: none; }
+
+/* รางเมนู: กว้างตามเนื้อหา อยู่กึ่งกลางเมื่อพอดีจอ และชิดซ้ายเมื่อล้น (เลื่อนถึงทุกเมนู) */
+.sub-track { display: flex; flex-wrap: nowrap; width: max-content; margin-inline: auto; }
+.sub-track a { flex: 0 0 auto; scroll-snap-align: start; }
+
+/* เงาขอบซ้าย-ขวา บอกให้รู้ว่ายังเลื่อนต่อได้ */
+.sub-nav::before, .sub-nav::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 28px;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .2s;
+}
+.sub-nav::before { left: 0;  background: linear-gradient(to right, #0d47a1, rgba(13, 71, 161, 0)); }
+.sub-nav::after  { right: 0; background: linear-gradient(to left,  #0d47a1, rgba(13, 71, 161, 0)); }
+.sub-nav.can-left::before  { opacity: 1; }
+.sub-nav.can-right::after  { opacity: 1; }
+
+/* ===== แท็บเล็ตและมือถือ ===== */
+@media (max-width: 991.98px) {
+  /* ชื่อวิทยาลัยใน navbar ต้องขึ้นบรรทัดใหม่ได้ (Bootstrap ตั้ง nowrap ไว้) */
+  .navbar-brand { white-space: normal; flex: 1 1 0; min-width: 0; margin-right: .5rem; }
+  .navbar-brand img { height: 40px; width: auto; flex: 0 0 auto; }
+  .navbar-brand span { font-size: clamp(.8rem, 3.6vw, 1.1rem); line-height: 1.25; }
+  .navbar-toggler { flex: 0 0 auto; }
+
+  /* แถบสีฟ้า: เต็มความกว้างจอ เลื่อนได้จนสุดขอบ */
+  .sub-nav .container { padding-left: 0; padding-right: 0; }
+  .sub-track { margin-inline: 0; padding-inline: .5rem; }
+  .sub-nav a { padding: .65rem .85rem; font-size: .9rem; }
+}

@@ -57,8 +57,6 @@
     }
     .sub-nav a:hover { background: rgba(255, 255, 255, .15); border-bottom-color: #ffd966; color: #fff; }
     .sub-nav a.active { background: rgba(255, 255, 255, .18); border-bottom-color: #ffd966; font-weight: 600; }
-    .sub-scroll { overflow-x: auto; scrollbar-width: none; }
-    .sub-scroll::-webkit-scrollbar { display: none; }
 
     /* ===== เนื้อหา ===== */
     main { color: var(--ink); }
@@ -361,6 +359,7 @@
 }
 
   </style>
+  <link href="./assets/site.css" rel="stylesheet">
 </head>
 <body>
 
@@ -441,12 +440,12 @@
 
 <!-- ===== NAVBAR สีฟ้า ===== -->
 <nav class="sub-nav" aria-label="ทางลัด">
-  <div class="container sub-scroll">
-    <div class="d-flex justify-content-lg-center">
+  <div class="container sub-scroll" id="subScroll">
+    <div class="sub-track">
       <a href="class.html"><i class="bi bi-journal-bookmark"></i>หลักสูตร</a>
-      <a href="about2.html"><i class="bi bi-building"></i>เกี่ยวกับวิทยาลัย</a>
+      <a href="about2.html" class="active" aria-current="page"><i class="bi bi-building"></i>เกี่ยวกับวิทยาลัย</a>
       <a href="https://www.facebook.com/Alumni.NETC.KK" target="_blank" rel="noopener noreferrer"><i class="bi bi-people"></i>ศิษย์เก่า</a>
-      <a href="product.html" class="active" aria-current="page"><i class="bi bi-award"></i>ทุนการศึกษา</a>
+      <a href="product.html"><i class="bi bi-award"></i>ทุนการศึกษา</a>
       <a href="https://www.facebook.com/netDSL2564" target="_blank" rel="noopener noreferrer"><i class="bi bi-cash-coin"></i>กองทุนกู้ยืม</a>
       <a href="https://www.facebook.com/profile.php?id=61569609743951" target="_blank" rel="noopener noreferrer"><i class="bi bi-lightbulb"></i>ศูนย์บ่มเพาะ</a>
       <a href="#"><i class="bi bi-patch-check"></i>ประกันคุณภาพ</a>
@@ -772,5 +771,6 @@
   });
 </script>
 
+<script src="./assets/site.js"></script>
 </body>
 </html>
